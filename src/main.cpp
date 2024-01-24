@@ -11,11 +11,22 @@ int main()
 
     // Actual application code
     auto ctx = p6::Context{{.title = "Awesome-Boids-Project"}};
+
+    // LT Dessiner un carré
+    auto square_radius = 0.7f;
+
     ctx.maximize_window();
 
     // Declare your infinite update loop.
     ctx.update = [&]() {
         ctx.background(p6::NamedColor::Blue);
+
+        // LT Dessiner un carré
+        ctx.square(
+            p6::Center{},
+            p6::Radius{square_radius}
+        );
+
         ctx.circle(
             p6::Center{ctx.mouse()},
             p6::Radius{0.2f}
