@@ -27,6 +27,15 @@ int main()
             p6::Radius{square_radius}
         );
 
+        // draws one triangle in the center
+        ctx.triangle(
+            p6::Point2D{0.f, 0.f},
+            p6::Point2D(0.1, 0.f),
+            p6::Point2D(0.f, 0.1),
+            p6::Center{},
+            p6::Rotation{}
+        );
+
         ctx.circle(
             p6::Center{ctx.mouse()},
             p6::Radius{0.2f}
