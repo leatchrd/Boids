@@ -36,6 +36,7 @@ int main()
             p6::Center{direction},
             p6::Radius{0.03f}
         );
+        direction += 0.005;
 
         // Draws a circle that follows the mouse
         ctx.circle(
