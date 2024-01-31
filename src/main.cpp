@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include "glm/fwd.hpp"
 #define DOCTEST_CONFIG_IMPLEMENT
 #include "doctest/doctest.h"
 #include "p6/p6.h"
@@ -17,6 +18,9 @@ int main()
     // Square parameters
     auto square_radius = 0.7f;
 
+    // Circle parameters
+    glm::vec2 direction{0.f, 0.f};
+
     // INFINITE UPDATE LOOP
     ctx.update = [&]() {
         ctx.background(p6::NamedColor::Blue);
@@ -27,13 +31,10 @@ int main()
             p6::Radius{square_radius}
         );
 
-        // Draws one small triangle in the center
-        ctx.triangle(
-            p6::Point2D{0.f, 0.f},
-            p6::Point2D(0.1, 0.f),
-            p6::Point2D(0.f, 0.1),
-            p6::Center{},
-            p6::Rotation{}
+        // Draws one small circle in the center
+        ctx.circle(
+            p6::Center{direction},
+            p6::Radius{0.03f}
         );
 
         // Draws a circle that follows the mouse
