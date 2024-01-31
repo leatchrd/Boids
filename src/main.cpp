@@ -9,25 +9,25 @@ int main()
     if (doctest::Context{}.run() != 0)
         return EXIT_FAILURE;
 
-    // Actual application code
+    // INITIALIZATION
+    // Creates the application's window
     auto ctx = p6::Context{{.title = "Awesome-Boids-Project"}};
-
-    // LT Dessiner un carré
-    auto square_radius = 0.7f;
-
     ctx.maximize_window();
 
-    // Declare your infinite update loop.
+    // Square parameters
+    auto square_radius = 0.7f;
+
+    // INFINITE UPDATE LOOP
     ctx.update = [&]() {
         ctx.background(p6::NamedColor::Blue);
 
-        // LT Dessiner un carré
+        // Draws a square in the center
         ctx.square(
             p6::Center{},
             p6::Radius{square_radius}
         );
 
-        // draws one triangle in the center
+        // Draws one small triangle in the center
         ctx.triangle(
             p6::Point2D{0.f, 0.f},
             p6::Point2D(0.1, 0.f),
@@ -36,12 +36,13 @@ int main()
             p6::Rotation{}
         );
 
+        // Draws a circle that follows the mouse
         ctx.circle(
             p6::Center{ctx.mouse()},
             p6::Radius{0.2f}
         );
     };
 
-    // Should be done last. It starts the infinite loop.
+    // STARTS THE INFINITE LOOP
     ctx.start();
 }
