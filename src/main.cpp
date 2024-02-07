@@ -1,6 +1,8 @@
+#include <sys/_types/_size_t.h>
 #include <cstdlib>
 #include "glm/fwd.hpp"
 #define DOCTEST_CONFIG_IMPLEMENT
+#include "boid.hpp"
 #include "doctest/doctest.h"
 #include "p6/p6.h"
 
@@ -16,10 +18,10 @@ int main()
     ctx.maximize_window();
 
     // Square parameters
-    auto square_radius = 0.7f;
+    auto square_radius = 0.8f;
 
     // Circle parameters
-    glm::vec2 direction{0.f, 0.f};
+    Boid boid1(glm::vec2{0.f, 0.f}, glm::vec2{0.002, 0.004});
 
     // INFINITE UPDATE LOOP
     ctx.update = [&]() {
@@ -32,11 +34,8 @@ int main()
         );
 
         // Draws one small circle in the center
-        ctx.circle(
-            p6::Center{direction},
-            p6::Radius{0.03f}
-        );
-        direction += 0.005;
+        boid1.draw(ctx);
+        boid1.update();
 
         // Draws a circle that follows the mouse
         ctx.circle(
