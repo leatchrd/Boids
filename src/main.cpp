@@ -18,7 +18,7 @@ int main(void)
     ctx.maximize_window();
 
     // Different parameters
-    Scene     myScene;
+    Scene     myScene(glm::vec2{0.f, 0.f}, 0.8);
     Boid      boid1(glm::vec2{0.f, 0.f}, glm::vec2{0.002, 0.002}, glm::vec2{0.0, 0.0});
     glm::vec2 click_force{0.0001, 0.0001};
 
@@ -30,7 +30,7 @@ int main(void)
         }
 
         // Scene setup
-        myScene.draw(ctx, glm::vec2{0.f, 0.f}, 0.8, 0.2);
+        myScene.draw(ctx, 0.2);
 
         // Draws one small circle in the center
         boid1.draw(ctx);
