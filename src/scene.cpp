@@ -17,3 +17,8 @@ void Scene::draw(p6::Context& ctx, float radius)
     // circle that follows mouse
     drawCircle(ctx, ctx.mouse(), radius);
 }
+
+bool Scene::collisionWithWall(Boid& boid)
+{
+    return boid.onWall(this->side);
+}
