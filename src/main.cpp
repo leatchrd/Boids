@@ -1,9 +1,11 @@
+#include <sys/_types/_size_t.h>
 #include <cstdlib>
 #include "glm/fwd.hpp"
 #define DOCTEST_CONFIG_IMPLEMENT
 #include <iostream>
 #include "boid.hpp"
 #include "doctest/doctest.h"
+#include "flock.hpp"
 #include "p6/p6.h"
 #include "scene.hpp"
 
@@ -20,28 +22,29 @@ int main(void)
 
     // Different parameters
     Scene     myScene(glm::vec2{0.f, 0.f}, 0.8);
-    Boid      boid1(0.03f, glm::vec2{0.f, 0.f}, glm::vec2{0.001, 0.002}, glm::vec2{0.0, 0.0});
-    glm::vec2 click_force{0.00001, 0.00001};
+    Flock     myFlock(5);
+    glm::vec2 click_force{0.001, 0.001};
 
     // INFINITE UPDATE LOOP
     ctx.update = [&]() {
-        if (ctx.mouse_button_is_pressed(p6::Button::Left))
+        if (ctx.key_is_pressed(GLFW_KEY_F))
         {
-            boid1.addForce(click_force);
+            myFlock.addForce(click_force);
         }
 
-        if (myScene.collisionWithWall(boid1))
+        for (size_t i = 0; i < myFlock.flock.size(); i++)
         {
-            boid1.newDirectionWall();
+            if (myScene.collisionWithWall(myFlock.flock[i]))
+            {
+                myFlock.flock[i].newDirectionWall();
+            }
         }
 
         // Scene setup
         myScene.draw(ctx, 0.2);
 
         // Draws one small circle in the center
-        boid1.draw(ctx);
-
-        boid1.update();
+        myFlock.update(ctx);
     };
 
     // EVENTS & QUERIES
