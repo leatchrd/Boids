@@ -4,6 +4,7 @@
 #include <iostream>
 #include "boid.hpp"
 #include "doctest/doctest.h"
+#include "menu.hpp"
 #include "p6/p6.h"
 #include "scene.hpp"
 
@@ -19,9 +20,15 @@ int main(void)
     ctx.maximize_window();
 
     // Different parameters
-    Scene     myScene(glm::vec2{0.f, 0.f}, 0.8);
+    Menu display;
+    Scene     myScene(glm::vec2{0.f, 0.f});
     Boid      boid1(0.03f, glm::vec2{0.f, 0.f}, glm::vec2{0.001, 0.002}, glm::vec2{0.0, 0.0});
     glm::vec2 click_force{0.00001, 0.00001};
+
+    // Dear ImGui
+    ctx.imgui = [&]() {
+        display.createMenu(myScene.side);
+    };
 
     // INFINITE UPDATE LOOP
     ctx.update = [&]() {

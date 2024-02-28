@@ -6,10 +6,10 @@
 class Scene {
 private:
     glm::vec2 position;
-    float     side;
 
 public:
-    Scene(glm::vec2 position, float side);
+    float side = 0.8f;
+    Scene(glm::vec2 position);
     ~Scene() = default;
 
     void draw(p6::Context& ctx, float radius);

@@ -2,10 +2,9 @@
 #include "p6/p6.h"
 #include "tools.hpp"
 
-Scene::Scene(glm::vec2 position, float side)
+Scene::Scene(glm::vec2 position)
 {
     this->position = position;
-    this->side     = side;
 }
 
 void Scene::draw(p6::Context& ctx, float radius)
