@@ -1,6 +1,5 @@
 #include "menu.hpp"
 #include <p6/p6.h>
-#include "scene.hpp"
 
 void Menu::createMenu(float& side)
 {
