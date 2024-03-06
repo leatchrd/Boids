@@ -22,9 +22,9 @@ int main(void)
     ctx.maximize_window();
 
     // Different parameters
-    Menu      display;
-    Scene     myScene(glm::vec2{0.f, 0.f});
-    Flock     myFlock(5);
+    Menu  display;
+    Scene myScene(glm::vec2{0.f, 0.f});
+    // Flock     myFlock(5);
     glm::vec2 click_force{0.000001, 0.000001};
 
     // Dear ImGui
@@ -35,14 +35,12 @@ int main(void)
     // INFINITE UPDATE LOOP
     ctx.update = [&]() {
         // Event management
-        myScene.dealWithFKeyPressed(ctx, myFlock, click_force);
-        myScene.dealWithWallCollisions(myFlock);
+        myScene.dealWithFKeyPressed(ctx, click_force);
+        myScene.dealWithWallCollisions();
 
         // Scene setup
         myScene.draw(ctx, 0.2);
-
-        // Draws one small circle in the center
-        myFlock.update(ctx);
+        myScene.update(ctx);
     };
 
     // EVENTS & QUERIES

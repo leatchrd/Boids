@@ -4,8 +4,8 @@
 #include "tools.hpp"
 
 Scene::Scene(glm::vec2 position)
+    : position{position}, flock(5)
 {
-    this->position = position;
 }
 
 void Scene::draw(p6::Context& ctx, float radius)
@@ -18,6 +18,11 @@ void Scene::draw(p6::Context& ctx, float radius)
     drawCircle(ctx, ctx.mouse(), radius);
 }
 
+void Scene::update(p6::Context& ctx)
+{
+    this->flock.update(ctx);
+}
+
 bool Scene::collisionWithWall(Boid& boid)
 {
     return boid.onWall(this->side);
@@ -25,21 +30,21 @@ bool Scene::collisionWithWall(Boid& boid)
 
 // Event management
 
-void Scene::dealWithWallCollisions(Flock& flock)
+void Scene::dealWithWallCollisions()
 {
     for (size_t i = 0; i < flock.flock.size(); i++)
     {
-        if (this->collisionWithWall(flock.flock[i]))
+        if (this->collisionWithWall(this->flock.flock[i]))
         {
-            flock.flock[i].newDirectionWall();
+            this->flock.flock[i].newDirectionWall();
         }
     }
 }
 
-void Scene::dealWithFKeyPressed(p6::Context& ctx, Flock& flock, glm::vec2 force)
+void Scene::dealWithFKeyPressed(p6::Context& ctx, glm::vec2 force)
 {
     if (ctx.key_is_pressed(GLFW_KEY_F))
     {
-        flock.addForce(force);
+        this->flock.addForce(force);
     }
 }

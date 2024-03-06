@@ -7,6 +7,7 @@
 class Scene {
 private:
     glm::vec2 position;
+    Flock     flock;
 
 public:
     float side = 0.8f;
@@ -14,9 +15,10 @@ public:
     ~Scene() = default;
 
     void draw(p6::Context& ctx, float radius);
+    void update(p6::Context& ctx);
 
     bool collisionWithWall(Boid& boid);
 
-    void dealWithWallCollisions(Flock& flock);
-    void dealWithFKeyPressed(p6::Context& ctx, Flock& flock, glm::vec2 force);
+    void dealWithWallCollisions();
+    void dealWithFKeyPressed(p6::Context& ctx, glm::vec2 force);
 };
