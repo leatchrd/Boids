@@ -1,9 +1,11 @@
+#include <sys/_types/_size_t.h>
 #include <cstdlib>
 #include "glm/fwd.hpp"
 #define DOCTEST_CONFIG_IMPLEMENT
 #include <iostream>
 #include "boid.hpp"
 #include "doctest/doctest.h"
+#include "flock.hpp"
 #include "menu.hpp"
 #include "p6/p6.h"
 #include "scene.hpp"
@@ -20,10 +22,10 @@ int main(void)
     ctx.maximize_window();
 
     // Different parameters
-    Menu display;
-    Scene     myScene(glm::vec2{0.f, 0.f});
-    Boid      boid1(0.03f, glm::vec2{0.f, 0.f}, glm::vec2{0.001, 0.002}, glm::vec2{0.0, 0.0});
-    glm::vec2 click_force{0.00001, 0.00001};
+    Menu      display;
+    Scene     myScene(glm::vec2{0.f, 0.f}, 0.8);
+    Flock     myFlock(5);
+    glm::vec2 click_force{0.000001, 0.000001};
 
     // Dear ImGui
     ctx.imgui = [&]() {
@@ -32,23 +34,15 @@ int main(void)
 
     // INFINITE UPDATE LOOP
     ctx.update = [&]() {
-        if (ctx.mouse_button_is_pressed(p6::Button::Left))
-        {
-            boid1.addForce(click_force);
-        }
-
-        if (myScene.collisionWithWall(boid1))
-        {
-            boid1.newDirectionWall();
-        }
+        // Event management
+        myScene.dealWithFKeyPressed(ctx, myFlock, click_force);
+        myScene.dealWithWallCollisions(myFlock);
 
         // Scene setup
         myScene.draw(ctx, 0.2);
 
         // Draws one small circle in the center
-        boid1.draw(ctx);
-
-        boid1.update();
+        myFlock.update(ctx);
     };
 
     // EVENTS & QUERIES
