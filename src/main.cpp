@@ -1,4 +1,3 @@
-#include <sys/_types/_size_t.h>
 #include <cstdlib>
 #include "glm/fwd.hpp"
 #define DOCTEST_CONFIG_IMPLEMENT
