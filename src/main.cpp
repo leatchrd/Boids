@@ -23,7 +23,7 @@ int main(void)
     // Different parameters
     Scene     myScene(glm::vec2{0.f, 0.f}, 0.8);
     Flock     myFlock(5);
-    glm::vec2 click_force{0.001, 0.001};
+    glm::vec2 click_force{0.000001, 0.000001};
 
     // INFINITE UPDATE LOOP
     ctx.update = [&]() {

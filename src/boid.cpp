@@ -12,7 +12,26 @@ Boid::Boid(float radius, glm::vec2 position, glm::vec2 velocity, glm::vec2 accel
 
 void Boid::update()
 {
-    this->velocity += this->acceleration;
+    // this->velocity += this->acceleration;
+    if (this->velocity.x >= 0 && this->velocity.y >= 0)
+    {
+        this->velocity += this->acceleration;
+    }
+    else if (this->velocity.x < 0 && this->velocity.y < 0)
+    {
+        this->velocity -= this->acceleration;
+    }
+    else if (this->velocity.x >= 0 && this->velocity.y < 0)
+    {
+        this->velocity.x += this->acceleration.x;
+        this->velocity.y -= this->acceleration.y;
+    }
+    else if (this->velocity.x < 0 && this->velocity.y >= 0)
+    {
+        this->velocity.x -= this->acceleration.x;
+        this->velocity.y += this->acceleration.y;
+    }
+
     this->position += this->velocity;
 }
 
