@@ -27,18 +27,9 @@ int main(void)
 
     // INFINITE UPDATE LOOP
     ctx.update = [&]() {
-        if (ctx.key_is_pressed(GLFW_KEY_F))
-        {
-            myFlock.addForce(click_force);
-        }
-
-        for (size_t i = 0; i < myFlock.flock.size(); i++)
-        {
-            if (myScene.collisionWithWall(myFlock.flock[i]))
-            {
-                myFlock.flock[i].newDirectionWall();
-            }
-        }
+        // Event management
+        myScene.dealWithFKeyPressed(ctx, myFlock, click_force);
+        myScene.dealWithWallCollisions(myFlock);
 
         // Scene setup
         myScene.draw(ctx, 0.2);

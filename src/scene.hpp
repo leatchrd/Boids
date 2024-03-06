@@ -1,6 +1,7 @@
 #pragma once
 
 #include "boid.hpp"
+#include "flock.hpp"
 #include "p6/p6.h"
 
 class Scene {
@@ -15,4 +16,7 @@ public:
     void draw(p6::Context& ctx, float radius);
 
     bool collisionWithWall(Boid& boid);
+
+    void dealWithWallCollisions(Flock& flock);
+    void dealWithFKeyPressed(p6::Context& ctx, Flock& flock, glm::vec2 force);
 };
