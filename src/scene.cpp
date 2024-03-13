@@ -40,11 +40,3 @@ void Scene::dealWithWallCollisions()
         }
     }
 }
-
-void Scene::dealWithFKeyPressed(p6::Context& ctx, glm::vec2 force)
-{
-    if (ctx.key_is_pressed(GLFW_KEY_F))
-    {
-        this->flock.addForce(force);
-    }
-}

@@ -68,11 +68,3 @@ void Flock::addBoid(Boid single)
 {
     this->flock.push_back(single);
 }
-
-void Flock::addForce(glm::vec2 force)
-{
-    for (size_t i = 0; i < this->flock.size(); i++)
-    {
-        this->flock[i].addForce(force);
-    }
-}

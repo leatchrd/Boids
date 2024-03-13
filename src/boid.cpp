@@ -11,10 +11,7 @@ Boid::Boid(float radius, glm::vec2 velocity)
 
 void Boid::draw(p6::Context& ctx)
 {
-    ctx.circle(
-        p6::Center{this->position},
-        p6::Radius{this->radius}
-    );
+    drawCircle(ctx, this->position, this->radius);
 }
 
 // UPDATE
@@ -26,25 +23,12 @@ void Boid::updatePosition()
 
 void Boid::updateVelocity()
 {
-    // this->velocity += this->acceleration; // TODO remettre juste cette ligne
-    if (this->velocity.x >= 0 && this->velocity.y >= 0)
-    {
-        this->velocity += this->acceleration;
-    }
-    else if (this->velocity.x < 0 && this->velocity.y < 0)
-    {
-        this->velocity -= this->acceleration;
-    }
-    else if (this->velocity.x >= 0 && this->velocity.y < 0)
-    {
-        this->velocity.x += this->acceleration.x;
-        this->velocity.y -= this->acceleration.y;
-    }
-    else if (this->velocity.x < 0 && this->velocity.y >= 0)
-    {
-        this->velocity.x -= this->acceleration.x;
-        this->velocity.y += this->acceleration.y;
-    }
+    this->velocity += this->acceleration;
+}
+
+void Boid::updateAcceleration(glm::vec2& force)
+{
+    this->acceleration += force;
 }
 
 void Boid::update()
@@ -62,11 +46,6 @@ void Boid::aline(glm::vec2& target_position)
 }
 
 // OTHER ACTIONS
-
-void Boid::addForce(glm::vec2 force)
-{
-    this->acceleration += force;
-}
 
 // FOR COLLISIONS
 

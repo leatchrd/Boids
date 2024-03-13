@@ -26,11 +26,10 @@ public:
 
     void updatePosition();
     void updateVelocity();
+    void updateAcceleration(glm::vec2& force);
     void update();
 
     void aline(glm::vec2& target_position);
-
-    void addForce(glm::vec2 force);
 
     bool onWall(float wallSize);
     void newDirection(glm::vec2 norm);

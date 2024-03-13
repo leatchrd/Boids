@@ -20,5 +20,4 @@ public:
     bool collisionWithWall(Boid& boid);
 
     void dealWithWallCollisions();
-    void dealWithFKeyPressed(p6::Context& ctx, glm::vec2 force);
 };
