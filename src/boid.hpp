@@ -15,26 +15,24 @@ public:
     glm::vec2 position, velocity, acceleration, separation;
     float     radius;
 
-    float          perception_radius   = 0.05;
+    float          perception_radius   = 0.5;
     float          separation_distance = 0.02;
     idWallPosition onWhichWall         = NOTHING;
 
 public:
     Boid(float radius, glm::vec2 velocity);
 
+    void draw(p6::Context& ctx);
+
     void updatePosition();
     void updateVelocity();
-
     void update();
-    void generalUpdate(std::vector<Boid>& flock);
-    void draw(p6::Context& ctx);
+
+    void aline(glm::vec2& target_position);
 
     void addForce(glm::vec2 force);
 
     bool onWall(float wallSize);
-
     void newDirection(glm::vec2 norm);
     void newDirectionWall();
-
-    float distanceTo(Boid next);
 };

@@ -26,7 +26,7 @@ void Boid::updatePosition()
 
 void Boid::updateVelocity()
 {
-    // this->velocity += this->acceleration;
+    // this->velocity += this->acceleration; // TODO remettre juste cette ligne
     if (this->velocity.x >= 0 && this->velocity.y >= 0)
     {
         this->velocity += this->acceleration;
@@ -51,6 +51,14 @@ void Boid::update()
 {
     this->updateVelocity();
     this->updatePosition();
+}
+
+// ALINEMENT
+
+void Boid::aline(glm::vec2& target_position)
+{
+    this->velocity = target_position;
+    // std::cout << "new velocity x = " << this->velocity.x << " - new velocity y = " << this->velocity.y << std::endl;
 }
 
 // OTHER ACTIONS

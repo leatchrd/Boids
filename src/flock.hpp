@@ -10,8 +10,9 @@ public:
     std::vector<Boid> flock;
 
 private:
-    void addBoid(Boid single);
     void draw(p6::Context& ctx);
+    void addBoid(Boid single);
+    void checkAlinement();
 
 public:
     Flock(size_t total);
