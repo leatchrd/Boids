@@ -4,8 +4,9 @@
 void Menu::createMenu(float& side)
 {
     ImGui::Begin("Settings");
-    ImGui::SliderFloat("Square size", &side, 0.f, 1.f);
+    // ImGui::SliderFloat("Numbers of boids");
+    ImGui::SliderFloat("Square size", &side, 0.8f, 1.0f);
     ImGui::End();
 
-    // ImGui::ShowDemoWindow();
+    ImGui::ShowDemoWindow();
 }
