@@ -31,8 +31,10 @@ void Boid::updateAcceleration(glm::vec2& force)
     this->acceleration += force;
 }
 
-void Boid::update()
+void Boid::update(float& wallSize)
 {
+    this->collisionWithWall(wallSize);
+
     this->updateVelocity();
     this->updatePosition();
 }
@@ -49,7 +51,7 @@ void Boid::aline(glm::vec2& target_position)
 
 // FOR COLLISIONS
 
-bool Boid::onWall(float wallSize)
+void Boid::onWall(float& wallSize)
 {
     if (isBetween(this->position.y, -this->radius, -wallSize, wallSize))
     {
@@ -63,11 +65,9 @@ bool Boid::onWall(float wallSize)
         }
         else
         {
-            return false;
+            this->onWhichWall = NOTHING;
         }
-        return true;
     }
-
     if (isBetween(this->position.x, -this->radius, -wallSize, wallSize))
     {
         if (this->position.y + this->radius >= wallSize)
@@ -80,21 +80,27 @@ bool Boid::onWall(float wallSize)
         }
         else
         {
-            return false;
+            this->onWhichWall = NOTHING;
         }
-        return true;
     }
-
-    return false;
 }
 
-void Boid::newDirection(glm::vec2 norm)
+void Boid::collisionWithWall(float& wallSize)
+{
+    this->onWall(wallSize);
+    if (this->onWhichWall != NOTHING)
+    {
+        this->bounceOnWhichWall();
+    }
+}
+
+void Boid::computeNewDirectionAfterBounce(glm::vec2& norm)
 {
     this->velocity.x = this->velocity.x - norm.x * 2 * glm::dot(this->velocity, norm);
     this->velocity.y = this->velocity.y - norm.y * 2 * glm::dot(this->velocity, norm);
 }
 
-void Boid::newDirectionWall()
+void Boid::bounceOnWhichWall()
 {
     glm::vec2 wallNorm(0);
 
@@ -120,5 +126,5 @@ void Boid::newDirectionWall()
         break;
     }
 
-    this->newDirection(wallNorm);
+    this->computeNewDirectionAfterBounce(wallNorm);
 }

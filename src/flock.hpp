@@ -17,6 +17,5 @@ private:
 public:
     Flock(size_t total);
 
-    void update(p6::Context& ctx);
-    void addForce(glm::vec2 force);
+    void update(p6::Context& ctx, float& wallSize);
 };

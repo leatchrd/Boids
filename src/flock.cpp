@@ -10,7 +10,6 @@ Flock::Flock(size_t total)
     for (size_t i = 1; i < total + 1; i++)
     {
         this->flock.push_back(Boid(0.03f, glm::vec2{0.001 * i, 0.002 * i * 2}));
-        // this->flock.push_back(Boid(0.03f, glm::vec2{rand01(), rand01()}));
     }
 }
 
@@ -26,13 +25,13 @@ void Flock::draw(p6::Context& ctx)
 
 // UPDATE
 
-void Flock::update(p6::Context& ctx)
+void Flock::update(p6::Context& ctx, float& wallSize)
 {
     this->checkAlinement();
 
     for (size_t i = 0; i < this->flock.size(); i++)
     {
-        this->flock[i].update();
+        this->flock[i].update(wallSize);
     }
 
     this->draw(ctx);

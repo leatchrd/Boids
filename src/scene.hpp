@@ -12,12 +12,7 @@ private:
 public:
     float side = 0.8f;
     Scene(glm::vec2 position);
-    ~Scene() = default;
 
     void draw(p6::Context& ctx, float radius);
     void update(p6::Context& ctx);
-
-    bool collisionWithWall(Boid& boid);
-
-    void dealWithWallCollisions();
 };

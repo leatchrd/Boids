@@ -1,10 +1,7 @@
 #include <cstdlib>
-#include "glm/fwd.hpp"
 #define DOCTEST_CONFIG_IMPLEMENT
 #include <iostream>
-#include "boid.hpp"
 #include "doctest/doctest.h"
-#include "flock.hpp"
 #include "menu.hpp"
 #include "p6/p6.h"
 #include "scene.hpp"
@@ -31,11 +28,6 @@ int main(void)
 
     // INFINITE UPDATE LOOP
     ctx.update = [&]() {
-        // Event management
-        // myScene.dealWithFKeyPressed(ctx, click_force);
-        myScene.dealWithWallCollisions();
-
-        // Scene setup
         myScene.draw(ctx, 0.2);
         myScene.update(ctx);
     };

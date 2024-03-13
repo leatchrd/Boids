@@ -27,11 +27,12 @@ public:
     void updatePosition();
     void updateVelocity();
     void updateAcceleration(glm::vec2& force);
-    void update();
+    void update(float& wallSize);
 
     void aline(glm::vec2& target_position);
 
-    bool onWall(float wallSize);
-    void newDirection(glm::vec2 norm);
-    void newDirectionWall();
+    void onWall(float& wallSize);
+    void collisionWithWall(float& wallSize);
+    void computeNewDirectionAfterBounce(glm::vec2& norm);
+    void bounceOnWhichWall();
 };

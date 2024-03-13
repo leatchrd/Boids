@@ -1,5 +1,4 @@
 #include "scene.hpp"
-#include "flock.hpp"
 #include "p6/p6.h"
 #include "tools.hpp"
 
@@ -20,23 +19,5 @@ void Scene::draw(p6::Context& ctx, float radius)
 
 void Scene::update(p6::Context& ctx)
 {
-    this->flock.update(ctx);
-}
-
-bool Scene::collisionWithWall(Boid& boid)
-{
-    return boid.onWall(this->side);
-}
-
-// Event management
-
-void Scene::dealWithWallCollisions()
-{
-    for (size_t i = 0; i < flock.flock.size(); i++)
-    {
-        if (this->collisionWithWall(this->flock.flock[i]))
-        {
-            this->flock.flock[i].newDirectionWall();
-        }
-    }
+    this->flock.update(ctx, this->side);
 }
