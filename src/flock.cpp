@@ -7,7 +7,7 @@ Flock::Flock(size_t total)
 {
     for (size_t i = 1; i < total + 1; i++)
     {
-        this->flock.push_back(Boid(0.03f, glm::vec2{0.f, 0.f}, glm::vec2{0.001 * i, 0.002 * i * 2}, glm::vec2{0.0, 0.0}));
+        this->flock.push_back(Boid(0.03f, glm::vec2{0.001 * i, 0.002 * i * 2}));
     }
 }
 

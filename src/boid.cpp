@@ -2,15 +2,29 @@
 #include "p6/p6.h"
 #include "tools.hpp"
 
-Boid::Boid(float radius, glm::vec2 position, glm::vec2 velocity, glm::vec2 acceleration)
+Boid::Boid(float radius, glm::vec2 velocity)
+    : position{0., 0.}, velocity{velocity}, acceleration{0., 0.}, separation{0.02, 0.02}, radius{radius}
 {
-    this->radius       = radius;
-    this->position     = position;
-    this->velocity     = velocity;
-    this->acceleration = acceleration;
 }
 
-void Boid::update()
+// DRAW
+
+void Boid::draw(p6::Context& ctx)
+{
+    ctx.circle(
+        p6::Center{this->position},
+        p6::Radius{this->radius}
+    );
+}
+
+// UPDATE
+
+void Boid::updatePosition()
+{
+    this->position += this->velocity;
+}
+
+void Boid::updateVelocity()
 {
     // this->velocity += this->acceleration;
     if (this->velocity.x >= 0 && this->velocity.y >= 0)
@@ -31,22 +45,22 @@ void Boid::update()
         this->velocity.x -= this->acceleration.x;
         this->velocity.y += this->acceleration.y;
     }
-
-    this->position += this->velocity;
 }
 
-void Boid::draw(p6::Context& ctx)
+void Boid::update()
 {
-    ctx.circle(
-        p6::Center{this->position},
-        p6::Radius{this->radius}
-    );
+    this->updateVelocity();
+    this->updatePosition();
 }
+
+// OTHER ACTIONS
 
 void Boid::addForce(glm::vec2 force)
 {
     this->acceleration += force;
 }
+
+// FOR COLLISIONS
 
 bool Boid::onWall(float wallSize)
 {
