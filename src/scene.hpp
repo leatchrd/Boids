@@ -5,7 +5,7 @@
 #include "p6/p6.h"
 
 class Scene {
-private:
+public:
     glm::vec2 position;
     Flock     flock;
 

@@ -28,7 +28,7 @@ int main(void)
 
     // Dear ImGui
     ctx.imgui = [&]() {
-        display.createMenu(myScene.side);
+        display.createMenu(myScene);
     };
 
     // INFINITE UPDATE LOOP

@@ -8,6 +8,7 @@
 class Flock {
 public:
     std::vector<Boid> flock;
+    size_t size;
 
 private:
     void addBoid(Boid single);
