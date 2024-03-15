@@ -13,6 +13,19 @@ Flock::Flock(size_t total)
     }
 }
 
+// UPDATE
+
+void Flock::update(p6::Context& ctx, float& wallSize)
+{
+    for (size_t i = 0; i < this->flock.size(); i++)
+    {
+        this->flock[i].checkAlinement(flock);
+        this->flock[i].update(wallSize);
+    }
+
+    this->draw(ctx);
+}
+
 // DRAW
 
 void Flock::draw(p6::Context& ctx)
@@ -20,44 +33,6 @@ void Flock::draw(p6::Context& ctx)
     for (size_t i = 0; i < this->flock.size(); i++)
     {
         this->flock[i].draw(ctx);
-    }
-}
-
-// UPDATE
-
-void Flock::update(p6::Context& ctx, float& wallSize)
-{
-    this->checkAlinement();
-
-    for (size_t i = 0; i < this->flock.size(); i++)
-    {
-        this->flock[i].update(wallSize);
-    }
-
-    this->draw(ctx);
-}
-
-// CHECK PARAMETERS
-
-void Flock::checkAlinement()
-{
-    std::vector<Boid> closeBoids;
-    glm::vec2         avg_position{0., 0.};
-    for (size_t i = 1; i < this->flock.size(); i++)
-    {
-        if (distanceBetween(flock[i - 1].position, flock[i].position) <= flock[i - 1].perception_radius)
-        {
-            closeBoids.push_back(flock[i - 1]);
-            avg_position += flock[i - 1].position;
-        }
-    }
-
-    avg_position /= closeBoids.size();
-
-    // std::cout << "vector size = " << closeBoids.size() << " --- avg position x = " << avg_position.x << " - avg position y = " << avg_position.y << std::endl;
-    for (size_t i = 0; i < closeBoids.size(); i++)
-    {
-        closeBoids[i].aline(avg_position);
     }
 }
 

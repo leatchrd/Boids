@@ -12,10 +12,8 @@ public:
 private:
     void draw(p6::Context& ctx);
     void addBoid(Boid single);
-    void checkAlinement();
 
 public:
     Flock(size_t total);
-
     void update(p6::Context& ctx, float& wallSize);
 };

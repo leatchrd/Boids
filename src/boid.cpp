@@ -1,4 +1,6 @@
 #include "boid.hpp"
+#include <cstddef>
+#include <vector>
 #include "p6/p6.h"
 #include "tools.hpp"
 
@@ -39,12 +41,51 @@ void Boid::update(float& wallSize)
     this->updatePosition();
 }
 
+// CHECK PARAMETERS ACTIONS
+
+bool Boid::inPerceptionRadius(Boid& boid)
+{
+    return distanceBetween(this->position, boid.position) <= this->perception_radius;
+}
+
+std::vector<Boid> Boid::getCloseBoids(std::vector<Boid>& otherBoids, glm::vec2& avg_position)
+{
+    std::vector<Boid> closeBoids;
+
+    for (size_t i = 0; i < otherBoids.size(); i++)
+    {
+        if (this == &otherBoids[i])
+        {
+            continue;
+        }
+        if (this->inPerceptionRadius(otherBoids[i]))
+        {
+            closeBoids.push_back(otherBoids[i]);
+            avg_position += otherBoids[i].position;
+        }
+    }
+
+    avg_position /= closeBoids.size();
+
+    return closeBoids;
+}
+
 // ALINEMENT
 
 void Boid::aline(glm::vec2& target_position)
 {
-    this->velocity = target_position;
-    // std::cout << "new velocity x = " << this->velocity.x << " - new velocity y = " << this->velocity.y << std::endl;
+    this->acceleration += target_position;
+}
+
+void Boid::checkAlinement(std::vector<Boid>& otherBoids)
+{
+    std::vector<Boid> closeBoids{};
+    glm::vec2         avg_position{0., 0.};
+
+    closeBoids = this->getCloseBoids(otherBoids, avg_position);
+
+    avg_position *= 0.00001;
+    this->aline(avg_position);
 }
 
 // OTHER ACTIONS
