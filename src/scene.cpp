@@ -1,4 +1,5 @@
 #include "scene.hpp"
+#include "GLFW/glfw3.h"
 #include "p6/p6.h"
 #include "tools.hpp"
 
@@ -19,5 +20,10 @@ void Scene::draw(p6::Context& ctx, float radius)
 
 void Scene::update(p6::Context& ctx)
 {
+    if (ctx.key_is_pressed(GLFW_KEY_Q))
+    {
+        ctx.stop();
+    }
+
     this->flock.update(ctx, this->side);
 }
