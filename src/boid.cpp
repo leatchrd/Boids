@@ -53,7 +53,17 @@ void Boid::update()
     this->updateAcceleration(zero);
 }
 
-// UPDATE
+void Boid::checkCollisionWithWall(float& wallSize)
+{
+    this->setWallIfOutOfWindow(wallSize);
+    this->setWallIfCollision(wallSize);
+    if (this->onWhichWall != NOTHING)
+    {
+        this->computeWallBounce();
+    }
+}
+
+// FOR UPDATE
 
 void Boid::updatePosition()
 {
@@ -70,14 +80,14 @@ void Boid::updateAcceleration(glm::vec2& force)
     this->acceleration += force;
 }
 
-// CHECK PARAMETERS ACTIONS
+// FOR FLOCK
 
 bool Boid::inRadius(Boid& boid, float& radius)
 {
     return distanceBetween(this->position, boid.position) > 0 && distanceBetween(this->position, boid.position) < radius;
 }
 
-// SEPARATION
+// -- separation
 
 glm::vec2 Boid::separate(std::vector<Boid>& allBoids)
 {
@@ -111,7 +121,7 @@ glm::vec2 Boid::separate(std::vector<Boid>& allBoids)
     return newDirection;
 }
 
-// ALIGNMENT
+// -- alignment
 
 glm::vec2 Boid::align(std::vector<Boid>& allBoids)
 {
@@ -142,7 +152,7 @@ glm::vec2 Boid::align(std::vector<Boid>& allBoids)
     }
 }
 
-// COHESION
+// -- cohesion
 
 glm::vec2 Boid::cohered(std::vector<Boid>& allBoids)
 {
@@ -176,16 +186,6 @@ glm::vec2 Boid::cohered(std::vector<Boid>& allBoids)
 }
 
 // FOR COLLISIONS
-
-void Boid::checkCollisionWithWall(float& wallSize)
-{
-    this->setWallIfOutOfWindow(wallSize);
-    this->setWallIfCollision(wallSize);
-    if (this->onWhichWall != NOTHING)
-    {
-        this->computeWallBounce();
-    }
-}
 
 void Boid::setWallIfCollision(float& wallSize)
 {

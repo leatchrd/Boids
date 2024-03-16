@@ -2,6 +2,8 @@
 #include "p6/p6.h"
 #include "tools.hpp"
 
+// --- PUBLIC ---
+
 Scene::Scene(glm::vec2 position)
     : position{position}, flock(5)
 {

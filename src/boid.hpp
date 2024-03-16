@@ -29,14 +29,13 @@ private:
 
     void update();
     void flock(std::vector<Boid>& allBoids);
+    void checkCollisionWithWall(float& wallSize);
 
-    bool inRadius(Boid& boid, float& radius);
-
+    bool      inRadius(Boid& boid, float& radius);
     glm::vec2 separate(std::vector<Boid>& allBoids);
     glm::vec2 align(std::vector<Boid>& allBoids);
     glm::vec2 cohered(std::vector<Boid>& allBoids);
 
-    void checkCollisionWithWall(float& wallSize);
     void setWallIfCollision(float& wallSize);
     void setWallIfOutOfWindow(float& wallSize);
     void computeWallBounce();

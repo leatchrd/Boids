@@ -4,6 +4,8 @@
 #include "p6/p6.h"
 #include "tools.hpp"
 
+// --- PUBLIC ---
+
 Flock::Flock(size_t total)
 {
     for (size_t i = 1; i < total + 1; i++)
@@ -11,8 +13,6 @@ Flock::Flock(size_t total)
         this->flock.push_back(Boid(0.03f, glm::vec2{0.001 * i, 0.002 * i * 2}));
     }
 }
-
-// UPDATE
 
 void Flock::update(p6::Context& ctx, float& wallSize)
 {
@@ -24,7 +24,7 @@ void Flock::update(p6::Context& ctx, float& wallSize)
     this->draw(ctx);
 }
 
-// DRAW
+// --- PRIVATE ---
 
 void Flock::draw(p6::Context& ctx)
 {
@@ -33,8 +33,6 @@ void Flock::draw(p6::Context& ctx)
         this->flock[i].draw(ctx);
     }
 }
-
-// OTHER ACTIONS
 
 void Flock::addBoid(Boid single)
 {
