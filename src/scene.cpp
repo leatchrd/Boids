@@ -1,5 +1,4 @@
 #include "scene.hpp"
-#include "GLFW/glfw3.h"
 #include "p6/p6.h"
 #include "tools.hpp"
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "boid.hpp"
 #include "flock.hpp"
 #include "p6/p6.h"
 

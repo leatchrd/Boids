@@ -1,5 +1,4 @@
 #include "flock.hpp"
-#include <cstddef>
 #include <vector>
 #include "boid.hpp"
 #include "p6/p6.h"
