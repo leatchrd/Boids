@@ -32,11 +32,13 @@ void Boid::flock(std::vector<Boid>& allBoids)
 {
     glm::vec2 separation = this->separate(allBoids);
     glm::vec2 alignment  = this->align(allBoids);
+    glm::vec2 cohesion   = this->cohered(allBoids);
 
     // add a weight? --> TODO maybe later
 
     this->updateAcceleration(separation);
     this->updateAcceleration(alignment);
+    this->updateAcceleration(cohesion);
 }
 
 void Boid::update()
@@ -139,6 +141,39 @@ glm::vec2 Boid::align(std::vector<Boid>& allBoids)
     else
     {
         return glm::vec2{0.f, 0.f};
+    }
+}
+
+// COHESION
+
+glm::vec2 Boid::cohered(std::vector<Boid>& allBoids)
+{
+    glm::vec2 avgPosition{0., 0.};
+    size_t    nbCloseBoids = 0;
+
+    for (size_t i = 0; i < allBoids.size(); i++)
+    {
+        if (this->inPerceptionRadius(allBoids[i]))
+        {
+            avgPosition += allBoids[i].position;
+            nbCloseBoids++;
+        }
+    }
+
+    if (nbCloseBoids > 0)
+    {
+        avgPosition /= nbCloseBoids;
+
+        glm::vec2 target = avgPosition - this->position;
+        target *= this->maxSpeed;
+
+        glm::vec2 newDirection = target - this->velocity;
+        newDirection           = limit(newDirection, this->maxAcceleration);
+        return newDirection;
+    }
+    else
+    {
+        return glm::vec2{0., 0.};
     }
 }
 
