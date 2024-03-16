@@ -35,6 +35,7 @@ private:
 
     glm::vec2 separate(std::vector<Boid>& allBoids);
     glm::vec2 align(std::vector<Boid>& allBoids);
+    glm::vec2 cohered(std::vector<Boid>& allBoids);
 
     void checkCollisionWithWall(float& wallSize);
     void setWallIfCollision(float& wallSize);

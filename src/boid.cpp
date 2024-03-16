@@ -86,7 +86,7 @@ bool Boid::inSeparationRadius(Boid& boid)
 
 glm::vec2 Boid::separate(std::vector<Boid>& allBoids)
 {
-    glm::vec2 newVelocity{0., 0.};
+    glm::vec2 newDirection{0., 0.};
     size_t    nbCloseBoids = 0;
 
     for (size_t i = 0; i < allBoids.size(); i++)
@@ -96,24 +96,24 @@ glm::vec2 Boid::separate(std::vector<Boid>& allBoids)
             float     distance   = glm::distance(this->position, allBoids[i].position);
             glm::vec2 difference = this->position - allBoids[i].position;
             difference /= distance;
-            newVelocity += difference;
+            newDirection += difference;
             nbCloseBoids++;
         }
     }
 
     if (nbCloseBoids > 0)
     {
-        newVelocity /= nbCloseBoids;
+        newDirection /= nbCloseBoids;
     }
 
-    if (newVelocity.length() > 0)
+    if (newDirection.length() > 0)
     {
-        newVelocity *= this->maxSpeed;
-        newVelocity -= this->velocity;
-        newVelocity = limit(newVelocity, this->maxAcceleration);
+        newDirection *= this->maxSpeed;
+        newDirection -= this->velocity;
+        newDirection = limit(newDirection, this->maxAcceleration);
     }
 
-    return newVelocity;
+    return newDirection;
 }
 
 // ALIGNMENT
@@ -137,9 +137,9 @@ glm::vec2 Boid::align(std::vector<Boid>& allBoids)
         avgVelocity /= nbCloseBoids;
         avgVelocity *= this->maxSpeed;
 
-        glm::vec2 newVelocity = avgVelocity - this->velocity;
-        newVelocity           = limit(newVelocity, this->maxAcceleration);
-        return newVelocity;
+        glm::vec2 newDirection = avgVelocity - this->velocity;
+        newDirection           = limit(newDirection, this->maxAcceleration);
+        return newDirection;
     }
     else
     {
