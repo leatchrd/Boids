@@ -12,13 +12,14 @@ enum idWallPosition {
 
 class Boid {
 private:
-    glm::vec2 position, velocity, acceleration, separation;
+    glm::vec2 position, velocity, acceleration;
     float     radius;
 
-    float perception_radius = 0.3;
-    float maxSpeed          = 0.02;
-    float maxAcceleration   = 0.0005;
-    // float          separation_distance = 0.05;
+    float perception_radius   = 0.3;
+    float separation_distance = 0.08;
+    float maxSpeed            = 0.015;
+    float maxAcceleration     = 0.00005;
+
     idWallPosition onWhichWall = NOTHING;
 
 private:
@@ -30,9 +31,9 @@ private:
     void flock(std::vector<Boid>& allBoids);
 
     bool inPerceptionRadius(Boid& boid);
-    // bool inSeparationRadius(Boid& boid);
+    bool inSeparationRadius(Boid& boid);
 
-    // void separate(Boid& tooCloseBoid);
+    glm::vec2 separate(std::vector<Boid>& allBoids);
     glm::vec2 align(std::vector<Boid>& allBoids);
 
     void checkCollisionWithWall(float& wallSize);

@@ -11,7 +11,7 @@
 // --- PUBLIC ---
 
 Boid::Boid(float radius, glm::vec2 velocity)
-    : position{0., 0.}, velocity{velocity}, acceleration{0., 0.}, separation{0.02, 0.02}, radius{radius}
+    : position{0., 0.}, velocity{velocity}, acceleration{0., 0.}, radius{radius}
 {
 }
 
@@ -35,10 +35,12 @@ void Boid::draw(p6::Context& ctx)
 
 void Boid::flock(std::vector<Boid>& allBoids)
 {
-    glm::vec2 alignment = this->align(allBoids);
+    glm::vec2 separation = this->separate(allBoids);
+    glm::vec2 alignment  = this->align(allBoids);
 
     // add a weight? --> TODO maybe later
 
+    this->updateAcceleration(separation);
     this->updateAcceleration(alignment);
 }
 
@@ -73,6 +75,45 @@ void Boid::updateAcceleration(glm::vec2& force)
 bool Boid::inPerceptionRadius(Boid& boid)
 {
     return distanceBetween(this->position, boid.position) > 0 && distanceBetween(this->position, boid.position) < this->perception_radius;
+}
+
+bool Boid::inSeparationRadius(Boid& boid)
+{
+    return distanceBetween(this->position, boid.position) > 0 && distanceBetween(this->position, boid.position) < this->separation_distance;
+}
+
+// SEPARATION
+
+glm::vec2 Boid::separate(std::vector<Boid>& allBoids)
+{
+    glm::vec2 newVelocity{0., 0.};
+    size_t    nbCloseBoids = 0;
+
+    for (size_t i = 0; i < allBoids.size(); i++)
+    {
+        if (this->inSeparationRadius(allBoids[i]))
+        {
+            float     distance   = glm::distance(this->position, allBoids[i].position);
+            glm::vec2 difference = this->position - allBoids[i].position;
+            difference /= distance;
+            newVelocity += difference;
+            nbCloseBoids++;
+        }
+    }
+
+    if (nbCloseBoids > 0)
+    {
+        newVelocity /= nbCloseBoids;
+    }
+
+    if (newVelocity.length() > 0)
+    {
+        newVelocity *= this->maxSpeed;
+        newVelocity -= this->velocity;
+        newVelocity = limit(newVelocity, this->maxAcceleration);
+    }
+
+    return newVelocity;
 }
 
 // ALIGNMENT
