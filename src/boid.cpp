@@ -34,7 +34,10 @@ void Boid::flock(std::vector<Boid>& allBoids)
     glm::vec2 alignment  = this->align(allBoids);
     glm::vec2 cohesion   = this->cohered(allBoids);
 
-    // add a weight? --> TODO maybe later
+    // add a weights
+    separation *= 0.8;
+    alignment *= 0.001;
+    cohesion *= 0.0003;
 
     this->updateAcceleration(separation);
     this->updateAcceleration(alignment);
