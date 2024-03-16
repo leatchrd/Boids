@@ -18,7 +18,7 @@ private:
     float perception_radius   = 0.3;
     float separation_distance = 0.08;
     float maxSpeed            = 0.015;
-    float maxAcceleration     = 0.00005;
+    float maxAcceleration     = 0.000005;
 
     idWallPosition onWhichWall = NOTHING;
 
@@ -37,7 +37,8 @@ private:
     glm::vec2 align(std::vector<Boid>& allBoids);
 
     void checkCollisionWithWall(float& wallSize);
-    void setOnWhichWall(float& wallSize);
+    void setWallIfCollision(float& wallSize);
+    void setWallIfOutOfWindow(float& wallSize);
     void computeWallBounce();
     void computeNewDirectionAfterBounce(glm::vec2& norm);
 

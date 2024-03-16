@@ -151,14 +151,15 @@ glm::vec2 Boid::align(std::vector<Boid>& allBoids)
 
 void Boid::checkCollisionWithWall(float& wallSize)
 {
-    this->setOnWhichWall(wallSize);
+    this->setWallIfOutOfWindow(wallSize);
+    this->setWallIfCollision(wallSize);
     if (this->onWhichWall != NOTHING)
     {
         this->computeWallBounce();
     }
 }
 
-void Boid::setOnWhichWall(float& wallSize)
+void Boid::setWallIfCollision(float& wallSize)
 {
     if (isBetween(this->position.y, -this->radius, -wallSize, wallSize))
     {
@@ -189,6 +190,40 @@ void Boid::setOnWhichWall(float& wallSize)
         {
             this->onWhichWall = NOTHING;
         }
+    }
+}
+
+void Boid::setWallIfOutOfWindow(float& wallSize)
+{
+    if (isBeyond(this->position.y, this->radius, -wallSize, wallSize))
+    {
+        if (this->position.y > 0)
+        {
+            this->position.y  = wallSize - this->radius;
+            this->onWhichWall = TOP;
+        }
+        else
+        {
+            this->position.y  = -wallSize + this->radius;
+            this->onWhichWall = BOTTOM;
+        }
+    }
+    else if (isBeyond(this->position.x, this->radius, -wallSize, wallSize))
+    {
+        if (this->position.x > 0)
+        {
+            this->position.x  = wallSize - this->radius;
+            this->onWhichWall = RIGHT;
+        }
+        else
+        {
+            this->position.x  = -wallSize + this->radius;
+            this->onWhichWall = LEFT;
+        }
+    }
+    else
+    {
+        this->onWhichWall = NOTHING;
     }
 }
 

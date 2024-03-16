@@ -25,6 +25,11 @@ bool isBetween(float compare, float border, float smallest, float biggest)
     return smallest - border <= compare && compare <= biggest + border;
 }
 
+bool isBeyond(float compare, float border, float smallest, float biggest)
+{
+    return biggest <= compare + border || compare - border <= smallest;
+}
+
 float distanceBetween(glm::vec2 boid1_pos, glm::vec2 boid2_pos)
 {
     return glm::sqrt(glm::pow((boid1_pos.x - boid2_pos.x), 2) + glm::pow((boid1_pos.y - boid2_pos.y), 2));
