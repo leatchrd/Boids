@@ -30,8 +30,7 @@ private:
     void update();
     void flock(std::vector<Boid>& allBoids);
 
-    bool inPerceptionRadius(Boid& boid);
-    bool inSeparationRadius(Boid& boid);
+    bool inRadius(Boid& boid, float& radius);
 
     glm::vec2 separate(std::vector<Boid>& allBoids);
     glm::vec2 align(std::vector<Boid>& allBoids);
