@@ -19,8 +19,7 @@ void Flock::update(p6::Context& ctx, float& wallSize)
 {
     for (size_t i = 0; i < this->flock.size(); i++)
     {
-        this->flock[i].checkAlinement(flock);
-        this->flock[i].update(wallSize);
+        this->flock[i].run(this->flock, wallSize);
     }
 
     this->draw(ctx);

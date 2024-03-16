@@ -37,3 +37,10 @@ float rand01()
 
     return distrib(gen);
 }
+
+glm::vec2 limit(glm::vec2& vector, float& max)
+{
+    float magnitude = glm::sqrt(glm::pow(vector.x, 2) + glm::pow(vector.y, 2));
+    float a         = std::min(magnitude, max) / magnitude;
+    return vector *= a;
+}

@@ -15,31 +15,34 @@ private:
     glm::vec2 position, velocity, acceleration, separation;
     float     radius;
 
-    float          perception_radius   = 0.5;
-    float          separation_distance = 0.02;
-    idWallPosition onWhichWall         = NOTHING;
+    float perception_radius = 0.3;
+    float maxSpeed          = 0.02;
+    float maxAcceleration   = 0.0005;
+    // float          separation_distance = 0.05;
+    idWallPosition onWhichWall = NOTHING;
 
 private:
     void updatePosition();
     void updateVelocity();
     void updateAcceleration(glm::vec2& force);
 
-    bool              inPerceptionRadius(Boid& boid);
-    std::vector<Boid> getCloseBoids(std::vector<Boid>& otherBoids, glm::vec2& avg_position);
+    void update();
+    void flock(std::vector<Boid>& allBoids);
 
-    void aline(glm::vec2& target_position);
+    bool inPerceptionRadius(Boid& boid);
+    // bool inSeparationRadius(Boid& boid);
 
-    void onWall(float& wallSize);
-    void collisionWithWall(float& wallSize);
+    // void separate(Boid& tooCloseBoid);
+    glm::vec2 align(std::vector<Boid>& allBoids);
+
+    void checkCollisionWithWall(float& wallSize);
+    void setOnWhichWall(float& wallSize);
+    void computeWallBounce();
     void computeNewDirectionAfterBounce(glm::vec2& norm);
-    void bounceOnWhichWall();
 
 public:
     Boid(float radius, glm::vec2 velocity);
-
-    void update(float& wallSize);
+    void run(std::vector<Boid>& allBoids, float& wallSize);
 
     void draw(p6::Context& ctx);
-
-    void checkAlinement(std::vector<Boid>& otherBoids);
 };

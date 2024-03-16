@@ -1,19 +1,54 @@
 #include "boid.hpp"
 #include <cstddef>
+#include <limits>
 #include <vector>
+#include "glm/exponential.hpp"
+#include "glm/ext/quaternion_geometric.hpp"
+#include "glm/fwd.hpp"
 #include "p6/p6.h"
 #include "tools.hpp"
+
+// --- PUBLIC ---
 
 Boid::Boid(float radius, glm::vec2 velocity)
     : position{0., 0.}, velocity{velocity}, acceleration{0., 0.}, separation{0.02, 0.02}, radius{radius}
 {
 }
 
+void Boid::run(std::vector<Boid>& allBoids, float& wallSize)
+{
+    this->flock(allBoids);
+    this->update();
+    this->checkCollisionWithWall(wallSize);
+}
+
+// --- PRIVATE ---
+
 // DRAW
 
 void Boid::draw(p6::Context& ctx)
 {
     drawCircle(ctx, this->position, this->radius);
+}
+
+// NECESSARY TO RUN
+
+void Boid::flock(std::vector<Boid>& allBoids)
+{
+    glm::vec2 alignment = this->align(allBoids);
+
+    // add a weight? --> TODO maybe later
+
+    this->updateAcceleration(alignment);
+}
+
+void Boid::update()
+{
+    this->updateVelocity();
+    this->velocity = limit(this->velocity, this->maxSpeed);
+    this->updatePosition();
+    glm::vec2 zero{0.f, 0.f};
+    this->updateAcceleration(zero);
 }
 
 // UPDATE
@@ -33,66 +68,56 @@ void Boid::updateAcceleration(glm::vec2& force)
     this->acceleration += force;
 }
 
-void Boid::update(float& wallSize)
-{
-    this->collisionWithWall(wallSize);
-
-    this->updateVelocity();
-    this->updatePosition();
-}
-
 // CHECK PARAMETERS ACTIONS
 
 bool Boid::inPerceptionRadius(Boid& boid)
 {
-    return distanceBetween(this->position, boid.position) <= this->perception_radius;
+    return distanceBetween(this->position, boid.position) > 0 && distanceBetween(this->position, boid.position) < this->perception_radius;
 }
 
-std::vector<Boid> Boid::getCloseBoids(std::vector<Boid>& otherBoids, glm::vec2& avg_position)
-{
-    std::vector<Boid> closeBoids;
+// ALIGNMENT
 
-    for (size_t i = 0; i < otherBoids.size(); i++)
+glm::vec2 Boid::align(std::vector<Boid>& allBoids)
+{
+    glm::vec2 avgVelocity{0., 0.};
+    size_t    nbCloseBoids = 0;
+
+    for (size_t i = 0; i < allBoids.size(); i++)
     {
-        if (this == &otherBoids[i])
+        if (this->inPerceptionRadius(allBoids[i]))
         {
-            continue;
-        }
-        if (this->inPerceptionRadius(otherBoids[i]))
-        {
-            closeBoids.push_back(otherBoids[i]);
-            avg_position += otherBoids[i].position;
+            avgVelocity += allBoids[i].velocity;
+            nbCloseBoids++;
         }
     }
 
-    avg_position /= closeBoids.size();
+    if (nbCloseBoids > 0)
+    {
+        avgVelocity /= nbCloseBoids;
+        avgVelocity *= this->maxSpeed;
 
-    return closeBoids;
+        glm::vec2 newVelocity = avgVelocity - this->velocity;
+        newVelocity           = limit(newVelocity, this->maxAcceleration);
+        return newVelocity;
+    }
+    else
+    {
+        return glm::vec2{0.f, 0.f};
+    }
 }
-
-// ALINEMENT
-
-void Boid::aline(glm::vec2& target_position)
-{
-    this->acceleration += target_position;
-}
-
-void Boid::checkAlinement(std::vector<Boid>& otherBoids)
-{
-    std::vector<Boid> closeBoids{};
-    glm::vec2         avg_position{0., 0.};
-
-    closeBoids = this->getCloseBoids(otherBoids, avg_position);
-
-    avg_position *= 0.00001;
-    this->aline(avg_position);
-}
-
-// OTHER ACTIONS
 
 // FOR COLLISIONS
 
-void Boid::onWall(float& wallSize)
+void Boid::checkCollisionWithWall(float& wallSize)
+{
+    this->setOnWhichWall(wallSize);
+    if (this->onWhichWall != NOTHING)
+    {
+        this->computeWallBounce();
+    }
+}
+
+void Boid::setOnWhichWall(float& wallSize)
 {
     if (isBetween(this->position.y, -this->radius, -wallSize, wallSize))
     {
@@ -126,25 +151,9 @@ void Boid::onWall(float& wallSize)
     }
 }
 
-void Boid::collisionWithWall(float& wallSize)
-{
-    this->onWall(wallSize);
-    if (this->onWhichWall != NOTHING)
-    {
-        this->bounceOnWhichWall();
-    }
-}
-
-void Boid::computeNewDirectionAfterBounce(glm::vec2& norm)
-{
-    this->velocity.x = this->velocity.x - norm.x * 2 * glm::dot(this->velocity, norm);
-    this->velocity.y = this->velocity.y - norm.y * 2 * glm::dot(this->velocity, norm);
-}
-
-void Boid::bounceOnWhichWall()
+void Boid::computeWallBounce()
 {
     glm::vec2 wallNorm(0);
-
     switch (this->onWhichWall)
     {
     case LEFT:
@@ -166,6 +175,11 @@ void Boid::bounceOnWhichWall()
     default:
         break;
     }
-
     this->computeNewDirectionAfterBounce(wallNorm);
+}
+
+void Boid::computeNewDirectionAfterBounce(glm::vec2& norm)
+{
+    this->velocity.x = this->velocity.x - norm.x * 2 * glm::dot(this->velocity, norm);
+    this->velocity.y = this->velocity.y - norm.y * 2 * glm::dot(this->velocity, norm);
 }
