@@ -1,9 +1,9 @@
 #include "scene.hpp"
 #include "GLFW/glfw3.h"
 #include "flock.hpp"
+#include "menu.hpp"
 #include "p6/p6.h"
 #include "tools.hpp"
-#include "menu.hpp"
 
 Scene::Scene(glm::vec2 position)
     : position{position}, flock(5)
@@ -13,7 +13,8 @@ Scene::Scene(glm::vec2 position)
 void Scene::draw(p6::Context& ctx, float radius)
 {
     // background
-    ctx.background(p6::rgb(colorsBackground::Red, colorsBackground::Green, colorsBackground::Blue));
+    // ctx.background(p6::rgb(colorsBackground::Red, colorsBackground::Green, colorsBackground::Blue));
+    ctx.background(backgroundColor);
 
     // cube
     drawSquare(ctx, this->position, this->side);

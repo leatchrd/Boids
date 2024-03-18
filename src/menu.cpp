@@ -2,6 +2,15 @@
 #include <p6/p6.h>
 #include "scene.hpp"
 
+void Scene::setBackgroundColor(float r, float g, float b)
+{
+    r = std::clamp(r, 0.0f, 1.0f);
+    g = std::clamp(g, 0.0f, 1.0f);
+    b = std::clamp(b, 0.0f, 1.0f);
+
+    backgroundColor = ImVec4(r, g, b, 1.0f);
+}
+
 void Menu::createMenu(Scene& myScene)
 {
     ImGui::Begin(
@@ -11,21 +20,31 @@ void Menu::createMenu(Scene& myScene)
             | ImGuiWindowFlags_NoMove
 
     );
-    // ImGui::SliderFloat("Numbers of boids");
 
     ImGui::SliderFloat("Square size", &myScene.side, 0.8f, 1.0f);
 
-    // Menu dans lequel on peut input le nombre de boids
+    ImGui::Spacing();
 
-    // size_t newSize = myScene.flock.flock.size;
-    // ImGui::InputInt("Nombre de boids", &newSize, 5);
+    if (ImGui::Button("Mix green blue"))
+    {
+        setBackgroundColor(0.79f, 0.98f, 0.84f)
+    }
 
-    // if (newSize != myScene.flock.flock.size && newSize > 0)
-    // {
-    //     myScene.flock.flock.size = newSize;
-    // }
+    ImGui::SameLine();
+
+    if (ImGui::Button("Yellow"))
+    {
+        setBackgroundColor(0.94f, 0.98f, 0.79f)
+    }
+
+    ImGui::SameLine();
+
+    if (ImGui::Button("Apple green"))
+    {
+        setBackgroundColor(0.85f, 0.98f, 0.8f))
+    }
 
     ImGui::End();
 
-    //ImGui::ShowDemoWindow();
+    // ImGui::ShowDemoWindow();
 }

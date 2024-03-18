@@ -8,6 +8,7 @@ class Scene {
 public:
     glm::vec2 position;
     Flock     flock;
+    ImVec4    backgroundColor;
 
 public:
     float side = 0.8f;
@@ -22,5 +23,6 @@ public:
     void dealWithWallCollisions();
     void dealWithFKeyPressed(p6::Context& ctx, glm::vec2 force);
     void pausePlayKey(p6::Context& ctx);
-    void exitKey(p6::Context&ctx);
+    void exitKey(p6::Context& ctx);
+    void setBackgroundColor(float r, float g, float b);
 };
