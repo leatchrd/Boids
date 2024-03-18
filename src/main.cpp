@@ -37,6 +37,7 @@ int main(void)
         // Event management
         myScene.dealWithFKeyPressed(ctx, click_force);
         myScene.dealWithWallCollisions();
+        myScene.exitKey(ctx);
 
         // Scene setup
         myScene.draw(ctx, 0.2);

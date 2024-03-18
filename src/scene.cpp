@@ -3,6 +3,7 @@
 #include "flock.hpp"
 #include "p6/p6.h"
 #include "tools.hpp"
+#include "menu.hpp"
 
 Scene::Scene(glm::vec2 position)
     : position{position}, flock(5)
@@ -12,7 +13,8 @@ Scene::Scene(glm::vec2 position)
 void Scene::draw(p6::Context& ctx, float radius)
 {
     // background
-    ctx.background(p6::hex(0x095801));
+    ctx.background(p6::rgb(colorsBackground::Red, colorsBackground::Green, colorsBackground::Blue));
+
     // cube
     drawSquare(ctx, this->position, this->side);
     // circle that follows mouse
@@ -59,5 +61,13 @@ void Scene::pausePlayKey(p6::Context& ctx)
     if (ctx.key_is_pressed(GLFW_KEY_S))
     {
         ctx.resume();
+    }
+}
+
+void Scene::exitKey(p6::Context& ctx)
+{
+    if (ctx.key_is_pressed(GLFW_KEY_Q))
+    {
+        ctx.stop();
     }
 }
