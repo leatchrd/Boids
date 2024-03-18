@@ -1,4 +1,5 @@
 #include "scene.hpp"
+#include "GLFW/glfw3.h"
 #include "flock.hpp"
 #include "p6/p6.h"
 #include "tools.hpp"
@@ -11,7 +12,7 @@ Scene::Scene(glm::vec2 position)
 void Scene::draw(p6::Context& ctx, float radius)
 {
     // background
-    ctx.background(p6::NamedColor::Blue);
+    ctx.background(p6::hex(0x095801));
     // cube
     drawSquare(ctx, this->position, this->side);
     // circle that follows mouse
@@ -46,5 +47,17 @@ void Scene::dealWithFKeyPressed(p6::Context& ctx, glm::vec2 force)
     if (ctx.key_is_pressed(GLFW_KEY_F))
     {
         this->flock.addForce(force);
+    }
+}
+
+void Scene::pausePlayKey(p6::Context& ctx)
+{
+    if (ctx.key_is_pressed(GLFW_KEY_A))
+    {
+        ctx.pause();
+    }
+    if (ctx.key_is_pressed(GLFW_KEY_S))
+    {
+        ctx.resume();
     }
 }

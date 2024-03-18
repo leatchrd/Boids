@@ -21,4 +21,5 @@ public:
 
     void dealWithWallCollisions();
     void dealWithFKeyPressed(p6::Context& ctx, glm::vec2 force);
+    void pausePlayKey(p6::Context& ctx);
 };
