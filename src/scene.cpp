@@ -5,7 +5,7 @@
 // --- PUBLIC ---
 
 Scene::Scene(glm::vec2 position)
-    : position{position}, flock(5)
+    : position{position}, flock(20)
 {
 }
 
