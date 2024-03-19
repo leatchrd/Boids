@@ -5,8 +5,8 @@
 
 // --- PUBLIC ---
 
-Boid::Boid(float radius, glm::vec2 velocity)
-    : position{0., 0.}, velocity{velocity}, acceleration{0., 0.}, radius{radius}
+Boid::Boid(float radius, glm::vec2 position, glm::vec2 velocity)
+    : position{position}, velocity{velocity}, acceleration{0., 0.}, radius{radius}
 {
 }
 
@@ -35,9 +35,9 @@ void Boid::flock(std::vector<Boid>& allBoids)
     glm::vec2 cohesion   = this->cohered(allBoids);
 
     // add a weights
-    separation *= 0.8;
-    alignment *= 0.001;
-    cohesion *= 0.0003;
+    separation *= 0.008;
+    alignment *= 0.0016;
+    cohesion *= 0.00033;
 
     this->updateAcceleration(separation);
     this->updateAcceleration(alignment);

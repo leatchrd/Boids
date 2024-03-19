@@ -35,10 +35,10 @@ float distanceBetween(glm::vec2 boid1_pos, glm::vec2 boid2_pos)
     return glm::sqrt(glm::pow((boid1_pos.x - boid2_pos.x), 2) + glm::pow((boid1_pos.y - boid2_pos.y), 2));
 }
 
-float rand01()
+float randNeg101()
 {
     thread_local std::default_random_engine gen{std::random_device{}()};
-    thread_local auto                       distrib = std::uniform_real_distribution<float>{0.0, 1.0};
+    thread_local auto                       distrib = std::uniform_real_distribution<float>{-1.0, 1.0};
 
     return distrib(gen);
 }
