@@ -18,21 +18,18 @@ void Flock::update(p6::Context& ctx, float& wallSize)
 {
     for (size_t i = 0; i < this->flock.size(); i++)
     {
-        this->flock[i].run(this->flock, wallSize);
+        this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, wallSize, ctx);
     }
+}
 
-    this->draw(ctx);
+void Flock::updateMenu()
+{
+    ImGui::SliderFloat("Separation coefficient", &this->separationCoeff, 0.0f, 100.0f);
+    ImGui::SliderFloat("Alignment coefficient", &this->alignmentCoeff, 0.0f, 100.0f);
+    ImGui::SliderFloat("Cohesion coefficient", &this->cohesionCoeff, 0.0f, 100.0f);
 }
 
 // --- PRIVATE ---
-
-void Flock::draw(p6::Context& ctx)
-{
-    for (size_t i = 0; i < this->flock.size(); i++)
-    {
-        this->flock[i].draw(ctx);
-    }
-}
 
 void Flock::addBoid(Boid single)
 {

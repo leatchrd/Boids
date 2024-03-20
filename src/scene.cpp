@@ -26,10 +26,17 @@ void Scene::draw(p6::Context& ctx, float radius)
     drawCircle(ctx, ctx.mouse(), radius);
 }
 
-void Scene::drawMenu()
+void Scene::updateMenu()
 {
     ImGui::SliderFloat("Square size", &this->side, 0.5f, 1.0f);
-    // Ajouter les autres elements ici
+}
+
+void Scene::drawMenu()
+{
+    this->updateMenu();
+    ImGui::Spacing();
+
+    this->flock.updateMenu();
 }
 
 void Scene::update(p6::Context& ctx)

@@ -40,14 +40,12 @@ void App::drawMenu()
 {
     ImGui::Begin(
         "Settings", nullptr,
-        ImGuiWindowFlags_NoTitleBar
-            | ImGuiWindowFlags_NoResize
-            | ImGuiWindowFlags_NoMove
+        ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+        // ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
 
     );
 
     this->scene.drawMenu();
-    ImGui::Spacing();
 
     ImGui::End();
 }

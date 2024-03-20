@@ -21,6 +21,7 @@ public:
     Scene(glm::vec2 position);
 
     void draw(p6::Context& ctx, float radius);
+    void updateMenu();
     void drawMenu();
     void update(p6::Context& ctx);
 

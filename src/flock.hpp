@@ -8,11 +8,15 @@ class Flock {
 public:
     std::vector<Boid> flock;
 
+    float separationCoeff = 1.f;
+    float alignmentCoeff  = 1.f;
+    float cohesionCoeff   = 1.f;
+
 private:
-    void draw(p6::Context& ctx);
     void addBoid(Boid single);
 
 public:
     Flock(size_t total);
     void update(p6::Context& ctx, float& wallSize);
+    void updateMenu();
 };

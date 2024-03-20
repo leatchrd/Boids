@@ -10,34 +10,28 @@ Boid::Boid(float radius, glm::vec2 position, glm::vec2 velocity)
 {
 }
 
-void Boid::run(std::vector<Boid>& allBoids, float& wallSize)
+void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& wallSize, p6::Context& ctx)
 {
-    this->applyBoidsBehaviour(allBoids);
+    this->applyBoidsBehaviour(allBoids, separation, alignment, cohesion);
     this->update();
     this->checkCollisionWithWall(wallSize);
+    this->draw(ctx);
 }
 
 // --- PRIVATE ---
 
-// DRAW
-
-void Boid::draw(p6::Context& ctx)
-{
-    drawCircle(ctx, this->position, this->radius);
-}
-
 // NECESSARY TO RUN
 
-void Boid::applyBoidsBehaviour(std::vector<Boid>& allBoids)
+void Boid::applyBoidsBehaviour(std::vector<Boid>& allBoids, float& separationCoeff, float& alignmentCoeff, float& cohesionCoeff)
 {
     glm::vec2 separation = this->separate(allBoids);
     glm::vec2 alignment  = this->align(allBoids);
     glm::vec2 cohesion   = this->cohered(allBoids);
 
     // add a weights
-    separation *= 0.008;
-    alignment *= 0.0016;
-    cohesion *= 0.00033;
+    separation *= separationCoeff / 10000; // *= 0.008;
+    alignment *= alignmentCoeff / 10000;   // *= 0.0016;
+    cohesion *= cohesionCoeff / 10000;     // *= 0.00033;
 
     this->updateAcceleration(separation);
     this->updateAcceleration(alignment);
@@ -61,6 +55,11 @@ void Boid::checkCollisionWithWall(float& wallSize)
     {
         this->computeWallBounce();
     }
+}
+
+void Boid::draw(p6::Context& ctx)
+{
+    drawCircle(ctx, this->position, this->radius);
 }
 
 // FOR UPDATE

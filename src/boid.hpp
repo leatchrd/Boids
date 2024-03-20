@@ -28,7 +28,7 @@ private:
     void updateAcceleration(glm::vec2& force);
 
     void update();
-    void applyBoidsBehaviour(std::vector<Boid>& allBoids);
+    void applyBoidsBehaviour(std::vector<Boid>& allBoids, float& separationCoeff, float& alignmentCoeff, float& cohesionCoeff);
     void checkCollisionWithWall(float& wallSize);
 
     bool      inRadius(Boid& boid, float& radius);
@@ -43,7 +43,8 @@ private:
 
 public:
     Boid(float radius, glm::vec2 position, glm::vec2 velocity);
-    void run(std::vector<Boid>& allBoids, float& wallSize);
+    void run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& wallSize, p6::Context& ctx);
 
     void draw(p6::Context& ctx);
+    void updateMenu();
 };
