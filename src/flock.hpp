@@ -8,6 +8,9 @@ class Flock {
 public:
     std::vector<Boid> flock;
 
+    float perceptionRadius   = 0.5; // TMP for debug
+    float separationDistance = 0.5; // TMP for debug
+
     float separationCoeff = 1.f;
     float alignmentCoeff  = 1.f;
     float cohesionCoeff   = 1.f;

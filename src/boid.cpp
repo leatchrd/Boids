@@ -10,9 +10,9 @@ Boid::Boid(float radius, glm::vec2 position, glm::vec2 velocity)
 {
 }
 
-void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& wallSize, p6::Context& ctx)
+void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& perceptionRadius, float& separationDistance, float& wallSize, p6::Context& ctx)
 {
-    this->applyBoidsBehaviour(allBoids, separation, alignment, cohesion);
+    this->applyBoidsBehaviour(allBoids, separation, alignment, cohesion, perceptionRadius, separationDistance);
     this->update();
     this->checkCollisionWithWall(wallSize);
     this->draw(ctx);
@@ -22,11 +22,11 @@ void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment,
 
 // NECESSARY TO RUN
 
-void Boid::applyBoidsBehaviour(std::vector<Boid>& allBoids, float& separationCoeff, float& alignmentCoeff, float& cohesionCoeff)
+void Boid::applyBoidsBehaviour(std::vector<Boid>& allBoids, float& separationCoeff, float& alignmentCoeff, float& cohesionCoeff, float& perceptionRadius, float& separationDistance)
 {
-    glm::vec2 separation = this->separate(allBoids);
-    glm::vec2 alignment  = this->align(allBoids);
-    glm::vec2 cohesion   = this->cohered(allBoids);
+    glm::vec2 separation = this->separate(allBoids, separationDistance);
+    glm::vec2 alignment  = this->align(allBoids, perceptionRadius);
+    glm::vec2 cohesion   = this->cohered(allBoids, perceptionRadius);
 
     // add a weights
     separation *= separationCoeff / 10000; // *= 0.008;
@@ -88,14 +88,14 @@ bool Boid::inRadius(Boid& boid, float& radius)
 
 // -- separation
 
-glm::vec2 Boid::separate(std::vector<Boid>& allBoids)
+glm::vec2 Boid::separate(std::vector<Boid>& allBoids, float& separationDistance)
 {
     glm::vec2 newDirection{0., 0.};
     size_t    nbCloseBoids = 0;
 
     for (size_t i = 0; i < allBoids.size(); i++)
     {
-        if (this->inRadius(allBoids[i], this->separationDistance))
+        if (this->inRadius(allBoids[i], separationDistance))
         {
             float     distance   = glm::distance(this->position, allBoids[i].position);
             glm::vec2 difference = this->position - allBoids[i].position;
@@ -122,14 +122,14 @@ glm::vec2 Boid::separate(std::vector<Boid>& allBoids)
 
 // -- alignment
 
-glm::vec2 Boid::align(std::vector<Boid>& allBoids)
+glm::vec2 Boid::align(std::vector<Boid>& allBoids, float& perceptionRadius)
 {
     glm::vec2 avgVelocity{0., 0.};
     size_t    nbCloseBoids = 0;
 
     for (size_t i = 0; i < allBoids.size(); i++)
     {
-        if (this->inRadius(allBoids[i], this->perceptionRadius))
+        if (this->inRadius(allBoids[i], perceptionRadius))
         {
             avgVelocity += allBoids[i].velocity;
             nbCloseBoids++;
@@ -153,14 +153,14 @@ glm::vec2 Boid::align(std::vector<Boid>& allBoids)
 
 // -- cohesion
 
-glm::vec2 Boid::cohered(std::vector<Boid>& allBoids)
+glm::vec2 Boid::cohered(std::vector<Boid>& allBoids, float& perceptionRadius)
 {
     glm::vec2 avgPosition{0., 0.};
     size_t    nbCloseBoids = 0;
 
     for (size_t i = 0; i < allBoids.size(); i++)
     {
-        if (this->inRadius(allBoids[i], this->perceptionRadius))
+        if (this->inRadius(allBoids[i], perceptionRadius))
         {
             avgPosition += allBoids[i].position;
             nbCloseBoids++;

@@ -15,10 +15,8 @@ private:
     glm::vec2 position, velocity, acceleration;
     float     radius;
 
-    float perceptionRadius   = 0.08;
-    float separationDistance = 0.06;
-    float maxSpeed           = 0.00333;
-    float maxAcceleration    = 0.00008;
+    float maxSpeed        = 0.00333;
+    float maxAcceleration = 0.00008;
 
     idWallPosition onWhichWall = NOTHING;
 
@@ -28,13 +26,13 @@ private:
     void updateAcceleration(glm::vec2& force);
 
     void update();
-    void applyBoidsBehaviour(std::vector<Boid>& allBoids, float& separationCoeff, float& alignmentCoeff, float& cohesionCoeff);
+    void applyBoidsBehaviour(std::vector<Boid>& allBoids, float& separationCoeff, float& alignmentCoeff, float& cohesionCoeff, float& perceptionRadius, float& separationDistance);
     void checkCollisionWithWall(float& wallSize);
 
     bool      inRadius(Boid& boid, float& radius);
-    glm::vec2 separate(std::vector<Boid>& allBoids);
-    glm::vec2 align(std::vector<Boid>& allBoids);
-    glm::vec2 cohered(std::vector<Boid>& allBoids);
+    glm::vec2 separate(std::vector<Boid>& allBoids, float& separationDistance);
+    glm::vec2 align(std::vector<Boid>& allBoids, float& perceptionRadius);
+    glm::vec2 cohered(std::vector<Boid>& allBoids, float& perceptionRadius);
 
     void setWallIfCollision(float& wallSize);
     void setWallIfOutOfWindow(float& wallSize);
@@ -43,8 +41,7 @@ private:
 
 public:
     Boid(float radius, glm::vec2 position, glm::vec2 velocity);
-    void run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& wallSize, p6::Context& ctx);
+    void run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& perceptionRadius, float& separationDistance, float& wallSize, p6::Context& ctx);
 
     void draw(p6::Context& ctx);
-    void updateMenu();
 };
