@@ -15,10 +15,10 @@ private:
     glm::vec2 position, velocity, acceleration;
     float     radius;
 
-    float perception_radius   = 0.08;
-    float separation_distance = 0.06;
-    float maxSpeed            = 0.00333;
-    float maxAcceleration     = 0.00008;
+    float perceptionRadius   = 0.08;
+    float separationDistance = 0.06;
+    float maxSpeed           = 0.00333;
+    float maxAcceleration    = 0.00008;
 
     idWallPosition onWhichWall = NOTHING;
 

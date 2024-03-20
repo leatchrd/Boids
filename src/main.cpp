@@ -1,10 +1,9 @@
 #include <cstdlib>
 #define DOCTEST_CONFIG_IMPLEMENT
 #include <iostream>
+#include "app.hpp"
 #include "doctest/doctest.h"
-#include "menu.hpp"
 #include "p6/p6.h"
-#include "scene.hpp"
 
 int main(void)
 {
@@ -18,23 +17,22 @@ int main(void)
     ctx.maximize_window();
 
     // Different parameters
-    Menu  display;
-    Scene myScene(glm::vec2{0.f, 0.f});
+    App myApp;
 
     // Dear ImGui
     ctx.imgui = [&]() {
-        display.createMenu(myScene);
-        myScene.pausePlayKey(ctx);
+        myApp.drawMenu();
+        myApp.pausePlayKey(ctx);
     };
 
     // INFINITE UPDATE LOOP
     ctx.update = [&]() {
         // Event management
-        myScene.exitKey(ctx);
+        myApp.exitKey(ctx);
 
         // Scene setup
-        myScene.draw(ctx, 0.2);
-        myScene.update(ctx);
+        myApp.draw(ctx, 0.2);
+        myApp.update(ctx);
     };
 
     // EVENTS & QUERIES

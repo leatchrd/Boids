@@ -4,6 +4,11 @@
 
 // --- PUBLIC ---
 
+Scene::Scene()
+    : position{glm::vec2{0.f, 0.f}}, flock(20)
+{
+}
+
 Scene::Scene(glm::vec2 position)
     : position{position}, flock(20)
 {
@@ -13,7 +18,7 @@ void Scene::draw(p6::Context& ctx, float radius)
 {
     // background
     ctx.background(p6::rgb(colorsBackground::Red, colorsBackground::Green, colorsBackground::Blue));
-    //ctx.background(backgroundColor);
+    // ctx.background(backgroundColor);
 
     // cube
     drawSquare(ctx, this->position, this->side);
@@ -21,34 +26,15 @@ void Scene::draw(p6::Context& ctx, float radius)
     drawCircle(ctx, ctx.mouse(), radius);
 }
 
+void Scene::drawMenu()
+{
+    ImGui::SliderFloat("Square size", &this->side, 0.5f, 1.0f);
+    // Ajouter les autres elements ici
+}
+
 void Scene::update(p6::Context& ctx)
 {
-    if (ctx.key_is_pressed(GLFW_KEY_Q))
-    {
-        ctx.stop();
-    }
-
     this->flock.update(ctx, this->side);
-}
-
-void Scene::pausePlayKey(p6::Context& ctx)
-{
-    if (ctx.key_is_pressed(GLFW_KEY_A))
-    {
-        ctx.pause();
-    }
-    if (ctx.key_is_pressed(GLFW_KEY_S))
-    {
-        ctx.resume();
-    }
-}
-
-void Scene::exitKey(p6::Context& ctx)
-{
-    if (ctx.key_is_pressed(GLFW_KEY_Q))
-    {
-        ctx.stop();
-    }
 }
 
 void Scene::setBackgroundColor(float r, float g, float b)

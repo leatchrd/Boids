@@ -7,7 +7,7 @@ namespace colorsBackground {
 constexpr float Red   = 0.85f;
 constexpr float Green = 0.98f;
 constexpr float Blue  = 0.8f;
-};
+}; // namespace colorsBackground
 
 class Scene {
 public:
@@ -17,12 +17,12 @@ public:
 
 public:
     float side = 0.8f;
+    Scene();
     Scene(glm::vec2 position);
 
     void draw(p6::Context& ctx, float radius);
+    void drawMenu();
     void update(p6::Context& ctx);
-    
-    void pausePlayKey(p6::Context& ctx);
-    void exitKey(p6::Context& ctx);
+
     void setBackgroundColor(float r, float g, float b);
 };
