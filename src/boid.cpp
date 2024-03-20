@@ -12,7 +12,7 @@ Boid::Boid(float radius, glm::vec2 position, glm::vec2 velocity)
 
 void Boid::run(std::vector<Boid>& allBoids, float& wallSize)
 {
-    this->flock(allBoids);
+    this->applyBoidsBehaviour(allBoids);
     this->update();
     this->checkCollisionWithWall(wallSize);
 }
@@ -28,7 +28,7 @@ void Boid::draw(p6::Context& ctx)
 
 // NECESSARY TO RUN
 
-void Boid::flock(std::vector<Boid>& allBoids)
+void Boid::applyBoidsBehaviour(std::vector<Boid>& allBoids)
 {
     glm::vec2 separation = this->separate(allBoids);
     glm::vec2 alignment  = this->align(allBoids);
@@ -80,7 +80,7 @@ void Boid::updateAcceleration(glm::vec2& force)
     this->acceleration += force;
 }
 
-// FOR FLOCK
+// FOR applyBoidsBehaviour
 
 bool Boid::inRadius(Boid& boid, float& radius)
 {

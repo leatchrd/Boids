@@ -28,7 +28,7 @@ private:
     void updateAcceleration(glm::vec2& force);
 
     void update();
-    void flock(std::vector<Boid>& allBoids);
+    void applyBoidsBehaviour(std::vector<Boid>& allBoids);
     void checkCollisionWithWall(float& wallSize);
 
     bool      inRadius(Boid& boid, float& radius);
