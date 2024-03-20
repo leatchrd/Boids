@@ -25,7 +25,7 @@ void Menu::createMenu(Scene& myScene)
 
     ImGui::Spacing();
 
-    if (ImGui::Button("Mix green blue"))
+    /*if (ImGui::Button("Mix green blue"))
     {
         setBackgroundColor(0.79f, 0.98f, 0.84f)
     }
@@ -42,7 +42,7 @@ void Menu::createMenu(Scene& myScene)
     if (ImGui::Button("Apple green"))
     {
         setBackgroundColor(0.85f, 0.98f, 0.8f))
-    }
+    }*/
 
     ImGui::End();
 
