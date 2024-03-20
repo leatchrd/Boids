@@ -23,11 +23,16 @@ int main(void)
 
     // Dear ImGui
     ctx.imgui = [&]() {
-        display.createMenu(myScene.side);
+        display.createMenu(myScene);
+        myScene.pausePlayKey(ctx);
     };
 
     // INFINITE UPDATE LOOP
     ctx.update = [&]() {
+        // Event management
+        myScene.exitKey(ctx);
+
+        // Scene setup
         myScene.draw(ctx, 0.2);
         myScene.update(ctx);
     };

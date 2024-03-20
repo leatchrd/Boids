@@ -3,10 +3,17 @@
 #include "flock.hpp"
 #include "p6/p6.h"
 
+namespace colorsBackground {
+constexpr float Red   = 0.85f;
+constexpr float Green = 0.98f;
+constexpr float Blue  = 0.8f;
+};
+
 class Scene {
-private:
+public:
     glm::vec2 position;
     Flock     flock;
+    ImVec4    backgroundColor;
 
 public:
     float side = 0.8f;
@@ -14,4 +21,8 @@ public:
 
     void draw(p6::Context& ctx, float radius);
     void update(p6::Context& ctx);
+    
+    void pausePlayKey(p6::Context& ctx);
+    void exitKey(p6::Context& ctx);
+    void setBackgroundColor(float r, float g, float b);
 };
