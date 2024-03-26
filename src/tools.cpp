@@ -27,12 +27,7 @@ bool isBetween(float compare, float border, float smallest, float biggest)
 
 bool isBeyond(float compare, float border, float smallest, float biggest)
 {
-    return biggest <= compare + border || compare - border <= smallest;
-}
-
-float distanceBetween(glm::vec2 boid1_pos, glm::vec2 boid2_pos)
-{
-    return glm::sqrt(glm::pow((boid1_pos.x - boid2_pos.x), 2) + glm::pow((boid1_pos.y - boid2_pos.y), 2));
+    return biggest < compare + border || compare - border < smallest;
 }
 
 float randNeg101()
@@ -45,7 +40,7 @@ float randNeg101()
 
 glm::vec2 limit(glm::vec2& vector, float& max)
 {
-    float magnitude = glm::sqrt(glm::pow(vector.x, 2) + glm::pow(vector.y, 2));
+    float magnitude = glm::length(vector);
     float a         = std::min(magnitude, max) / magnitude;
     return vector *= a;
 }
