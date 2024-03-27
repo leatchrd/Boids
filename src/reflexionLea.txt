@@ -1,27 +1,16 @@
+## Fonctions utiles :
 
-ImGui::SliderFloat("Square size", &myScene.side, 0.8f, 1.0f);
+ImGui::ShowDemoWindow();
+-> pour voir un menu d'exemple
 
-ImGui::Spacing();
+ImGui::SeparatorText("Pouet");
+-> pour faire une section
 
-if (ImGui::Button("Mix green blue"))
-{
-    setBackgroundColor(0.79f, 0.98f, 0.84f)
-}
+ImGui::NewLine();
+-> pour créer une ligne vide
 
-ImGui::SameLine();
+## Chaine de Markov appliquée à la couleur du fond
 
-if (ImGui::Button("Yellow"))
-{
-    setBackgroundColor(0.94f, 0.98f, 0.79f)
-}
-
-ImGui::SameLine();
-
-if (ImGui::Button("Apple green"))
-{
-    setBackgroundColor(0.85f, 0.98f, 0.8f)
-}
-
-ImGui::End();
-
-// ImGui::ShowDemoWindow();
+## Choix du nombre de boids
+Avoir un menu avant de lancer le jeu ou on peut définir le nombre de boids souhaité.
+Puis lancer le jeu ensuite.

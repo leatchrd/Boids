@@ -24,13 +24,19 @@ void Flock::update(p6::Context& ctx, float& wallSize)
 
 void Flock::updateMenu()
 {
-    ImGui::SliderFloat("Separation coefficient", &this->separationCoeff, 0.0f, 100.0f);
-    ImGui::SliderFloat("Alignment coefficient", &this->alignmentCoeff, 0.0f, 100.0f);
-    ImGui::SliderFloat("Cohesion coefficient", &this->cohesionCoeff, 0.0f, 100.0f);
-    ImGui::Spacing();
+    ImGui::Text("Separation coefficient");
+    ImGui::SliderFloat("##Separation coefficient", &this->separationCoeff, 0.0f, 100.0f);
+    ImGui::Text("Alignment coefficient");
+    ImGui::SliderFloat("##Alignment coefficient", &this->alignmentCoeff, 0.0f, 100.0f);
+    ImGui::Text("Cohesion coefficient");
+    ImGui::SliderFloat("##Cohesion coefficient", &this->cohesionCoeff, 0.0f, 100.0f);
 
-    ImGui::SliderFloat("Perception radius", &this->perceptionRadius, 0.0f, 1.0f);
-    ImGui::SliderFloat("Separation distance", &this->separationDistance, 0.0f, 1.0f);
+    ImGui::NewLine();
+
+    ImGui::Text("Perception radius");
+    ImGui::SliderFloat("##Perception radius", &this->perceptionRadius, 0.0f, 1.0f);
+    ImGui::Text("Separation distance");
+    ImGui::SliderFloat("##Separation distance", &this->separationDistance, 0.0f, 1.0f);
 }
 
 // --- PRIVATE ---
