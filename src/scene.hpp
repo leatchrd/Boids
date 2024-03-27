@@ -7,7 +7,7 @@ namespace colorsBackground {
 constexpr float Red   = 0.85f;
 constexpr float Green = 0.98f;
 constexpr float Blue  = 0.8f;
-}; // namespace colorsBackground
+};
 
 class Scene {
 public:

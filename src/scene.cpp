@@ -1,4 +1,5 @@
 #include "scene.hpp"
+#include <imgui.h>
 #include "p6/p6.h"
 #include "tools.hpp"
 
@@ -23,18 +24,19 @@ void Scene::draw(p6::Context& ctx, float radius)
     // cube
     drawSquare(ctx, this->position, this->side);
     // circle that follows mouse
-    drawCircle(ctx, ctx.mouse(), radius);
+    // drawCircle(ctx, ctx.mouse(), radius);
 }
 
 void Scene::updateMenu()
 {
-    ImGui::SliderFloat("Square size", &this->side, 0.5f, 1.0f);
+    ImGui::Text("Square size");
+    ImGui::SliderFloat("##Square size", &this->side, 0.5f, 1.0f);
 }
 
 void Scene::drawMenu()
 {
     this->updateMenu();
-    ImGui::Spacing();
+    ImGui::NewLine();
 
     this->flock.updateMenu();
 }
