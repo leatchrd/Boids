@@ -8,8 +8,8 @@ private:
     float     radius;
     // float     maxDistanceToWall = 0.05;
 
-    float maxSpeed        = 0.00333;
-    float maxAcceleration = 0.00008;
+    float maxSpeed = 0.00333;
+    // float maxAcceleration = 0.00008;
 
 private:
     void updatePosition();

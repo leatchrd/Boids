@@ -31,9 +31,9 @@ void Boid::applyBoidsBehaviour(std::vector<Boid>& allBoids, float& separationCoe
     glm::vec2 cohesion   = this->cohered(allBoids, perceptionRadius);
 
     // add a weights
-    separation *= separationCoeff / 100000; // *= 0.008;
-    alignment *= alignmentCoeff / 100000;   // *= 0.0016;
-    cohesion *= cohesionCoeff / 100000;     // *= 0.00033;
+    separation *= separationCoeff / 1000; // *= 0.008;
+    alignment *= alignmentCoeff / 1000;   // *= 0.0016;
+    cohesion *= cohesionCoeff / 10000;    // *= 0.00033;
 
     this->updateAcceleration(separation);
     this->updateAcceleration(alignment);
@@ -137,8 +137,7 @@ glm::vec2 Boid::separate(std::vector<Boid>& allBoids, float& separationDistance)
         {
             float     distance   = glm::distance(this->position, allBoids[i].position);
             glm::vec2 difference = this->position - allBoids[i].position;
-            glm::normalize(difference);
-            difference /= distance;
+            difference /= (distance * distance);
             newDirection += difference;
             nbCloseBoids++;
         }
@@ -147,15 +146,17 @@ glm::vec2 Boid::separate(std::vector<Boid>& allBoids, float& separationDistance)
     if (nbCloseBoids > 0)
     {
         newDirection /= nbCloseBoids;
+        glm::normalize(newDirection);
+        // newDirection *= 10;
     }
 
-    if (glm::length(newDirection) > 0)
-    {
-        glm::normalize(newDirection);
-        newDirection *= this->maxSpeed;
-        newDirection -= this->velocity;
-        newDirection = limit(newDirection, this->maxAcceleration);
-    }
+    // if (glm::length(newDirection) > 0)
+    // {
+    //     glm::normalize(newDirection);
+    //     newDirection *= this->maxSpeed;
+    //     newDirection -= this->velocity;
+    //     newDirection = limit(newDirection, this->maxAcceleration);
+    // }
 
     return newDirection;
 }
@@ -180,11 +181,12 @@ glm::vec2 Boid::align(std::vector<Boid>& allBoids, float& perceptionRadius)
     {
         avgVelocity /= nbCloseBoids;
         glm::normalize(avgVelocity);
-        avgVelocity *= this->maxSpeed;
+        avgVelocity *= 100;
+        // avgVelocity *= this->maxSpeed;
 
-        glm::vec2 newDirection = avgVelocity - this->velocity;
-        newDirection           = limit(newDirection, this->maxAcceleration);
-        return newDirection;
+        // glm::vec2 newDirection = avgVelocity - this->velocity;
+        // newDirection           = limit(newDirection, this->maxAcceleration);
+        return avgVelocity;
     }
     else
     {
@@ -214,10 +216,12 @@ glm::vec2 Boid::cohered(std::vector<Boid>& allBoids, float& perceptionRadius)
 
         glm::vec2 target = avgPosition - this->position;
         glm::normalize(target);
-        target *= this->maxSpeed;
+        // target *= this->maxSpeed;
+        target *= 100;
 
         glm::vec2 newDirection = target - this->velocity;
-        newDirection           = limit(newDirection, this->maxAcceleration);
+        glm::normalize(newDirection);
+        // newDirection           = limit(newDirection, this->maxAcceleration);
         return newDirection;
     }
     else
