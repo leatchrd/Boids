@@ -14,8 +14,9 @@ void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment,
 {
     this->applyBoidsBehaviour(allBoids, separation, alignment, cohesion, perceptionRadius, separationDistance);
     this->update();
-    this->avoidWalls(wall);
-    this->checkIfOutside(wall);
+    // this->avoidWalls(wall);
+    this->wrapAround(wall);
+    // this->checkIfOutside(wall);
     this->draw(ctx);
 }
 
@@ -30,9 +31,9 @@ void Boid::applyBoidsBehaviour(std::vector<Boid>& allBoids, float& separationCoe
     glm::vec2 cohesion   = this->cohered(allBoids, perceptionRadius);
 
     // add a weights
-    separation *= separationCoeff / 10000; // *= 0.008;
-    alignment *= alignmentCoeff / 10000;   // *= 0.0016;
-    cohesion *= cohesionCoeff / 10000;     // *= 0.00033;
+    separation *= separationCoeff / 100000; // *= 0.008;
+    alignment *= alignmentCoeff / 100000;   // *= 0.0016;
+    cohesion *= cohesionCoeff / 100000;     // *= 0.00033;
 
     this->updateAcceleration(separation);
     this->updateAcceleration(alignment);
@@ -48,27 +49,51 @@ void Boid::update()
     this->updateAcceleration(zero);
 }
 
-void Boid::avoidWalls(float& wall)
-{
-    float minusWall = -wall;
-    // TOP wall
-    this->avoidOneWall(this->position.y, wall);
-    // BOTTOM wall
-    this->avoidOneWall(this->position.y, minusWall);
-    // LEFT wall
-    this->avoidOneWall(this->position.x, minusWall);
-    // RIGHT wall
-    this->avoidOneWall(this->position.x, wall);
-}
+// void Boid::avoidWalls(float& wall)
+// {
+//     float minusWall = -wall;
+//     // TOP wall
+//     this->avoidOneWall(this->position.y, wall);
+//     // BOTTOM wall
+//     this->avoidOneWall(this->position.y, minusWall);
+//     // LEFT wall
+//     this->avoidOneWall(this->position.x, minusWall);
+//     // RIGHT wall
+//     this->avoidOneWall(this->position.x, wall);
+// }
 
-void Boid::checkIfOutside(float& wall)
+void Boid::wrapAround(float& wall)
 {
-    if (isBeyond(this->position.y, this->radius, -wall + (this->maxDistanceToWall * 0.5), wall - (this->maxDistanceToWall * 0.5))
-        || isBeyond(this->position.x, this->radius, -wall + (this->maxDistanceToWall * 0.5), wall - (this->maxDistanceToWall * 0.5)))
+    if (this->position.x < -wall + this->radius)
     {
-        this->position = glm::vec2{0., 0.};
+        this->position.x = wall - this->radius;
+        this->position.y = -this->position.y;
+    }
+    if (this->position.y < -wall + this->radius)
+    {
+        this->position.y = wall - this->radius;
+        this->position.x = -this->position.x;
+    }
+    if (this->position.x > wall - this->radius)
+    {
+        this->position.x = -wall + this->radius;
+        this->position.y = -this->position.y;
+    }
+    if (this->position.y > wall - this->radius)
+    {
+        this->position.y = -wall + this->radius;
+        this->position.x = -this->position.x;
     }
 }
+
+// void Boid::checkIfOutside(float& wall)
+// {
+//     if (isBeyond(this->position.y, this->radius, -wall + (this->maxDistanceToWall * 0.5), wall - (this->maxDistanceToWall * 0.5))
+//         || isBeyond(this->position.x, this->radius, -wall + (this->maxDistanceToWall * 0.5), wall - (this->maxDistanceToWall * 0.5)))
+//     {
+//         this->position = glm::vec2{0., 0.};
+//     }
+// }
 
 void Boid::draw(p6::Context& ctx)
 {
@@ -113,7 +138,7 @@ glm::vec2 Boid::separate(std::vector<Boid>& allBoids, float& separationDistance)
             float     distance   = glm::distance(this->position, allBoids[i].position);
             glm::vec2 difference = this->position - allBoids[i].position;
             glm::normalize(difference);
-            difference /= (distance * distance);
+            difference /= distance;
             newDirection += difference;
             nbCloseBoids++;
         }
@@ -203,13 +228,13 @@ glm::vec2 Boid::cohered(std::vector<Boid>& allBoids, float& perceptionRadius)
 
 // FOR COLLISIONS
 
-void Boid::avoidOneWall(float& position, float& wall)
-{
-    glm::vec2 toWall{position, wall};
-    float     distanceToWall = glm::distance(position, wall);
+// void Boid::avoidOneWall(float& position, float& wall)
+// {
+//     glm::vec2 toWall{position, wall};
+//     float     distanceToWall = glm::distance(position, wall);
 
-    if (glm::dot(toWall, this->velocity) > 0 && distanceToWall - this->radius < this->maxDistanceToWall)
-    {
-        this->velocity = -this->velocity;
-    }
-}
+//     if (glm::dot(toWall, this->velocity) > 0 && distanceToWall - this->radius < this->maxDistanceToWall)
+//     {
+//         this->velocity = -this->velocity;
+//     }
+// }
