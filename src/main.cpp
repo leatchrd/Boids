@@ -3,6 +3,8 @@
 #include <iostream>
 #include "app.hpp"
 #include "doctest/doctest.h"
+#include "glimac/common.hpp"
+#include "glimac/sphere_vertices.hpp"
 #include "p6/p6.h"
 
 int main(void)
