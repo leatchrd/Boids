@@ -9,8 +9,33 @@ ImGui::SeparatorText("Pouet");
 ImGui::NewLine();
 -> pour créer une ligne vide
 
-## Chaine de Markov appliquée à la couleur du fond
-
 ## Choix du nombre de boids
 Avoir un menu avant de lancer le jeu ou on peut définir le nombre de boids souhaité.
 Puis lancer le jeu ensuite.
+
+## Chaine de Markov appliquée à la couleur du fond
+En gros,
+
+On a un "groupe" qui permet de fixer une couleur selon trois composantes qui sont rouge, vert, Blue; 
+Je dis "groupe" car il faut que l'on réfléchisse à sa nature, une class, une struct ... ?
+
+
+Ensuite, on crée trois groupes qui sont trois nuances de bleu (ou autre couleur en soit on s'en fout pour l'instant)
+
+Ensuite, en termes de timing
+Quelle est la durée d'un "aujourd'hui" ? La question se pose dans l'autre sens, créons un chronomètre.
+
+Ainsi un "aujourd'hui" a une durée t.
+
+Puis, toutes les durées t "demain" arrive.
+
+Alors là ça devient compliqué. La couleur de "demain" est déterminée selon les probabilités d'apparition. Elles sont à fixer. Ces couleurs dépendent de la couleur d'aujourd'hui. C'est mal expliqué mais c'est assez simple à comprendre, il faut se reporter au schéma vu en cours.
+
+Prenons trois groupes de couleurs :
+A, B, C dans cet ordre
+
+Pour simplifier ce que je raconte, on va prendre les mêmes probabilités d'apparition pour toutes les couleurs. Ainsi on a une proba de 1/3. Mais elle pourra être changée et adaptée pour chaque groupe.
+
+----- à faire ----
+Reprendre exo du cours pour le tirage de l'aléatoire
+tirage entre 0 et 1 et la valeur trouvée sera utilisée par la fonction de Markov.

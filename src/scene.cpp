@@ -19,7 +19,6 @@ void Scene::draw(p6::Context& ctx)
 {
     // background
     ctx.background(p6::rgb(colorsBackground::Red, colorsBackground::Green, colorsBackground::Blue));
-    // ctx.background(backgroundColor);
 
     // cube
     drawSquare(ctx, this->position, this->side);
@@ -46,6 +45,7 @@ void Scene::update(p6::Context& ctx)
     this->flock.update(ctx, this->side);
 }
 
+// Cette fonction ne sert à rien (pour l'instant ?)
 void Scene::setBackgroundColor(float r, float g, float b)
 {
     r = std::clamp(r, 0.0f, 1.0f);
