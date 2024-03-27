@@ -87,7 +87,7 @@ float rand01()
     return distrib(gen);
 }
 
-int loiBinomiale(int n, float p) {
+int binomialDistribution(int n, float p) {
     int x = 0;
     for (int i = 0; i < n; ++i) {
         if (rand01() < p) {
@@ -101,8 +101,8 @@ int main() {
     float p = 0.5;  // p est compris entre 0 et 1. Pour p = 0.5, la loi est équilibrée.
     int nbFishTotal = 20;
     
-    int nbBigFish = loiBinomiale(4, 0.5);
-    int nbLittleFish = loiBinomiale(11, 0.5);
+    int nbBigFish = binomialDistribution(4, 0.5);
+    int nbLittleFish = binomialDistribution(11, 0.5);
     int nbMediumFish = nbFishTotal - (nbBigFish + nbLittleFish);
     
     return 0;
@@ -110,3 +110,60 @@ int main() {
 
 -----------------------------------------------------------------------------------------------------------
 A FAIRE : Au même niveau qe src, faire un dossier "proba" et un fichier pour chaque loi.
+
+-----------------------------------------------------------------------------------------------------------
+Maintenant faisons de même avec la loi exponentielle
+
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <random>
+
+En utilisant la fonction rand01() :
+
+float exponentialDistribution(float lambda)
+{
+    return -log(1 - rand01()) / lambda;
+}
+
+Le paramètre lambda correspond à la "force" de décroissance de la courbe.
+Plus lambda est élevé, plus la courbe va décroitre brutalement.
+
+-----------------------------------------------------------------------------------------------------------
+Qu'en est-il de la loi gaussienne ?
+
+En utilisant la fonction rand01() :
+
+#include <iostream>
+#include <cmath>
+#include <random>
+
+float gaussianDistribution(float average, float standardDeviation)
+{
+    float u1 = rand01();
+    float u2 = rand01();
+    
+    float z0 = sqrt(-2.0 * log(u1)) * cos(2.0 * M_PI * u2);
+    return average + standardDeviation * z0;
+}
+
+float boidLocation(float squareSize)
+{
+    return gaussianDistribution(0.0f, squareSize / 3.0f); 
+    // La moyenne est à 0 pour faire apparaitre les boids autour de (0, 0, 0)
+    // L'écart-type, standardDerivation, peut être modifié selon si on veut un "petit" centre ou un "grand" centre
+}
+
+int main() {
+    float squareSize = 10.0f; // À adapter puisqu'il s'agira de récupérer la valeur et non de la fixer.
+    
+    // Définir la position des boids dans le carré selon les axes x, y et z pour la 3D
+    float x_boid = boidLocation(squareSize);
+    float y_boid = boidLocation(squareSize);
+    float z_boid = boidLocation(squareSize);
+        
+    return 0;
+}
+
+-----------------------------------------------------------------------------------------------------------
+Qu'en est-il de la loi gaussienne ?
