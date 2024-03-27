@@ -14,9 +14,7 @@ void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment,
 {
     this->applyBoidsBehaviour(allBoids, separation, alignment, cohesion, perceptionRadius, separationDistance);
     this->update();
-    // this->avoidWalls(wall);
     this->wrapAround(wall);
-    // this->checkIfOutside(wall);
     this->draw(ctx);
 }
 
@@ -49,19 +47,6 @@ void Boid::update()
     this->updateAcceleration(zero);
 }
 
-// void Boid::avoidWalls(float& wall)
-// {
-//     float minusWall = -wall;
-//     // TOP wall
-//     this->avoidOneWall(this->position.y, wall);
-//     // BOTTOM wall
-//     this->avoidOneWall(this->position.y, minusWall);
-//     // LEFT wall
-//     this->avoidOneWall(this->position.x, minusWall);
-//     // RIGHT wall
-//     this->avoidOneWall(this->position.x, wall);
-// }
-
 void Boid::wrapAround(float& wall)
 {
     if (this->position.x < -wall + this->radius)
@@ -86,35 +71,9 @@ void Boid::wrapAround(float& wall)
     }
 }
 
-// void Boid::checkIfOutside(float& wall)
-// {
-//     if (isBeyond(this->position.y, this->radius, -wall + (this->maxDistanceToWall * 0.5), wall - (this->maxDistanceToWall * 0.5))
-//         || isBeyond(this->position.x, this->radius, -wall + (this->maxDistanceToWall * 0.5), wall - (this->maxDistanceToWall * 0.5)))
-//     {
-//         this->position = glm::vec2{0., 0.};
-//     }
-// }
-
 void Boid::draw(p6::Context& ctx)
 {
     drawCircle(ctx, this->position, this->radius);
-}
-
-// FOR UPDATE
-
-void Boid::updatePosition()
-{
-    this->position += this->velocity;
-}
-
-void Boid::updateVelocity()
-{
-    this->velocity += this->acceleration;
-}
-
-void Boid::updateAcceleration(glm::vec2& force)
-{
-    this->acceleration += force;
 }
 
 // FOR BOID BEHAVIOUR
@@ -150,14 +109,6 @@ glm::vec2 Boid::separate(std::vector<Boid>& allBoids, float& separationDistance)
         // newDirection *= 10;
     }
 
-    // if (glm::length(newDirection) > 0)
-    // {
-    //     glm::normalize(newDirection);
-    //     newDirection *= this->maxSpeed;
-    //     newDirection -= this->velocity;
-    //     newDirection = limit(newDirection, this->maxAcceleration);
-    // }
-
     return newDirection;
 }
 
@@ -181,12 +132,10 @@ glm::vec2 Boid::align(std::vector<Boid>& allBoids, float& perceptionRadius)
     {
         avgVelocity /= nbCloseBoids;
         glm::normalize(avgVelocity);
-        avgVelocity *= 100;
-        // avgVelocity *= this->maxSpeed;
 
-        // glm::vec2 newDirection = avgVelocity - this->velocity;
-        // newDirection           = limit(newDirection, this->maxAcceleration);
-        return avgVelocity;
+        glm::vec2 newDirection = avgVelocity - this->velocity;
+        newDirection *= 100;
+        return newDirection;
     }
     else
     {
@@ -216,12 +165,10 @@ glm::vec2 Boid::cohered(std::vector<Boid>& allBoids, float& perceptionRadius)
 
         glm::vec2 target = avgPosition - this->position;
         glm::normalize(target);
-        // target *= this->maxSpeed;
-        target *= 100;
 
         glm::vec2 newDirection = target - this->velocity;
         glm::normalize(newDirection);
-        // newDirection           = limit(newDirection, this->maxAcceleration);
+        newDirection *= 100;
         return newDirection;
     }
     else
@@ -230,15 +177,19 @@ glm::vec2 Boid::cohered(std::vector<Boid>& allBoids, float& perceptionRadius)
     }
 }
 
-// FOR COLLISIONS
+// FOR UPDATE
 
-// void Boid::avoidOneWall(float& position, float& wall)
-// {
-//     glm::vec2 toWall{position, wall};
-//     float     distanceToWall = glm::distance(position, wall);
+void Boid::updatePosition()
+{
+    this->position += this->velocity;
+}
 
-//     if (glm::dot(toWall, this->velocity) > 0 && distanceToWall - this->radius < this->maxDistanceToWall)
-//     {
-//         this->velocity = -this->velocity;
-//     }
-// }
+void Boid::updateVelocity()
+{
+    this->velocity += this->acceleration;
+}
+
+void Boid::updateAcceleration(glm::vec2& force)
+{
+    this->acceleration += force;
+}
