@@ -15,7 +15,7 @@ Scene::Scene(glm::vec2 position)
 {
 }
 
-void Scene::draw(p6::Context& ctx, float radius)
+void Scene::draw(p6::Context& ctx)
 {
     // background
     ctx.background(p6::rgb(colorsBackground::Red, colorsBackground::Green, colorsBackground::Blue));

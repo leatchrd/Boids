@@ -52,7 +52,7 @@ void App::drawMenu()
     ImGui::End();
 }
 
-void App::draw(p6::Context& ctx, float radius)
+void App::draw(p6::Context& ctx)
 {
-    this->scene.draw(ctx, radius);
+    this->scene.draw(ctx);
 }

@@ -31,7 +31,7 @@ int main(void)
         myApp.exitKey(ctx);
 
         // Scene setup
-        myApp.draw(ctx, 0.2);
+        myApp.draw(ctx);
         myApp.update(ctx);
     };
 

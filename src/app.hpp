@@ -12,7 +12,7 @@ public:
 
     void drawMenu();
     void update(p6::Context& ctx);
-    void draw(p6::Context& ctx, float radius);
+    void draw(p6::Context& ctx);
 
     void pausePlayKey(p6::Context& ctx);
     void exitKey(p6::Context& ctx);
