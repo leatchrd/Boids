@@ -10,4 +10,5 @@ void drawCircle(p6::Context& ctx, glm::vec2 position, float radius);
 bool      isBetween(float compare, float border, float smallest, float biggest);
 bool      isBeyond(float compare, float border, float smallest, float biggest);
 float     randNeg101();
+float     rand01();
 glm::vec2 limit(glm::vec2& vector, float& max);

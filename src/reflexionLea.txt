@@ -13,6 +13,8 @@ ImGui::NewLine();
 Avoir un menu avant de lancer le jeu ou on peut définir le nombre de boids souhaité.
 Puis lancer le jeu ensuite.
 
+-----------------------------------------------------------------------------------------------------------
+
 ## Chaine de Markov appliquée à la couleur du fond
 En gros,
 
@@ -39,3 +41,72 @@ Pour simplifier ce que je raconte, on va prendre les mêmes probabilités d'appa
 ----- à faire ----
 Reprendre exo du cours pour le tirage de l'aléatoire
 tirage entre 0 et 1 et la valeur trouvée sera utilisée par la fonction de Markov.
+
+On a déjà une fonction random qui tire un nombre entre 0 et 1.
+
+Faire la fonction loiMarkov
+
+-----------------------------------------------------------------------------------------------------------
+
+## Réflexion sur la loi binomiale appliquée aux nombres de poissons de chaque groupe
+En paramètre fixe, on a le nombre de poissons total. Appelons-le nbFishTotal et prenons nbFishTotal = 20.
+
+Ensuite on a nos trois catégories de poissons, les petits, les moyens et les gros.
+Il peut y avoir au maximum :
+- 5 gros poissons, nbBigFish
+- 12 petits poissons nbLittleFish
+- le reste sur les 20 sont des moyens poissons nbMediumFish
+
+La répartition (au maximum) est donc de :
+- Gros poisquailles : 5/20 soit 1/4 de nbFishTotal
+- Mini poisquailles : 12/20 soit 3/5 de nbFishTotal
+- Moyens poissons : nbFishTotal - (nbBigFish + nbLittleFish)
+
+Appliquons une loi binomiale sur le nombre de gros poissons et une autre sur le nombre de petits poissons.
+On a donc nos bornes :
+- Entre 1 et 5 gros poissons. Faisons notre loi sur 0 - 4 et on fait +1 à la fin.
+
+- Entre 1 et 12 gros poissons. Faisons notre loi sur 0 - 11 et on fait +1 à la fin également.
+
+Ok ça ce sont les valeurs auxquelles on peut se rapporter.
+
+Passons à la loi binomiale.
+En terme de code ça donnerait ça :
+
+-----------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <vector>
+#include <random>
+
+
+// La fonction rand01() est déjà implémentée dans tools.cpp
+float rand01()
+{
+    thread_local std::default_random_engine gen{std::random_device{}()};
+    thread_local auto                       distrib = std::uniform_real_distribution<float>{0.0, 1.0};
+    return distrib(gen);
+}
+
+int loiBinomiale(int n, float p) {
+    int x = 0;
+    for (int i = 0; i < n; ++i) {
+        if (rand01() < p) {
+            x++;
+        }
+    }
+    return x+1; // On s'assure d'avoir au moins 1 poisson
+}
+
+int main() {
+    float p = 0.5;  // p est compris entre 0 et 1. Pour p = 0.5, la loi est équilibrée.
+    int nbFishTotal = 20;
+    
+    int nbBigFish = loiBinomiale(4, 0.5);
+    int nbLittleFish = loiBinomiale(11, 0.5);
+    int nbMediumFish = nbFishTotal - (nbBigFish + nbLittleFish);
+    
+    return 0;
+}
+
+-----------------------------------------------------------------------------------------------------------
+A FAIRE : Au même niveau qe src, faire un dossier "proba" et un fichier pour chaque loi.
