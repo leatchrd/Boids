@@ -130,7 +130,7 @@ Le paramètre lambda correspond à la "force" de décroissance de la courbe.
 Plus lambda est élevé, plus la courbe va décroitre brutalement.
 
 -----------------------------------------------------------------------------------------------------------
-Qu'en est-il de la loi gaussienne ?
+Qu'en est-il de la loi gaussienne ? On peut l'utiliser pour la position d'apparition des gros poissons.
 
 En utilisant la fonction rand01() :
 
@@ -147,7 +147,7 @@ float gaussianDistribution(float average, float standardDeviation)
     return average + standardDeviation * z0;
 }
 
-float boidLocation(float squareSize)
+float littleBoidsLocation(float squareSize)
 {
     return gaussianDistribution(0.0f, squareSize / 3.0f); 
     // La moyenne est à 0 pour faire apparaitre les boids autour de (0, 0, 0)
@@ -158,12 +158,45 @@ int main() {
     float squareSize = 10.0f; // À adapter puisqu'il s'agira de récupérer la valeur et non de la fixer.
     
     // Définir la position des boids dans le carré selon les axes x, y et z pour la 3D
-    float x_boid = boidLocation(squareSize);
-    float y_boid = boidLocation(squareSize);
-    float z_boid = boidLocation(squareSize);
+    float x_boid = littleBoidsLocation(squareSize);
+    float y_boid = littleBoidsLocation(squareSize);
+    float z_boid = littleBoidsLocation(squareSize);
         
     return 0;
 }
 
 -----------------------------------------------------------------------------------------------------------
-Qu'en est-il de la loi gaussienne ?
+J'en suis moins sûre mais on pourrait utiliser une loi bêta pour la position d'apparition des petits poissons.
+
+En utilisant la fonction rand01() :
+
+#include <iostream>
+#include <cmath>
+#include <random>
+
+float betaDistribution(float alpha, float beta)
+{
+    float u1 = rand01();
+    float u2 = rand01();
+    
+    return pow(u1, alpha) * pow(u2, beta);
+}
+
+float littleBoidsLocation(float squareSize)
+{
+    float alpha = 0.5f;
+    float beta = 0.5f;
+    // Si j'ai bien compris, pour avoir une loi bêta en forme d'hyperbole, il faut que les paramètres alpha et beta soient proches de 0.
+    
+    return squareSize * betaDistribution(alpha, beta);
+}
+
+int main() {
+    float squareSize = 10.0f; // Taille d'un côté du carré/cube
+    
+    float x_boid = littleBoidsLocation(squareSize);
+    float y_boid = littleBoidsLocation(squareSize);
+    float z_boid = littleBoidsLocation(squareSize);
+    
+    return 0;
+}
