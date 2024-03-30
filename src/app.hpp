@@ -11,7 +11,7 @@ public:
     App();
 
     void drawMenu();
-    void update(p6::Context& ctx);
+    void update();
     void draw(p6::Context& ctx);
 
     void pausePlayKey(p6::Context& ctx);

@@ -30,7 +30,7 @@ bool isBeyond(float compare, float border, float smallest, float biggest)
     return biggest < compare + border || compare - border < smallest;
 }
 
-float randNeg101()
+float randNeg1_1()
 {
     thread_local std::default_random_engine gen{std::random_device{}()};
     thread_local auto                       distrib = std::uniform_real_distribution<float>{-1.0, 1.0};
@@ -38,7 +38,7 @@ float randNeg101()
     return distrib(gen);
 }
 
-glm::vec2 limit(glm::vec2& vector, float& max)
+glm::vec3 limit(glm::vec3& vector, float& max)
 {
     float magnitude = glm::length(vector);
     float a         = std::min(magnitude, max) / magnitude;

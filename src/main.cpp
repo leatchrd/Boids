@@ -3,6 +3,7 @@
 #include <iostream>
 #include "app.hpp"
 #include "doctest/doctest.h"
+#include "flock.hpp"
 #include "glimac/common.hpp"
 #include "glimac/sphere_vertices.hpp"
 #include "glm/ext/matrix_transform.hpp"
@@ -30,7 +31,9 @@ int main(void)
     ctx.maximize_window();
 
     // Different parameters
-    App myApp;
+    App   myApp;
+    Flock myFlock(20);
+    float wallSize = 0.5;
 
     // Load shader
     const p6::Shader shader =
@@ -41,7 +44,7 @@ int main(void)
     std::vector<GLuint> textures{0};
     glGenTextures(nb_textures, textures.data());
 
-    const img::Image water         = p6::load_image_buffer("assets/textures/water.jpg", true);
+    const img::Image water         = p6::load_image_buffer("assets/textures/water.jpg");
     GLuint           waterTexIndex = textures[0];
     glBindTexture(GL_TEXTURE_2D, waterTexIndex);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, water.width(), water.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, water.data());
@@ -49,7 +52,7 @@ int main(void)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    const img::Image fishScalesColor   = p6::load_image_buffer("assets/textures/fish_scales_mult_color.png", true);
+    const img::Image fishScalesColor   = p6::load_image_buffer("assets/textures/fish_scales_mult_color.png", false);
     GLuint           fishColorTexIndex = textures[1];
     glBindTexture(GL_TEXTURE_2D, fishColorTexIndex);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, fishScalesColor.width(), fishScalesColor.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, fishScalesColor.data());
@@ -214,17 +217,7 @@ int main(void)
         glBindVertexArray(vaoFish);
         glBindTexture(GL_TEXTURE_2D, fishColorTexIndex);
 
-        // adjust ojbect location
-        MVMatrix = glm::translate(glm::mat4(1.f), glm::vec3(0.f, 0.f, -0.5f));
-        MVMatrix = glm::scale(MVMatrix, glm::vec3(0.01));
-
-        // fill matrices with uniform location
-        glUniformMatrix4fv(uni_MVP, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
-        glUniformMatrix4fv(uni_MV, 1, GL_FALSE, glm::value_ptr(MVMatrix));
-        glUniformMatrix4fv(uni_Normal, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
-
-        // draw using the VAO
-        glDrawArrays(GL_TRIANGLES, 0, fish.size());
+        myFlock.update(ctx, wallSize, uni_MVP, uni_MV, uni_Normal, fish);
 
         // VAO and texture de-binding
         glBindTexture(GL_TEXTURE_2D, 0);

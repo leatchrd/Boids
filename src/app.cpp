@@ -31,9 +31,9 @@ void App::exitKey(p6::Context& ctx)
 
 // --- PRIVATE ---
 
-void App::update(p6::Context& ctx)
+void App::update()
 {
-    this->scene.update(ctx);
+    // this->scene.update(ctx);     TODO: transform into flock update
 }
 
 void App::drawMenu()

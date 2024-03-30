@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "boid.hpp"
+#include "glimac/sphere_vertices.hpp"
 #include "p6/p6.h"
 
 class Flock {
@@ -15,11 +16,8 @@ public:
     float alignmentCoeff  = 1.f;
     float cohesionCoeff   = 1.f;
 
-private:
-    void addBoid(Boid single);
-
 public:
     Flock(size_t total);
-    void update(p6::Context& ctx, float& wallSize);
+    void update(p6::Context& ctx, float& wallSize, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer);
     void updateMenu();
 };

@@ -23,7 +23,6 @@ public:
     void draw(p6::Context& ctx);
     void updateMenu();
     void drawMenu();
-    void update(p6::Context& ctx);
 
     void setBackgroundColor(float r, float g, float b);
 };

@@ -10,15 +10,15 @@ Flock::Flock(size_t total)
 {
     for (size_t i = 1; i < total + 1; i++)
     {
-        this->flock.push_back(Boid(0.03f, glm::vec2{0.f, 0.f}, glm::vec2{randNeg101(), randNeg101()}));
+        this->flock.push_back(Boid(0.01f, glm::vec3{0.f, 0.f, -0.5f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
     }
 }
 
-void Flock::update(p6::Context& ctx, float& wallSize)
+void Flock::update(p6::Context& ctx, float& wallSize, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
 {
     for (size_t i = 0; i < this->flock.size(); i++)
     {
-        this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, this->perceptionRadius, this->separationDistance, wallSize, ctx);
+        this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, this->perceptionRadius, this->separationDistance, wallSize, ctx, uni_MVP, uni_MV, uni_Normal, boidContainer);
     }
 }
 
@@ -37,11 +37,4 @@ void Flock::updateMenu()
     ImGui::SliderFloat("##Perception radius", &this->perceptionRadius, 0.0f, 1.0f);
     ImGui::Text("Separation distance");
     ImGui::SliderFloat("##Separation distance", &this->separationDistance, 0.0f, 1.0f);
-}
-
-// --- PRIVATE ---
-
-void Flock::addBoid(Boid single)
-{
-    this->flock.push_back(single);
 }

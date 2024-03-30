@@ -23,6 +23,7 @@ void Scene::draw(p6::Context& ctx)
 
     // cube
     drawSquare(ctx, this->position, this->side);
+
     // circle that follows mouse
     // drawCircle(ctx, ctx.mouse(), radius);
 }
@@ -39,11 +40,6 @@ void Scene::drawMenu()
     ImGui::NewLine();
 
     this->flock.updateMenu();
-}
-
-void Scene::update(p6::Context& ctx)
-{
-    this->flock.update(ctx, this->side);
 }
 
 void Scene::setBackgroundColor(float r, float g, float b)
