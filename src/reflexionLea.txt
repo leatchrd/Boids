@@ -109,6 +109,16 @@ int main() {
 }
 
 -----------------------------------------------------------------------------------------------------------
+// La loi de Bernoulli c'est la même chose mais sur un seul essai, on n'a pas le nombre de lancers n.
+
+int bernoulliDistribution(float p) {
+    if (rand01() < p) { // Avec p = 0.5 pour une loi équitable
+        return 1; // Succès
+    } else {
+        return 0; // Échec
+    }
+}
+-----------------------------------------------------------------------------------------------------------
 A FAIRE : Au même niveau qe src, faire un dossier "proba" et un fichier pour chaque loi.
 
 -----------------------------------------------------------------------------------------------------------
@@ -206,3 +216,4 @@ Ok ça nous fait 4 lois.
 
 Je ne sais pas si une loi uniforme c'est utile.
 On peut aussi faire une loi de Poisson. Mais je ne sais pas trop dans quel cas elle pourrait servir.
+
