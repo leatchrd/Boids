@@ -112,7 +112,7 @@ int main() {
 A FAIRE : Au même niveau qe src, faire un dossier "proba" et un fichier pour chaque loi.
 
 -----------------------------------------------------------------------------------------------------------
-Maintenant faisons de même avec la loi exponentielle
+Maintenant faisons de même avec la loi exponentielle.
 
 #include <iostream>
 #include <vector>
@@ -200,3 +200,9 @@ int main() {
     
     return 0;
 }
+
+-----------------------------------------------------------------------------------------------------------
+Ok ça nous fait 4 lois.
+
+Je ne sais pas si une loi uniforme c'est utile.
+On peut aussi faire une loi de Poisson. Mais je ne sais pas trop dans quel cas elle pourrait servir.
