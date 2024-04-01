@@ -67,8 +67,8 @@ float rand01()
 
 // Fonction qui génère la couleur suivante en utilisant la chaîne de Markov
 Color nextColor(const Color& currentColor) {
-    double stayProbability = 0.7; // Probabilité de rester dans le même état
-    double transitionProbability = (1.0 - stayProbability) / 2.0; // Probabilité de transition vers un autre état
+    double stayProbability = 0.7; // Probabilité de rester dans le même état, on peut la changer
+    double transitionProbability = (1.0 - stayProbability) / 2.0; // Probabilité de transition vers un autre état, deux fois la même proba mais on peut en faire une troisième si il faut
     
     // On utilise l'aléatoire pour décider de la transition
     float transition = rand01();
@@ -265,5 +265,40 @@ Je ne sais pas si une loi uniforme c'est utile.
 On peut aussi faire une loi de Poisson. Mais je ne sais pas trop dans quel cas elle pourrait servir.
 
 -----------------------------------------------------------------------------------------------------------
+Loi de Cauchy pour donner une vitesse initiale aléatoire à chaque boid.
 
+En utilisant la fonction rand01() :
 
+#include <iostream>
+#include <cmath>
+#include <random>
+
+float cauchyDistribution(float x0, float gamma)
+{
+    float u = rand01();
+    return x0 + gamma * tan(M_PI * (u - 0.5));
+}
+
+// Vitesses des boids avec la loi de Cauchy
+void initializeBoidVelocities(float x0, float gamma, paramètre de la vitesse d'un bois)
+{
+    for (int i = 0; i < velocities.size(); ++i) {
+        velocities[i] = cauchyDistribution(x0, gamma);
+}
+
+int main() {
+    // Paramètres de la loi de Cauchy
+    float x0 = 0.0f;   // Médiane de la distribution
+    float gamma = 1.0f; // Paramètre de largeur
+
+    // Nombre de boids dans le groupe
+    int numBoids = 100; // Par exemple
+
+    // Vecteur pour stocker les vitesses initiales des boids, à changer
+    std::vector<float> boidVelocities(numBoids);
+
+    // Initialiser les vitesses des boids avec la loi de Cauchy, à changer
+    initializeBoidVelocities(x0, gamma, boidVelocities);
+
+    return 0;
+}
