@@ -44,7 +44,54 @@ tirage entre 0 et 1 et la valeur trouvée sera utilisée par la fonction de Mark
 
 On a déjà une fonction random qui tire un nombre entre 0 et 1.
 
-Faire la fonction loiMarkov
+-----------------------------------------------------------------------------------------------------------
+// Chaine de Markov
+
+#include <iostream>
+#include <random>
+#include <vector>
+
+// Imaginons trois couleurs différentes
+struct Color {
+    int r;
+    int g;
+    int b;
+};
+
+float rand01()
+{
+    thread_local std::default_random_engine gen{std::random_device{}()};
+    thread_local auto                       distrib = std::uniform_real_distribution<float>{0.0, 1.0};
+    return distrib(gen);
+}
+
+// Fonction qui génère la couleur suivante en utilisant la chaîne de Markov
+Color nextColor(const Color& currentColor) {
+    double stayProbability = 0.7; // Probabilité de rester dans le même état
+    double transitionProbability = (1.0 - stayProbability) / 2.0; // Probabilité de transition vers un autre état
+    
+    // On utilise l'aléatoire pour décider de la transition
+    float transition = rand01();
+
+    if (transition < stayProbability) {
+        // Rester dans le même état
+        return currentColor;
+    } else if (transition < stayProbability + transitionProbability) {
+        // Transition vers l'état 2
+        return {255, 0, 0}; // Rouge
+    } else {
+        // Transition vers l'état 3
+        return {0, 255, 0}; // Vert
+    }
+}
+
+int main() {
+    Color initialColor = {0, 0, 255}; // Couleur initiale (bleu)
+
+    Color next = nextColor(initialColor);
+
+    return 0;
+}
 
 -----------------------------------------------------------------------------------------------------------
 
@@ -212,8 +259,11 @@ int main() {
 }
 
 -----------------------------------------------------------------------------------------------------------
-Ok ça nous fait 4 lois.
+Ok ça nous fait 4 lois (car Bernoulli et binomiale c'est la même chose).
 
 Je ne sais pas si une loi uniforme c'est utile.
 On peut aussi faire une loi de Poisson. Mais je ne sais pas trop dans quel cas elle pourrait servir.
+
+-----------------------------------------------------------------------------------------------------------
+
 
