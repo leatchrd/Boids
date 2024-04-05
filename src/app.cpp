@@ -1,5 +1,8 @@
 #include "app.hpp"
+#include "3DTools.hpp"
+#include "flock.hpp"
 #include "p6/p6.h"
+#include "scene.hpp"
 
 // --- PUBLIC ---
 
@@ -7,6 +10,8 @@ App::App()
 {
     Scene newScene;
     this->scene = newScene;
+    Flock newFlock;
+    this->flock = newFlock;
 }
 
 void App::pausePlayKey(p6::Context& ctx)
@@ -31,9 +36,9 @@ void App::exitKey(p6::Context& ctx)
 
 // --- PRIVATE ---
 
-void App::update()
+void App::updateFlock(p6::Context& ctx, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
 {
-    // this->scene.update(ctx);     TODO: transform into flock update
+    this->flock.update(ctx, this->scene.side, uni_MVP, uni_MV, uni_Normal, boidContainer); // TODO: transform into flock update
 }
 
 void App::drawMenu()
@@ -52,7 +57,7 @@ void App::drawMenu()
     ImGui::End();
 }
 
-void App::draw(p6::Context& ctx)
+void App::drawScene(p6::Context& ctx, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, std::vector<Vertex2DTex>& wallContainer)
 {
-    this->scene.draw(ctx);
+    this->scene.draw(ctx, uni_MVP, uni_MV, uni_Normal, wallContainer);
 }

@@ -1,23 +1,14 @@
 #include <cstdlib>
 #define DOCTEST_CONFIG_IMPLEMENT
 #include <iostream>
+#include "3DTools.hpp"
 #include "app.hpp"
 #include "doctest/doctest.h"
-#include "flock.hpp"
 #include "glimac/common.hpp"
 #include "glimac/sphere_vertices.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "p6/p6.h"
-
-class Vertex2DTex {
-public:
-    glm::vec3 position, norm;
-    glm::vec2 texture;
-
-    Vertex2DTex(glm::vec3 position, glm::vec3 norm, glm::vec2 texture)
-        : position(position), norm(norm), texture(texture){};
-};
 
 int main(void)
 {
@@ -31,9 +22,7 @@ int main(void)
     ctx.maximize_window();
 
     // Different parameters
-    App   myApp;
-    Flock myFlock(20);
-    float wallSize = 0.5;
+    App myApp;
 
     // Load shader
     const p6::Shader shader =
@@ -52,8 +41,16 @@ int main(void)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
 
+    const img::Image glass         = p6::load_image_buffer("assets/textures/glass_blue.png");
+    GLuint           glassTexIndex = textures[1];
+    glBindTexture(GL_TEXTURE_2D, glassTexIndex);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, glass.width(), glass.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, glass.data());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
     const img::Image fishScalesColor   = p6::load_image_buffer("assets/textures/fish_scales_mult_color.png", false);
-    GLuint           fishColorTexIndex = textures[1];
+    GLuint           fishColorTexIndex = textures[2];
     glBindTexture(GL_TEXTURE_2D, fishColorTexIndex);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, fishScalesColor.width(), fishScalesColor.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, fishScalesColor.data());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -68,12 +65,12 @@ int main(void)
 
     // vertices creation
     std::vector<Vertex2DTex> wall;
-    wall.push_back(Vertex2DTex{{-0.5f, 0.5f, -1.0f}, {0.0f, 0.0f, -1.0f}, {0.f, 1.f}});
-    wall.push_back(Vertex2DTex{{0.5f, 0.5f, -1.0f}, {0.0f, 0.0f, -1.0f}, {1.f, 1.f}});
-    wall.push_back(Vertex2DTex{{0.5f, -0.5f, -1.0f}, {0.0f, 0.0f, -1.0f}, {1.f, 0.f}});
-    wall.push_back(Vertex2DTex{{-0.5f, 0.5f, -1.0f}, {0.0f, 0.0f, -1.0f}, {0.f, 1.f}});
-    wall.push_back(Vertex2DTex{{-0.5f, -0.5f, -1.0f}, {0.0f, 0.0f, -1.0f}, {0.f, 0.f}});
-    wall.push_back(Vertex2DTex{{0.5f, -0.5f, -1.0f}, {0.0f, 0.0f, -1.0f}, {1.f, 0.f}});
+    wall.push_back(Vertex2DTex{{-0.5f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.f, 1.f}});
+    wall.push_back(Vertex2DTex{{0.5f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.f, 1.f}});
+    wall.push_back(Vertex2DTex{{0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.f, 0.f}});
+    wall.push_back(Vertex2DTex{{-0.5f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.f, 1.f}});
+    wall.push_back(Vertex2DTex{{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.f, 0.f}});
+    wall.push_back(Vertex2DTex{{0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.f, 0.f}});
 
     glBufferData(GL_ARRAY_BUFFER, wall.size() * sizeof(Vertex2DTex), wall.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -177,10 +174,6 @@ int main(void)
         // Event management
         myApp.exitKey(ctx);
 
-        // Scene setup
-        // myApp.draw(ctx);
-        // myApp.update(ctx);
-
         // clean window
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -188,25 +181,17 @@ int main(void)
         shader.use();
         glUniform1i(uni_tex, 0);
 
-        // matrix creation
-        glm::mat4 ProjMatrix =
-            glm::perspective(glm::radians(70.f), ctx.aspect_ratio(), 0.1f, 100.f);
-        glm::mat4 MVMatrix =
-            glm::translate(glm::mat4(1.f), glm::vec3(0.f, 0.f, 0.f));
-        glm::mat4 NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
-
         // WALL
         // VAO and texture re-binding
         glBindVertexArray(vaoWall);
-        glBindTexture(GL_TEXTURE_2D, waterTexIndex);
+        glBindTexture(GL_TEXTURE_2D, glassTexIndex);
 
-        // fill matrices with uniform location
-        glUniformMatrix4fv(uni_MVP, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
-        glUniformMatrix4fv(uni_MV, 1, GL_FALSE, glm::value_ptr(MVMatrix));
-        glUniformMatrix4fv(uni_Normal, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        // draw using the VAO
-        glDrawArrays(GL_TRIANGLES, 0, wall.size());
+        myApp.drawScene(ctx, uni_MVP, uni_MV, uni_Normal, wall);
+
+        glDisable(GL_BLEND);
 
         // VAO and texture de-binding
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -217,7 +202,7 @@ int main(void)
         glBindVertexArray(vaoFish);
         glBindTexture(GL_TEXTURE_2D, fishColorTexIndex);
 
-        myFlock.update(ctx, wallSize, uni_MVP, uni_MV, uni_Normal, fish);
+        myApp.updateFlock(ctx, uni_MVP, uni_MV, uni_Normal, fish);
 
         // VAO and texture de-binding
         glBindTexture(GL_TEXTURE_2D, 0);
