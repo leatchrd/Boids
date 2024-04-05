@@ -19,12 +19,12 @@ public:
 class Textures {
 public:
     GLuint              _nbTextures;
-    std::vector<GLuint> textures{0};
+    std::vector<GLuint> _textures{0};
 
 public:
     Textures(GLuint nbTextures)
         : _nbTextures{nbTextures} {};
-    ~Textures() { glDeleteTextures(this->_nbTextures, this->textures.data()); };
+    ~Textures() { glDeleteTextures(this->_nbTextures, this->_textures.data()); };
 
-    inline void gen() { glGenTextures(this->_nbTextures, this->textures.data()); };
+    inline void gen() { glGenTextures(this->_nbTextures, this->_textures.data()); };
 };

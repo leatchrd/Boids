@@ -35,17 +35,17 @@ int main(void)
     Textures allTextures(3);
     allTextures.gen();
 
-    Texture texWater("assets/textures/water.jpg", allTextures.textures[0]);
+    Texture texWater("assets/textures/water.jpg", allTextures._textures[0]);
     texWater.bind();
     texWater.loadTexImageAndParam();
     texWater.unbind();
 
-    Texture texGlass("assets/textures/glass_blue.png", allTextures.textures[1]);
+    Texture texGlass("assets/textures/glass_blue.png", allTextures._textures[1]);
     texGlass.bind();
     texGlass.loadTexImageAndParam();
     texGlass.unbind();
 
-    Texture texFishScalesColor("assets/textures/fish_scales_mult_color.png", allTextures.textures[2]);
+    Texture texFishScalesColor("assets/textures/fish_scales_mult_color.png", allTextures._textures[2]);
     texFishScalesColor.bind();
     texFishScalesColor.loadTexImageAndParam();
     texFishScalesColor.unbind();
