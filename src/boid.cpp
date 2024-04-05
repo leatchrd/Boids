@@ -94,11 +94,10 @@ void Boid::draw(p6::Context& ctx, const GLint& uni_MVP, const GLint& uni_MV, con
 {
     // matrix creation
     glm::mat4 ProjMatrix   = glm::perspective(glm::radians(70.f), ctx.aspect_ratio(), 0.1f, 100.f);
-    glm::mat4 MVMatrix     = glm::translate(glm::mat4(1.f), glm::vec3(0.f, 0.f, 0.f));
+    glm::mat4 MVMatrix     = glm::translate(glm::mat4(1.f), this->position);
     glm::mat4 NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
 
-    // adjust ojbect location
-    MVMatrix = glm::translate(glm::mat4{1.f}, this->position);
+    // adjust ojbect
     MVMatrix = glm::scale(MVMatrix, glm::vec3{this->radius});
     MVMatrix = glm::translate(MVMatrix, glm::vec3{0.f, 0.f, -1.f});
 
