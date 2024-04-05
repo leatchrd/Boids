@@ -9,6 +9,7 @@
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "p6/p6.h"
+#include "vbo.hpp"
 
 int main(void)
 {
@@ -59,9 +60,9 @@ int main(void)
 
     // SINGLE WALL
     // VBO creation & binding
-    GLuint vboWall;
-    glGenBuffers(1, &vboWall);
-    glBindBuffer(GL_ARRAY_BUFFER, vboWall);
+    VBO vboWall(1);
+    vboWall.gen();
+    vboWall.bind();
 
     // vertices creation
     std::vector<Vertex2DTex> wall;
@@ -73,7 +74,7 @@ int main(void)
     wall.push_back(Vertex2DTex{{0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.f, 0.f}});
 
     glBufferData(GL_ARRAY_BUFFER, wall.size() * sizeof(Vertex2DTex), wall.data(), GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    vboWall.unbind();
 
     // VAO creation & binding
     GLuint vaoWall;
@@ -89,7 +90,7 @@ int main(void)
     glEnableVertexAttribArray(wall_tex_coords);
 
     // VBO re-binding
-    glBindBuffer(GL_ARRAY_BUFFER, vboWall);
+    vboWall.bind();
 
     glVertexAttribPointer(
         wall_position, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex2DTex),
@@ -105,20 +106,20 @@ int main(void)
     );
 
     // VBO de-binding & VAO de-binding
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    vboWall.unbind();
     glBindVertexArray(0);
 
     // SINGLE FISH
     // VBO creation & binding
-    GLuint vboFish;
-    glGenBuffers(1, &vboFish);
-    glBindBuffer(GL_ARRAY_BUFFER, vboFish);
+    VBO vboFish(2);
+    vboFish.gen();
+    vboFish.bind();
 
     // vertices creation
     const std::vector<glimac::ShapeVertex> fish = glimac::sphere_vertices(1.f, 32, 16);
     glBufferData(GL_ARRAY_BUFFER, fish.size() * sizeof(glimac::ShapeVertex), fish.data(), GL_STATIC_DRAW);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    vboFish.unbind();
 
     // VAO creation & binding
     GLuint vaoFish;
@@ -134,7 +135,7 @@ int main(void)
     glEnableVertexAttribArray(fish_tex_coords);
 
     // VBO re-binding
-    glBindBuffer(GL_ARRAY_BUFFER, vboFish);
+    vboFish.bind();
 
     glVertexAttribPointer(
         fish_position, 3, GL_FLOAT, GL_FALSE, sizeof(glimac::ShapeVertex),
@@ -151,7 +152,7 @@ int main(void)
     );
 
     // VBO de-binding & VAO de-binding
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    vboFish.unbind();
     glBindVertexArray(0);
 
     // Uniform variable info
@@ -216,10 +217,9 @@ int main(void)
 
     // free memory
     glDeleteTextures(nb_textures, textures.data());
+    // automatic with VBO destructor
 
-    glDeleteBuffers(1, &vboWall);
     glDeleteVertexArrays(1, &vaoWall);
 
-    glDeleteBuffers(1, &vboFish);
     glDeleteVertexArrays(1, &vaoFish);
 }
