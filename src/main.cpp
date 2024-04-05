@@ -24,12 +24,12 @@ int main(void)
     auto ctx = p6::Context{{.title = "Awesome-Boids-Project"}};
     ctx.maximize_window();
 
-    // Different parameters
-    App myApp;
-
     // Load shader
     const p6::Shader shader =
         p6::load_shader("shaders/3D.vs.glsl", "shaders/tex3D.fs.glsl");
+
+    // Different parameters
+    App myApp;
 
     // TEXTURES
     Textures allTextures(3);
@@ -72,30 +72,12 @@ int main(void)
     VAO vaoWall(1);
     vaoWall.gen();
     vaoWall.bind();
-
-    // vertex attribute activation
-    static constexpr GLuint wall_position = 0;
-    glEnableVertexAttribArray(wall_position);
-    static constexpr GLuint wall_norm = 1;
-    glEnableVertexAttribArray(wall_norm);
-    static constexpr GLuint wall_tex_coords = 2;
-    glEnableVertexAttribArray(wall_tex_coords);
+    vaoWall.activateAttributes();
 
     // VBO re-binding
     vboWall.bind();
 
-    glVertexAttribPointer(
-        wall_position, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex2DTex),
-        (const GLvoid*)(offsetof(Vertex2DTex, position))
-    );
-    glVertexAttribPointer(
-        wall_norm, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex2DTex),
-        (const GLvoid*)(offsetof(Vertex2DTex, norm))
-    );
-    glVertexAttribPointer(
-        wall_tex_coords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2DTex),
-        (const GLvoid*)(offsetof(Vertex2DTex, texture))
-    );
+    vaoWall.setAttribPointer(sizeof(Vertex2DTex), (const GLvoid*)(offsetof(Vertex2DTex, position)), (const GLvoid*)(offsetof(Vertex2DTex, texture)));
 
     // VBO de-binding & VAO de-binding
     vboWall.unbind();
@@ -117,31 +99,12 @@ int main(void)
     VAO vaoFish(2);
     vaoFish.gen();
     vaoFish.bind();
-
-    // vertex attribute activation
-    static constexpr GLuint fish_position = 0;
-    glEnableVertexAttribArray(fish_position);
-    static constexpr GLuint fish_norm = 1;
-    glEnableVertexAttribArray(fish_norm);
-    static constexpr GLuint fish_tex_coords = 2;
-    glEnableVertexAttribArray(fish_tex_coords);
+    vaoFish.activateAttributes();
 
     // VBO re-binding
     vboFish.bind();
 
-    glVertexAttribPointer(
-        fish_position, 3, GL_FLOAT, GL_FALSE, sizeof(glimac::ShapeVertex),
-        (const GLvoid*)(offsetof(glimac::ShapeVertex, position))
-    );
-    glVertexAttribPointer(
-        fish_norm, 3, GL_FLOAT, GL_FALSE, sizeof(glimac::ShapeVertex),
-        (const GLvoid*)(offsetof(glimac::ShapeVertex, normal))
-    );
-    glVertexAttribPointer(
-        fish_tex_coords, 2, GL_FLOAT, GL_FALSE,
-        sizeof(glimac::ShapeVertex),
-        (const GLvoid*)(offsetof(glimac::ShapeVertex, texCoords))
-    );
+    vaoFish.setAttribPointer(sizeof(glimac::ShapeVertex), (const GLvoid*)(offsetof(glimac::ShapeVertex, position)), (const GLvoid*)(offsetof(glimac::ShapeVertex, texCoords)));
 
     // VBO de-binding & VAO de-binding
     vboFish.unbind();
