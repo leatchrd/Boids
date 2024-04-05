@@ -9,6 +9,7 @@
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "p6/p6.h"
+#include "texture.hpp"
 #include "vao.hpp"
 #include "vbo.hpp"
 
@@ -31,33 +32,24 @@ int main(void)
         p6::load_shader("shaders/3D.vs.glsl", "shaders/tex3D.fs.glsl");
 
     // TEXTURES
-    GLsizei             nb_textures = 2;
+    GLsizei             nb_textures = 3;
     std::vector<GLuint> textures{0};
     glGenTextures(nb_textures, textures.data());
 
-    const img::Image water         = p6::load_image_buffer("assets/textures/water.jpg");
-    GLuint           waterTexIndex = textures[0];
-    glBindTexture(GL_TEXTURE_2D, waterTexIndex);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, water.width(), water.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, water.data());
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    Texture texWater("assets/textures/water.jpg", textures[0]);
+    texWater.bind();
+    texWater.loadTexImageAndParam();
+    texWater.unbind();
 
-    const img::Image glass         = p6::load_image_buffer("assets/textures/glass_blue.png");
-    GLuint           glassTexIndex = textures[1];
-    glBindTexture(GL_TEXTURE_2D, glassTexIndex);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, glass.width(), glass.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, glass.data());
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    Texture texGlass("assets/textures/glass_blue.png", textures[1]);
+    texGlass.bind();
+    texGlass.loadTexImageAndParam();
+    texGlass.unbind();
 
-    const img::Image fishScalesColor   = p6::load_image_buffer("assets/textures/fish_scales_mult_color.png", false);
-    GLuint           fishColorTexIndex = textures[2];
-    glBindTexture(GL_TEXTURE_2D, fishColorTexIndex);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, fishScalesColor.width(), fishScalesColor.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, fishScalesColor.data());
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    Texture texFishScalesColor("assets/textures/fish_scales_mult_color.png", textures[2]);
+    texFishScalesColor.bind();
+    texFishScalesColor.loadTexImageAndParam();
+    texFishScalesColor.unbind();
 
     // SINGLE WALL
     // VBO creation & binding
@@ -186,7 +178,7 @@ int main(void)
         // WALL
         // VAO and texture re-binding
         vaoWall.bind();
-        glBindTexture(GL_TEXTURE_2D, glassTexIndex);
+        texGlass.bind();
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -196,18 +188,18 @@ int main(void)
         glDisable(GL_BLEND);
 
         // VAO and texture de-binding
-        glBindTexture(GL_TEXTURE_2D, 0);
+        texGlass.unbind();
         vaoWall.unbind();
 
         // FISH
         // VAO and texture re-binding
         vaoFish.bind();
-        glBindTexture(GL_TEXTURE_2D, fishColorTexIndex);
+        texFishScalesColor.bind();
 
         myApp.updateFlock(ctx, uni_MVP, uni_MV, uni_Normal, fish);
 
         // VAO and texture de-binding
-        glBindTexture(GL_TEXTURE_2D, 0);
+        texFishScalesColor.unbind();
         vaoFish.unbind();
     };
 
