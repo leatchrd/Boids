@@ -32,21 +32,20 @@ int main(void)
         p6::load_shader("shaders/3D.vs.glsl", "shaders/tex3D.fs.glsl");
 
     // TEXTURES
-    GLsizei             nb_textures = 3;
-    std::vector<GLuint> textures{0};
-    glGenTextures(nb_textures, textures.data());
+    Textures allTextures(3);
+    allTextures.gen();
 
-    Texture texWater("assets/textures/water.jpg", textures[0]);
+    Texture texWater("assets/textures/water.jpg", allTextures.textures[0]);
     texWater.bind();
     texWater.loadTexImageAndParam();
     texWater.unbind();
 
-    Texture texGlass("assets/textures/glass_blue.png", textures[1]);
+    Texture texGlass("assets/textures/glass_blue.png", allTextures.textures[1]);
     texGlass.bind();
     texGlass.loadTexImageAndParam();
     texGlass.unbind();
 
-    Texture texFishScalesColor("assets/textures/fish_scales_mult_color.png", textures[2]);
+    Texture texFishScalesColor("assets/textures/fish_scales_mult_color.png", allTextures.textures[2]);
     texFishScalesColor.bind();
     texFishScalesColor.loadTexImageAndParam();
     texFishScalesColor.unbind();
@@ -208,7 +207,5 @@ int main(void)
     // STARTS THE INFINITE LOOP
     ctx.start();
 
-    // free memory
-    glDeleteTextures(nb_textures, textures.data());
-    // automatic with VBO and VAO destructor
+    // free memory --> automatic with VBO, VAO and Textures destructors
 }
