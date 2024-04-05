@@ -9,6 +9,7 @@
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "p6/p6.h"
+#include "vao.hpp"
 #include "vbo.hpp"
 
 int main(void)
@@ -77,9 +78,9 @@ int main(void)
     vboWall.unbind();
 
     // VAO creation & binding
-    GLuint vaoWall;
-    glGenVertexArrays(1, &vaoWall);
-    glBindVertexArray(vaoWall);
+    VAO vaoWall(1);
+    vaoWall.gen();
+    vaoWall.bind();
 
     // vertex attribute activation
     static constexpr GLuint wall_position = 0;
@@ -107,7 +108,7 @@ int main(void)
 
     // VBO de-binding & VAO de-binding
     vboWall.unbind();
-    glBindVertexArray(0);
+    vaoWall.unbind();
 
     // SINGLE FISH
     // VBO creation & binding
@@ -122,9 +123,9 @@ int main(void)
     vboFish.unbind();
 
     // VAO creation & binding
-    GLuint vaoFish;
-    glGenVertexArrays(1, &vaoFish);
-    glBindVertexArray(vaoFish);
+    VAO vaoFish(2);
+    vaoFish.gen();
+    vaoFish.bind();
 
     // vertex attribute activation
     static constexpr GLuint fish_position = 0;
@@ -153,7 +154,7 @@ int main(void)
 
     // VBO de-binding & VAO de-binding
     vboFish.unbind();
-    glBindVertexArray(0);
+    vaoFish.unbind();
 
     // Uniform variable info
     GLint uni_MVP    = glGetUniformLocation(shader.id(), "uMVPMatrix");
@@ -184,7 +185,7 @@ int main(void)
 
         // WALL
         // VAO and texture re-binding
-        glBindVertexArray(vaoWall);
+        vaoWall.bind();
         glBindTexture(GL_TEXTURE_2D, glassTexIndex);
 
         glEnable(GL_BLEND);
@@ -196,18 +197,18 @@ int main(void)
 
         // VAO and texture de-binding
         glBindTexture(GL_TEXTURE_2D, 0);
-        glBindVertexArray(0);
+        vaoWall.unbind();
 
         // FISH
         // VAO and texture re-binding
-        glBindVertexArray(vaoFish);
+        vaoFish.bind();
         glBindTexture(GL_TEXTURE_2D, fishColorTexIndex);
 
         myApp.updateFlock(ctx, uni_MVP, uni_MV, uni_Normal, fish);
 
         // VAO and texture de-binding
         glBindTexture(GL_TEXTURE_2D, 0);
-        glBindVertexArray(0);
+        vaoFish.unbind();
     };
 
     // EVENTS & QUERIES
@@ -217,9 +218,5 @@ int main(void)
 
     // free memory
     glDeleteTextures(nb_textures, textures.data());
-    // automatic with VBO destructor
-
-    glDeleteVertexArrays(1, &vaoWall);
-
-    glDeleteVertexArrays(1, &vaoFish);
+    // automatic with VBO and VAO destructor
 }
