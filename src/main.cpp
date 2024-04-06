@@ -3,6 +3,7 @@
 #include <iostream>
 #include "3DTools.hpp"
 #include "app.hpp"
+#include "appPrograms.hpp"
 #include "doctest/doctest.h"
 #include "glimac/common.hpp"
 #include "glimac/sphere_vertices.hpp"
@@ -24,12 +25,10 @@ int main(void)
     auto ctx = p6::Context{{.title = "Awesome-Boids-Project"}};
     ctx.maximize_window();
 
-    // Load shader
-    const p6::Shader shader =
-        p6::load_shader("shaders/3D.vs.glsl", "shaders/tex3D.fs.glsl");
-
     // Different parameters
-    App myApp;
+    App         myApp;
+    BoidProgram myBoidProgram;
+    CubeProgram myCubeProgram;
 
     // TEXTURES
     Textures allTextures(3);
@@ -110,12 +109,6 @@ int main(void)
     vboFish.unbind();
     vaoFish.unbind();
 
-    // Uniform variable info
-    GLint uni_MVP    = glGetUniformLocation(shader.id(), "uMVPMatrix");
-    GLint uni_MV     = glGetUniformLocation(shader.id(), "uMVMatrix");
-    GLint uni_Normal = glGetUniformLocation(shader.id(), "uNormalMatrix");
-    GLint uni_tex    = glGetUniformLocation(shader.id(), "uTexture");
-
     // Activation depth test
     glEnable(GL_DEPTH_TEST);
 
@@ -133,11 +126,11 @@ int main(void)
         // clean window
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // use given shader
-        shader.use();
-        glUniform1i(uni_tex, 0);
-
         // WALL
+        // use shader
+        myCubeProgram._program.use();
+        glUniform1i(myCubeProgram.uniGlassTex, 0);
+
         // VAO and texture re-binding
         vaoWall.bind();
         texGlass.bind();
@@ -145,7 +138,7 @@ int main(void)
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        myApp.drawScene(ctx, uni_MVP, uni_MV, uni_Normal, wall);
+        myApp.drawScene(ctx, myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, wall);
 
         glDisable(GL_BLEND);
 
@@ -154,11 +147,15 @@ int main(void)
         vaoWall.unbind();
 
         // FISH
+        // use shader
+        myBoidProgram._program.use();
+        glUniform1i(myBoidProgram.uniFishTex, 0);
+
         // VAO and texture re-binding
         vaoFish.bind();
         texFishScalesColor.bind();
 
-        myApp.updateFlock(ctx, uni_MVP, uni_MV, uni_Normal, fish);
+        myApp.updateFlock(ctx, myBoidProgram.uniMVP, myBoidProgram.uniMV, myBoidProgram.uniNormal, fish);
 
         // VAO and texture de-binding
         texFishScalesColor.unbind();

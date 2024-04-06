@@ -10,7 +10,11 @@ public:
     Texture(std::string imagePath, GLuint id)
         : _image{p6::load_image_buffer(imagePath)}, _id{id} {};
 
-    inline void bind() { glBindTexture(GL_TEXTURE_2D, this->_id); };
+    inline void bind()
+    {
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, this->_id);
+    };
     inline void unbind() { glBindTexture(GL_TEXTURE_2D, 0); };
 
     void loadTexImageAndParam();
