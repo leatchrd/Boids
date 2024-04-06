@@ -9,6 +9,7 @@
 #include "glimac/sphere_vertices.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
+#include "loader.h"
 #include "p6/p6.h"
 #include "texture.hpp"
 #include "vao.hpp"
@@ -50,21 +51,15 @@ int main(void)
     texFishScalesColor.unbind();
 
     // SINGLE WALL
+    // object creation
+    const Object3D cube = loadOBJ("assets/models/cube_1.obj");
+
     // VBO creation & binding
     VBO vboWall(1);
     vboWall.gen();
     vboWall.bind();
 
-    // vertices creation
-    std::vector<Vertex2DTex> wall;
-    wall.push_back(Vertex2DTex{{-0.5f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.f, 1.f}});
-    wall.push_back(Vertex2DTex{{0.5f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.f, 1.f}});
-    wall.push_back(Vertex2DTex{{0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.f, 0.f}});
-    wall.push_back(Vertex2DTex{{-0.5f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.f, 1.f}});
-    wall.push_back(Vertex2DTex{{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.f, 0.f}});
-    wall.push_back(Vertex2DTex{{0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.f, 0.f}});
-
-    glBufferData(GL_ARRAY_BUFFER, wall.size() * sizeof(Vertex2DTex), wall.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, cube.vertices.size() * sizeof(vertex), cube.vertices.data(), GL_STATIC_DRAW);
     vboWall.unbind();
 
     // VAO creation & binding
@@ -76,7 +71,7 @@ int main(void)
     // VBO re-binding
     vboWall.bind();
 
-    vaoWall.setAttribPointer(sizeof(Vertex2DTex), (const GLvoid*)(offsetof(Vertex2DTex, position)), (const GLvoid*)(offsetof(Vertex2DTex, texture)));
+    vaoWall.setAttribPointer(sizeof(vertex), (const GLvoid*)(offsetof(vertex, position)), (const GLvoid*)(offsetof(vertex, uv)));
 
     // VBO de-binding & VAO de-binding
     vboWall.unbind();
@@ -138,7 +133,7 @@ int main(void)
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        myApp.drawScene(ctx, myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, wall);
+        myApp.drawScene(ctx, myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, cube.vertices);
 
         glDisable(GL_BLEND);
 

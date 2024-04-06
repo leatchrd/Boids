@@ -3,21 +3,26 @@
 #include "3DTools.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
+#include "loader.h"
 #include "p6/p6.h"
 #include "tools.hpp"
 
 // --- PUBLIC ---
 
-void Scene::drawSingleWall(p6::Context& ctx, float rotationAngle, glm::vec3 rotationAxis, glm::vec3 targetPosition, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, std::vector<Vertex2DTex>& wallContainer)
+void Scene::draw(p6::Context& ctx, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& cubeContainer)
 {
+    // background
+    ctx.background(p6::rgb(colorsBackground::Red, colorsBackground::Green, colorsBackground::Blue));
+    // ctx.background(backgroundColor);
+
+    // CUBE
     // matrix creation
     glm::mat4 ProjMatrix   = glm::perspective(glm::radians(70.f), ctx.aspect_ratio(), 0.1f, 100.f);
     glm::mat4 MVMatrix     = glm::translate(glm::mat4(1.f), glm::vec3(0.f, 0.f, 0.f));
     glm::mat4 NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
 
     // adjust object
-    MVMatrix = glm::translate(MVMatrix, targetPosition);
-    MVMatrix = glm::rotate(MVMatrix, rotationAngle, rotationAxis);
+    MVMatrix = glm::translate(MVMatrix, glm::vec3{0.f, 0.f, -3.f});
 
     // fill matrices with uniform location
     glUniformMatrix4fv(uni_MVP, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
@@ -25,20 +30,7 @@ void Scene::drawSingleWall(p6::Context& ctx, float rotationAngle, glm::vec3 rota
     glUniformMatrix4fv(uni_Normal, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
 
     // draw using the VAO
-    glDrawArrays(GL_TRIANGLES, 0, wallContainer.size());
-}
-
-void Scene::draw(p6::Context& ctx, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, std::vector<Vertex2DTex>& wallContainer)
-{
-    // background
-    ctx.background(p6::rgb(colorsBackground::Red, colorsBackground::Green, colorsBackground::Blue));
-    // ctx.background(backgroundColor);
-
-    // CUBE
-    // back
-    this->drawSingleWall(ctx, glm::radians(0.f), glm::vec3{0.f, 1.f, 0.f}, glm::vec3{0.f, 0.f, -1.f}, uni_MVP, uni_MV, uni_Normal, wallContainer);
-    // left
-    this->drawSingleWall(ctx, glm::radians(90.f), glm::vec3{0.f, 1.f, 0.f}, glm::vec3{-0.5f, 0.f, -0.5f}, uni_MVP, uni_MV, uni_Normal, wallContainer);
+    glDrawArrays(GL_TRIANGLES, 0, cubeContainer.size());
 }
 
 void Scene::updateMenu()
