@@ -25,6 +25,8 @@ public:
     void updateAcceleration(glm::vec3& force);
 
 public:
-    Boid(float radius, glm::vec3 position, glm::vec3 velocity);
+    Boid(float radius, glm::vec3 position, glm::vec3 velocity)
+        : position{position}, velocity{velocity}, acceleration{0.f, 0.f, 0.f}, radius{radius} {};
+
     void run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& perceptionRadius, float& separationDistance, float& wall, p6::Context& ctx, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer);
 };

@@ -8,5 +8,5 @@ public:
     glm::vec2 texture;
 
     Vertex2DTex(glm::vec3 position, glm::vec3 norm, glm::vec2 texture)
-        : position(position), norm(norm), texture(texture){};
+        : position{position}, norm{norm}, texture{texture} {};
 };
