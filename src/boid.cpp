@@ -8,12 +8,12 @@
 
 // --- PUBLIC ---
 
-void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& perceptionRadius, float& separationDistance, float& wall, p6::Context& ctx, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
+void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& perceptionRadius, float& separationDistance, float& wall, p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
 {
     this->applyBoidsBehaviour(allBoids, separation, alignment, cohesion, perceptionRadius, separationDistance);
     this->update();
     this->wrapAround(wall);
-    this->draw(ctx, uni_MVP, uni_MV, uni_Normal, boidContainer);
+    this->draw(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, boidContainer);
 }
 
 // --- PRIVATE ---
@@ -85,11 +85,11 @@ void Boid::wrapAround(float& wall)
     }
 }
 
-void Boid::draw(p6::Context& ctx, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
+void Boid::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
 {
     // matrix creation
     glm::mat4 ProjMatrix   = glm::perspective(glm::radians(70.f), ctx.aspect_ratio(), 0.1f, 100.f);
-    glm::mat4 MVMatrix     = glm::translate(glm::mat4(1.f), this->position);
+    glm::mat4 MVMatrix     = glm::translate(camMVMatrix, this->position);
     glm::mat4 NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
 
     // adjust ojbect

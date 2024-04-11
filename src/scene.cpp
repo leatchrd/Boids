@@ -9,7 +9,7 @@
 
 // --- PUBLIC ---
 
-void Scene::draw(p6::Context& ctx, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& cubeContainer)
+void Scene::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& cubeContainer)
 {
     // background
     ctx.background(p6::rgb(colorsBackground::Red, colorsBackground::Green, colorsBackground::Blue));
@@ -18,11 +18,11 @@ void Scene::draw(p6::Context& ctx, const GLint& uni_MVP, const GLint& uni_MV, co
     // CUBE
     // matrix creation
     glm::mat4 ProjMatrix   = glm::perspective(glm::radians(70.f), ctx.aspect_ratio(), 0.1f, 100.f);
-    glm::mat4 MVMatrix     = glm::translate(glm::mat4(1.f), glm::vec3(0.f, 0.f, 0.f));
+    glm::mat4 MVMatrix     = glm::translate(camMVMatrix, glm::vec3(0.f, 0.f, 0.f));
     glm::mat4 NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
 
     // adjust object
-    MVMatrix = glm::translate(MVMatrix, glm::vec3{0.f, 0.f, -3.f});
+    MVMatrix = glm::translate(MVMatrix, glm::vec3{0.f, 0.f, -5.f});
 
     // fill matrices with uniform location
     glUniformMatrix4fv(uni_MVP, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));

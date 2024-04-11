@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include "trackballCamera.hpp"
 #define DOCTEST_CONFIG_IMPLEMENT
 #include <iostream>
 #include "3DTools.hpp"
@@ -30,6 +31,8 @@ int main(void)
     App         myApp;
     BoidProgram myBoidProgram;
     CubeProgram myCubeProgram;
+
+    TrackballCamera mainCamera;
 
     // TEXTURES
     Textures allTextures(3);
@@ -117,6 +120,7 @@ int main(void)
     ctx.update = [&]() {
         // Event management
         myApp.exitKey(ctx);
+        mainCamera.updateTrackballCamera(ctx);
 
         // clean window
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -133,7 +137,7 @@ int main(void)
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        myApp.drawScene(ctx, myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, cube.vertices);
+        myApp.drawScene(ctx, mainCamera.getViewMatrix(), myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, cube.vertices);
 
         glDisable(GL_BLEND);
 
@@ -150,7 +154,7 @@ int main(void)
         vaoFish.bind();
         texFishScalesColor.bind();
 
-        myApp.updateFlock(ctx, myBoidProgram.uniMVP, myBoidProgram.uniMV, myBoidProgram.uniNormal, fish);
+        myApp.updateFlock(ctx, mainCamera.getViewMatrix(), myBoidProgram.uniMVP, myBoidProgram.uniMV, myBoidProgram.uniNormal, fish);
 
         // VAO and texture de-binding
         texFishScalesColor.unbind();

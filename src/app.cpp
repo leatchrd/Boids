@@ -37,9 +37,9 @@ void App::exitKey(p6::Context& ctx)
 
 // --- PRIVATE ---
 
-void App::updateFlock(p6::Context& ctx, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
+void App::updateFlock(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
 {
-    this->flock.update(ctx, this->scene.side, uni_MVP, uni_MV, uni_Normal, boidContainer); // TODO: transform into flock update
+    this->flock.update(ctx, this->scene.side, camMVMatrix, uni_MVP, uni_MV, uni_Normal, boidContainer); // TODO: transform into flock update
 }
 
 void App::drawMenu()
@@ -58,7 +58,7 @@ void App::drawMenu()
     ImGui::End();
 }
 
-void App::drawScene(p6::Context& ctx, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& cubeContainer)
+void App::drawScene(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& cubeContainer)
 {
-    this->scene.draw(ctx, uni_MVP, uni_MV, uni_Normal, cubeContainer);
+    this->scene.draw(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, cubeContainer);
 }

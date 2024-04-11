@@ -22,11 +22,11 @@ Flock::Flock(size_t total)
     }
 }
 
-void Flock::update(p6::Context& ctx, float& wallSize, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
+void Flock::update(p6::Context& ctx, float& wallSize, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
 {
     for (size_t i = 0; i < this->flock.size(); i++)
     {
-        this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, this->perceptionRadius, this->separationDistance, wallSize, ctx, uni_MVP, uni_MV, uni_Normal, boidContainer);
+        this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, this->perceptionRadius, this->separationDistance, wallSize, ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, boidContainer);
     }
 }
 
