@@ -18,7 +18,7 @@ public:
     ImVec4    backgroundColor;
 
 public:
-    float side = 0.5f;
+    float side = 2.f;
     Scene()
         : position{glm::vec2{0.f, 0.f}} {};
     Scene(glm::vec2 position)

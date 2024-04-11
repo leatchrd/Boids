@@ -10,7 +10,7 @@ Flock::Flock()
 {
     for (size_t i = 1; i < 5 + 1; i++)
     {
-        this->flock.push_back(Boid(0.01f, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
+        this->flock.push_back(Boid(0.1f, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
     }
 }
 

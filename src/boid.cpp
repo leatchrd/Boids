@@ -94,7 +94,6 @@ void Boid::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_
 
     // adjust ojbect
     MVMatrix = glm::scale(MVMatrix, glm::vec3{this->radius});
-    MVMatrix = glm::translate(MVMatrix, glm::vec3{0.f, 0.f, -1.f});
 
     // fill matrices with uniform location
     glUniformMatrix4fv(uni_MVP, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
