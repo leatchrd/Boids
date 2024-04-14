@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <vector>
 #include "trackballCamera.hpp"
 #define DOCTEST_CONFIG_IMPLEMENT
 #include <iostream>
@@ -10,7 +11,7 @@
 #include "glimac/sphere_vertices.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
-#include "loader.h"
+// #include "loader.h"
 #include "p6/p6.h"
 #include "texture.hpp"
 #include "vao.hpp"
@@ -38,49 +39,50 @@ int main(void)
     Textures allTextures(3);
     allTextures.gen();
 
-    Texture texWater("assets/textures/water.jpg", allTextures._textures[0]);
-    texWater.bind();
-    texWater.loadTexImageAndParam();
-    texWater.unbind();
-
-    Texture texGlass("assets/textures/glass_blue.png", allTextures._textures[1]);
-    texGlass.bind();
-    texGlass.loadTexImageAndParam();
-    texGlass.unbind();
-
-    Texture texFishScalesColor("assets/textures/fish_scales_mult_color.png", allTextures._textures[2]);
+    Texture texFishScalesColor("assets/textures/fish_scales_mult_color.png", allTextures._textures[0]);
     texFishScalesColor.bind();
     texFishScalesColor.loadTexImageAndParam();
     texFishScalesColor.unbind();
 
-    // SINGLE WALL
+    Texture texWater("assets/textures/water.jpg", allTextures._textures[1]);
+    texWater.bind();
+    texWater.loadTexImageAndParam();
+    texWater.unbind();
+
+    Texture texGlass("assets/textures/glass_blue.png", allTextures._textures[2]);
+    texGlass.bind();
+    texGlass.loadTexImageAndParam();
+    texGlass.unbind();
+
+    // CUBE AQUARIUM
     // object creation
-    const Object3D cube = loadOBJ("assets/models/cube_1.obj");
+    // const Object3D cube = loadOBJ("assets/models/cube_1.obj");
+    const std::vector<Vertex2DTex> cube = createCubeVertices();
 
     // VBO creation & binding
-    VBO vboWall(1);
-    vboWall.gen();
-    vboWall.bind();
+    VBO vboCube(1);
+    vboCube.gen();
+    vboCube.bind();
 
-    glBufferData(GL_ARRAY_BUFFER, cube.vertices.size() * sizeof(vertex), cube.vertices.data(), GL_STATIC_DRAW);
-    vboWall.unbind();
+    glBufferData(GL_ARRAY_BUFFER, cube.size() * sizeof(Vertex2DTex), cube.data(), GL_STATIC_DRAW);
+    vboCube.unbind();
 
     // VAO creation & binding
-    VAO vaoWall(1);
-    vaoWall.gen();
-    vaoWall.bind();
-    vaoWall.activateAttributes();
+    VAO vaoCube(1);
+    vaoCube.gen();
+    vaoCube.bind();
+    vaoCube.activateAttributes();
 
     // VBO re-binding
-    vboWall.bind();
+    vboCube.bind();
 
-    vaoWall.setAttribPointer(sizeof(vertex), (const GLvoid*)(offsetof(vertex, position)), (const GLvoid*)(offsetof(vertex, uv)));
+    vaoCube.setAttribPointer(sizeof(Vertex2DTex), (const GLvoid*)(offsetof(Vertex2DTex, position)), (const GLvoid*)(offsetof(Vertex2DTex, texture)));
 
     // VBO de-binding & VAO de-binding
-    vboWall.unbind();
-    vaoWall.unbind();
+    vboCube.unbind();
+    vaoCube.unbind();
 
-    // SINGLE FISH
+    // FISH
     // VBO creation & binding
     VBO vboFish(2);
     vboFish.gen();
@@ -109,6 +111,7 @@ int main(void)
 
     // Activation depth test
     glEnable(GL_DEPTH_TEST);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Dear ImGui
     ctx.imgui = [&]() {
@@ -131,19 +134,18 @@ int main(void)
         glUniform1i(myCubeProgram.uniGlassTex, 0);
 
         // VAO and texture re-binding
-        vaoWall.bind();
+        vaoCube.bind();
         texGlass.bind();
 
         glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        myApp.drawScene(ctx, mainCamera.getViewMatrix(), myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, cube.vertices);
+        myApp.drawScene(ctx, mainCamera.getViewMatrix(), myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, cube);
 
         glDisable(GL_BLEND);
 
         // VAO and texture de-binding
         texGlass.unbind();
-        vaoWall.unbind();
+        vaoCube.unbind();
 
         // FISH
         // use shader

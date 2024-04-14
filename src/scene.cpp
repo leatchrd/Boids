@@ -1,15 +1,16 @@
 #include "scene.hpp"
 #include <imgui.h>
+#include <vector>
 #include "3DTools.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
-#include "loader.h"
+// #include "loader.h"
 #include "p6/p6.h"
 #include "tools.hpp"
 
 // --- PUBLIC ---
 
-void Scene::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& cubeContainer)
+void Scene::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<Vertex2DTex>& cubeContainer)
 {
     // background
     ctx.background(p6::rgb(colorsBackground::Red, colorsBackground::Green, colorsBackground::Blue));

@@ -1,7 +1,7 @@
 #include "app.hpp"
 #include "3DTools.hpp"
 #include "flock.hpp"
-#include "loader.h"
+// #include "loader.h"
 #include "p6/p6.h"
 #include "scene.hpp"
 
@@ -58,7 +58,7 @@ void App::drawMenu()
     ImGui::End();
 }
 
-void App::drawScene(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& cubeContainer)
+void App::drawScene(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<Vertex2DTex>& cubeContainer)
 {
     this->scene.draw(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, cubeContainer);
 }

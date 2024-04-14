@@ -9,5 +9,6 @@ out vec4 fFragTexture;
 uniform sampler2D uTextureGlass;
 
 void main() {
-  fFragTexture = vec4((texture(uTextureGlass, vTexCoords)).xyz, 0.25);
+  // fFragTexture = vec4((texture(uTextureGlass, vTexCoords)).xyz, 0.25);
+  fFragTexture = texture(uTextureGlass, vTexCoords);
 }

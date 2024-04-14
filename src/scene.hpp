@@ -2,7 +2,7 @@
 
 #include "3DTools.hpp"
 #include "flock.hpp"
-#include "loader.h"
+// #include "loader.h"
 #include "p6/p6.h"
 
 namespace colorsBackground {
@@ -24,7 +24,7 @@ public:
     Scene(glm::vec2 position)
         : position{position} {};
 
-    void draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& cubeContainer);
+    void draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<Vertex2DTex>& cubeContainer);
     void updateMenu();
     void drawMenu();
 
