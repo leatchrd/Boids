@@ -6,7 +6,6 @@
 #include "glm/gtc/type_ptr.hpp"
 // #include "loader.h"
 #include "p6/p6.h"
-#include "tools.hpp"
 
 // --- PUBLIC ---
 

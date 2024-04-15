@@ -3,8 +3,8 @@
 #include "glimac/sphere_vertices.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
+#include "logicTools.hpp"
 #include "p6/p6.h"
-#include "tools.hpp"
 
 // --- PUBLIC ---
 
