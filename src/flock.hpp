@@ -19,9 +19,6 @@ public:
     float radiusMediumFish = 0.2;
     float radiusBigFish    = 0.4;
 
-    float perceptionRadius   = 0.4; // TMP for debug
-    float separationDistance = 0.4; // TMP for debug
-
     float separationCoeff = 1.f;
     float alignmentCoeff  = 1.f;
     float cohesionCoeff   = 1.f;
