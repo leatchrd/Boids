@@ -204,7 +204,7 @@ float gaussianDistribution(float average, float standardDeviation)
     return average + standardDeviation * z0;
 }
 
-float littleBoidsLocation(float squareSize)
+float bigBoidsLocation(float squareSize)
 {
     return gaussianDistribution(0.0f, squareSize / 3.0f); 
     // La moyenne est à 0 pour faire apparaitre les boids autour de (0, 0, 0)
@@ -215,9 +215,9 @@ int main() {
     float squareSize = 10.0f; // À adapter puisqu'il s'agira de récupérer la valeur et non de la fixer.
     
     // Définir la position des boids dans le carré selon les axes x, y et z pour la 3D
-    float x_boid = littleBoidsLocation(squareSize);
-    float y_boid = littleBoidsLocation(squareSize);
-    float z_boid = littleBoidsLocation(squareSize);
+    float x_boid = bigBoidsLocation(squareSize);
+    float y_boid = bigBoidsLocation(squareSize);
+    float z_boid = bigBoidsLocation(squareSize);
         
     return 0;
 }
@@ -284,6 +284,7 @@ void initializeBoidVelocities(float x0, float gamma, paramètre de la vitesse d'
 {
     for (int i = 0; i < velocities.size(); ++i) {
         velocities[i] = cauchyDistribution(x0, gamma);
+    }
 }
 
 int main() {
