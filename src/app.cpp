@@ -14,7 +14,7 @@ App::App(size_t nbBoids)
 {
     Scene newScene;
     this->scene = newScene;
-    Flock newFlock(this->totalBoids);
+    Flock newFlock(this->totalBoids, this->scene.side);
     this->flock = newFlock;
 }
 

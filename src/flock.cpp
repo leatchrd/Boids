@@ -20,11 +20,11 @@ Flock::Flock()
     }
 }
 
-Flock::Flock(size_t total)
+Flock::Flock(size_t total, float wallSize)
     : nbFishTotal(total)
 {
     // define number of fish per fish size
-    setBoidsSize(this->nbFishTotal, this->nbLittleFish, this->nbMediumFish, this->nbBigFish);
+    setNbFishBySize(this->nbFishTotal, this->nbLittleFish, this->nbMediumFish, this->nbBigFish);
 
     for (size_t i = 1; i < this->nbLittleFish + 1; i++)
     {
@@ -36,7 +36,7 @@ Flock::Flock(size_t total)
     }
     for (size_t i = 1; i < this->nbBigFish + 1; i++)
     {
-        this->flock.push_back(Boid(this->radiusBigFish, this->radiusBigFish + 0.2, this->radiusBigFish, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
+        this->flock.push_back(Boid(this->radiusBigFish, this->radiusBigFish + 0.2, this->radiusBigFish, setBigFishPosition(wallSize), glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
     }
 }
 

@@ -26,7 +26,7 @@ public:
 
 public:
     Flock();
-    Flock(size_t total);
+    Flock(size_t total, const float wallSize);
 
     void update(p6::Context& ctx, float& wallSize, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer);
     void updateMenu();
