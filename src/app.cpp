@@ -1,4 +1,5 @@
 #include "app.hpp"
+#include <sys/_types/_size_t.h>
 #include "3DTools.hpp"
 #include "GLFW/glfw3.h"
 #include "flock.hpp"
@@ -8,11 +9,12 @@
 
 // --- PUBLIC ---
 
-App::App()
+App::App(size_t nbBoids)
+    : totalBoids(nbBoids)
 {
     Scene newScene;
     this->scene = newScene;
-    Flock newFlock;
+    Flock newFlock(this->totalBoids);
     this->flock = newFlock;
 }
 

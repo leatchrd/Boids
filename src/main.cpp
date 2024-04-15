@@ -29,7 +29,7 @@ int main(void)
     ctx.maximize_window();
 
     // Different parameters
-    App         myApp;
+    App         myApp(20);
     BoidProgram myBoidProgram;
     CubeProgram myCubeProgram;
 

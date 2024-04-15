@@ -1,5 +1,6 @@
 #pragma once
 
+#include <sys/_types/_size_t.h>
 #include "3DTools.hpp"
 #include "flock.hpp"
 // #include "loader.h"
@@ -8,11 +9,12 @@
 
 class App {
 private:
-    Scene scene;
-    Flock flock;
+    Scene  scene;
+    Flock  flock;
+    size_t totalBoids;
 
 public:
-    App();
+    App(size_t nbBoids);
 
     void drawMenu();
     void updateFlock(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer);
