@@ -4,6 +4,7 @@
 #include "boid.hpp"
 #include "logicTools.hpp"
 #include "p6/p6.h"
+#include "probability.hpp"
 
 // --- PUBLIC ---
 
@@ -16,10 +17,22 @@ Flock::Flock()
 }
 
 Flock::Flock(size_t total)
+    : nbFishTotal(total)
 {
-    for (size_t i = 1; i < total + 1; i++)
+    // define number of fish per fish size
+    setBoidsSize(this->nbFishTotal, this->nbLittleFish, this->nbMediumFish, this->nbBigFish);
+
+    for (size_t i = 1; i < this->nbLittleFish + 1; i++)
     {
-        this->flock.push_back(Boid(0.1f, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
+        this->flock.push_back(Boid(this->radiusLittleFish, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
+    }
+    for (size_t i = 1; i < this->nbMediumFish + 1; i++)
+    {
+        this->flock.push_back(Boid(this->radiusMediumFish, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
+    }
+    for (size_t i = 1; i < this->nbBigFish + 1; i++)
+    {
+        this->flock.push_back(Boid(this->radiusBigFish, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
     }
 }
 

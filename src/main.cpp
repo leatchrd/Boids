@@ -139,7 +139,7 @@ int main(void)
 
         glEnable(GL_BLEND);
 
-        myApp.drawScene(ctx, mainCamera.getViewMatrix(), myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, cube);
+        // myApp.drawScene(ctx, mainCamera.getViewMatrix(), myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, cube);
 
         glDisable(GL_BLEND);
 

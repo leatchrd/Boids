@@ -1,5 +1,6 @@
 #pragma once
 
+#include <sys/_types/_size_t.h>
 #include <vector>
 #include "boid.hpp"
 #include "glimac/sphere_vertices.hpp"
@@ -8,6 +9,15 @@
 class Flock {
 public:
     std::vector<Boid> flock;
+
+    size_t nbFishTotal;
+    size_t nbLittleFish = 0;
+    size_t nbMediumFish = 0;
+    size_t nbBigFish    = 0;
+
+    float radiusLittleFish = 0.1;
+    float radiusMediumFish = 0.2;
+    float radiusBigFish    = 0.4;
 
     float perceptionRadius   = 0.4; // TMP for debug
     float separationDistance = 0.4; // TMP for debug
