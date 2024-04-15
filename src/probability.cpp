@@ -1,10 +1,7 @@
 #include "probability.hpp"
-#include "beta.hpp"
-#include "binomial.hpp"
-#include "cauchy.hpp"
-#include "gaussian.hpp"
-#include "logicTools.hpp"
 #include "p6/p6.h"
+#include "probabilityDistributions.hpp"
+#include "random.hpp"
 
 // primary functions
 
