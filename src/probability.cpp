@@ -3,7 +3,6 @@
 #include "binomial.hpp"
 #include "cauchy.hpp"
 #include "gaussian.hpp"
-#include "glm/fwd.hpp"
 #include "logicTools.hpp"
 #include "p6/p6.h"
 

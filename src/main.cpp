@@ -1,8 +1,5 @@
-#include <cstdlib>
-#include <vector>
 #include "trackballCamera.hpp"
 #define DOCTEST_CONFIG_IMPLEMENT
-#include <iostream>
 #include "3DTools.hpp"
 #include "app.hpp"
 #include "appPrograms.hpp"

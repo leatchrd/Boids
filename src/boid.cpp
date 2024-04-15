@@ -1,5 +1,4 @@
 #include "boid.hpp"
-#include <vector>
 #include "glimac/sphere_vertices.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"

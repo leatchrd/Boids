@@ -1,4 +1,5 @@
 #include "logicTools.hpp"
+#include "p6/p6.h"
 
 bool isBetween(float compare, float border, float smallest, float biggest)
 {

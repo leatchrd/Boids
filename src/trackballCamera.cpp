@@ -1,5 +1,4 @@
 #include "trackballCamera.hpp"
-#include "GLFW/glfw3.h"
 #include "glm/ext/matrix_transform.hpp"
 #include "p6/p6.h"
 
