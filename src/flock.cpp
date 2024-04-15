@@ -1,5 +1,9 @@
 #include "flock.hpp"
+<<<<<<< HEAD
 #include <imgui.h>
+=======
+#include <string>
+>>>>>>> 1d37888 (Remove perception radius and separation distance from Flock class)
 #include <vector>
 #include "boid.hpp"
 #include "logicTools.hpp"
@@ -12,7 +16,7 @@ Flock::Flock()
 {
     for (size_t i = 1; i < 5 + 1; i++)
     {
-        this->flock.push_back(Boid(0.1f, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
+        this->flock.push_back(Boid(this->radiusLittleFish, this->radiusLittleFish + 5, this->radiusLittleFish + 1, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
     }
 }
 
@@ -24,15 +28,15 @@ Flock::Flock(size_t total)
 
     for (size_t i = 1; i < this->nbLittleFish + 1; i++)
     {
-        this->flock.push_back(Boid(this->radiusLittleFish, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
+        this->flock.push_back(Boid(this->radiusLittleFish, this->radiusLittleFish + 0.6, this->radiusLittleFish, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
     }
     for (size_t i = 1; i < this->nbMediumFish + 1; i++)
     {
-        this->flock.push_back(Boid(this->radiusMediumFish, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
+        this->flock.push_back(Boid(this->radiusMediumFish, this->radiusMediumFish + 0.4, this->radiusMediumFish, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
     }
     for (size_t i = 1; i < this->nbBigFish + 1; i++)
     {
-        this->flock.push_back(Boid(this->radiusBigFish, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
+        this->flock.push_back(Boid(this->radiusBigFish, this->radiusBigFish + 0.2, this->radiusBigFish, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
     }
 }
 
@@ -40,7 +44,7 @@ void Flock::update(p6::Context& ctx, float& wallSize, const glm::mat4 camMVMatri
 {
     for (size_t i = 0; i < this->flock.size(); i++)
     {
-        this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, this->perceptionRadius, this->separationDistance, wallSize, ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, boidContainer);
+        this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, wallSize, ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, boidContainer);
     }
 }
 
@@ -55,8 +59,7 @@ void Flock::updateMenu()
 
     ImGui::NewLine();
 
-    ImGui::Text("Perception radius");
-    ImGui::SliderFloat("##Perception radius", &this->perceptionRadius, 0.0f, 1.0f);
-    ImGui::Text("Separation distance");
-    ImGui::SliderFloat("##Separation distance", &this->separationDistance, 0.0f, 1.0f);
+    // ImGui::Text("Little fish: %zu", this->nbLittleFish);
+    // ImGui::Text("Medium fish: %zu", this->nbMediumFish);
+    // ImGui::Text("Big fish: %zu", this->nbBigFish);
 }

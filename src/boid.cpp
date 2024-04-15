@@ -8,9 +8,9 @@
 
 // --- PUBLIC ---
 
-void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& perceptionRadius, float& separationDistance, float& wall, p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
+void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& wall, p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
 {
-    this->applyBoidsBehaviour(allBoids, separation, alignment, cohesion, perceptionRadius, separationDistance);
+    this->applyBoidsBehaviour(allBoids, separation, alignment, cohesion);
     this->update();
     this->wrapAround(wall);
     this->draw(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, boidContainer);
@@ -20,11 +20,11 @@ void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment,
 
 // NECESSARY TO RUN
 
-void Boid::applyBoidsBehaviour(std::vector<Boid>& allBoids, float& separationCoeff, float& alignmentCoeff, float& cohesionCoeff, float& perceptionRadius, float& separationDistance)
+void Boid::applyBoidsBehaviour(std::vector<Boid>& allBoids, float& separationCoeff, float& alignmentCoeff, float& cohesionCoeff)
 {
-    glm::vec3 separation = this->separate(allBoids, separationDistance);
-    glm::vec3 alignment  = this->align(allBoids, perceptionRadius);
-    glm::vec3 cohesion   = this->cohered(allBoids, perceptionRadius);
+    glm::vec3 separation = this->separate(allBoids);
+    glm::vec3 alignment  = this->align(allBoids);
+    glm::vec3 cohesion   = this->cohered(allBoids);
 
     // add a weights
     separation *= separationCoeff / 1000; // *= 0.008;
@@ -113,14 +113,14 @@ bool Boid::inRadius(Boid& boid, float& radius)
 
 // -- separation
 
-glm::vec3 Boid::separate(std::vector<Boid>& allBoids, float& separationDistance)
+glm::vec3 Boid::separate(std::vector<Boid>& allBoids)
 {
     glm::vec3 newDirection{0.f, 0.f, 0.f};
     size_t    nbCloseBoids = 0;
 
     for (size_t i = 0; i < allBoids.size(); i++)
     {
-        if (this->inRadius(allBoids[i], separationDistance) && this != &allBoids[i])
+        if (this->inRadius(allBoids[i], this->separationDistance) && this != &allBoids[i])
         {
             float     distance   = glm::distance(this->position, allBoids[i].position);
             glm::vec3 difference = this->position - allBoids[i].position;
@@ -142,14 +142,14 @@ glm::vec3 Boid::separate(std::vector<Boid>& allBoids, float& separationDistance)
 
 // -- alignment
 
-glm::vec3 Boid::align(std::vector<Boid>& allBoids, float& perceptionRadius)
+glm::vec3 Boid::align(std::vector<Boid>& allBoids)
 {
     glm::vec3 avgVelocity{0.f, 0.f, 0.f};
     size_t    nbCloseBoids = 0;
 
     for (size_t i = 0; i < allBoids.size(); i++)
     {
-        if (this->inRadius(allBoids[i], perceptionRadius) && this != &allBoids[i])
+        if (this->inRadius(allBoids[i], this->perceptionRadius) && this != &allBoids[i])
         {
             avgVelocity += allBoids[i].velocity;
             nbCloseBoids++;
@@ -173,14 +173,14 @@ glm::vec3 Boid::align(std::vector<Boid>& allBoids, float& perceptionRadius)
 
 // -- cohesion
 
-glm::vec3 Boid::cohered(std::vector<Boid>& allBoids, float& perceptionRadius)
+glm::vec3 Boid::cohered(std::vector<Boid>& allBoids)
 {
     glm::vec3 avgPosition{0.f, 0.f, 0.f};
     size_t    nbCloseBoids = 0;
 
     for (size_t i = 0; i < allBoids.size(); i++)
     {
-        if (this->inRadius(allBoids[i], perceptionRadius) && this != &allBoids[i])
+        if (this->inRadius(allBoids[i], this->perceptionRadius) && this != &allBoids[i])
         {
             avgPosition += allBoids[i].position;
             nbCloseBoids++;
