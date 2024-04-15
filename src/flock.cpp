@@ -2,8 +2,8 @@
 #include <imgui.h>
 #include <vector>
 #include "boid.hpp"
+#include "logicTools.hpp"
 #include "p6/p6.h"
-#include "tools.hpp"
 
 // --- PUBLIC ---
 
