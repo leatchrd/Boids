@@ -1,4 +1,5 @@
 #include "flock.hpp"
+#include <imgui.h>
 #include <vector>
 #include "boid.hpp"
 #include "p6/p6.h"
