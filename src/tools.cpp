@@ -38,6 +38,14 @@ float randNeg1_1()
     return distrib(gen);
 }
 
+float rand01()
+{
+    thread_local std::default_random_engine gen{std::random_device{}()};
+    thread_local auto                       distrib = std::uniform_real_distribution<float>{0.0, 1.0};
+
+    return distrib(gen);
+}
+
 glm::vec3 limit(glm::vec3& vector, float& max)
 {
     float magnitude = glm::length(vector);
