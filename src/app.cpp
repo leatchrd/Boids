@@ -1,5 +1,6 @@
 #include "app.hpp"
 #include "3DTools.hpp"
+#include "GLFW/glfw3.h"
 #include "flock.hpp"
 // #include "loader.h"
 #include "p6/p6.h"
@@ -17,11 +18,11 @@ App::App()
 
 void App::pausePlayKey(p6::Context& ctx)
 {
-    if (ctx.key_is_pressed(GLFW_KEY_A))
+    if (ctx.key_is_pressed(GLFW_KEY_Z))
     {
         ctx.pause();
     }
-    if (ctx.key_is_pressed(GLFW_KEY_S))
+    if (ctx.key_is_pressed(GLFW_KEY_X))
     {
         ctx.resume();
     }
