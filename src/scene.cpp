@@ -1,6 +1,4 @@
 #include "scene.hpp"
-#include <imgui.h>
-#include <vector>
 #include "3DTools.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"

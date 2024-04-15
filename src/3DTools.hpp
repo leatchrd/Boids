@@ -1,8 +1,4 @@
 #pragma once
-
-#include <vector>
-#include "flock.hpp"
-#include "glm/fwd.hpp"
 #include "p6/p6.h"
 
 class Vertex2DTex {

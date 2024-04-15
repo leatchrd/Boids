@@ -1,7 +1,5 @@
 #include "app.hpp"
-#include <sys/_types/_size_t.h>
 #include "3DTools.hpp"
-#include "GLFW/glfw3.h"
 #include "flock.hpp"
 // #include "loader.h"
 #include "p6/p6.h"

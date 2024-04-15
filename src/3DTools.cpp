@@ -1,5 +1,4 @@
 #include "3DTools.hpp"
-#include <vector>
 #include "p6/p6.h"
 
 std::vector<Vertex2DTex> createCubeVertices()

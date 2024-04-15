@@ -1,7 +1,4 @@
 #pragma once
-
-#include <sys/_types/_size_t.h>
-#include <vector>
 #include "boid.hpp"
 #include "glimac/sphere_vertices.hpp"
 #include "p6/p6.h"
