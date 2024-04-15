@@ -47,11 +47,11 @@ void Scene::drawMenu()
 }
 
 // Cette fonction ne sert à rien (pour l'instant ?)
-void Scene::setBackgroundColor(float r, float g, float b)
-{
-    r = std::clamp(r, 0.0f, 1.0f);
-    g = std::clamp(g, 0.0f, 1.0f);
-    b = std::clamp(b, 0.0f, 1.0f);
+// void Scene::setBackgroundColor(float r, float g, float b)
+// {
+//     r = std::clamp(r, 0.0f, 1.0f);
+//     g = std::clamp(g, 0.0f, 1.0f);
+//     b = std::clamp(b, 0.0f, 1.0f);
 
-    this->backgroundColor = ImVec4(r, g, b, 1.0f);
-}
+//     this->backgroundColor = ImVec4(r, g, b, 1.0f);
+// }

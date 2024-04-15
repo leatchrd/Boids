@@ -7,10 +7,7 @@
 #include "p6/p6.h"
 
 class Flock {
-public:
-    std::vector<Boid> flock;
-
-    size_t nbFishTotal;
+private:
     size_t nbLittleFish = 0;
     size_t nbMediumFish = 0;
     size_t nbBigFish    = 0;
@@ -22,6 +19,10 @@ public:
     float separationCoeff = 1.f;
     float alignmentCoeff  = 1.f;
     float cohesionCoeff   = 1.f;
+
+public:
+    std::vector<Boid> flock;
+    size_t            nbFishTotal;
 
 public:
     Flock();

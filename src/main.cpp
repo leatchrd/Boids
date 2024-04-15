@@ -116,13 +116,12 @@ int main(void)
     // Dear ImGui
     ctx.imgui = [&]() {
         myApp.drawMenu();
-        myApp.pausePlayKey(ctx);
     };
 
     // INFINITE UPDATE LOOP
     ctx.update = [&]() {
         // Event management
-        myApp.exitKey(ctx);
+        myApp.checkEvents(ctx);
         mainCamera.updateTrackballCamera(ctx);
 
         // clean window

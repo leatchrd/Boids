@@ -4,14 +4,14 @@
 #include "p6/p6.h"
 
 class Boid {
-public:
+private:
     glm::vec3 position, velocity, acceleration;
     float     radius;
     float     perceptionRadius;
     float     separationDistance;
     float     maxSpeed = 0.00333;
 
-public:
+private:
     void applyBoidsBehaviour(std::vector<Boid>& allBoids, float& separationCoeff, float& alignmentCoeff, float& cohesionCoeff);
     void update();
     void wrapAround(float& wall);
