@@ -26,7 +26,7 @@ Flock::Flock(size_t total, float wallSize)
     }
     for (size_t i = 1; i < this->nbMediumFish + 1; i++)
     {
-        this->flock.push_back(Boid(this->radiusMediumFish, this->radiusMediumFish + 0.4, this->radiusMediumFish, glm::vec3{0.f, 0.f, 0.f}, setFishVelocity()));
+        this->flock.push_back(Boid(this->radiusMediumFish, this->radiusMediumFish + 0.4, this->radiusMediumFish, setMediumFishPosition(), setFishVelocity()));
     }
     for (size_t i = 1; i < this->nbBigFish + 1; i++)
     {

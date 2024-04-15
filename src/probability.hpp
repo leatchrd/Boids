@@ -6,6 +6,7 @@
 void setNbFishBySize(const size_t& nbFishTotal, size_t& nbLittleFish, size_t& nbMediumFish, size_t& nbBigFish);
 
 glm::vec3 setLittleFishPosition(const float& wallSize);
+glm::vec3 setMediumFishPosition();
 glm::vec3 setBigFishPosition(const float& wallSize);
 
 glm::vec3 setFishVelocity();

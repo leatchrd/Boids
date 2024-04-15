@@ -3,6 +3,8 @@
 #include "binomial.hpp"
 #include "cauchy.hpp"
 #include "gaussian.hpp"
+#include "glm/fwd.hpp"
+#include "logicTools.hpp"
 #include "p6/p6.h"
 
 // primary functions
@@ -21,12 +23,17 @@ void setNbFishBySize(const size_t& nbFishTotal, size_t& nbLittleFish, size_t& nb
 
 glm::vec3 setLittleFishPosition(const float& wallSize)
 {
-    return glm::vec3{getBigFishPosition(wallSize), getBigFishPosition(wallSize), getBigFishPosition(wallSize)};
+    return glm::vec3{getLittleFishPosition(wallSize), getLittleFishPosition(wallSize), getLittleFishPosition(wallSize)};
+}
+
+glm::vec3 setMediumFishPosition()
+{
+    return glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()};
 }
 
 glm::vec3 setBigFishPosition(const float& wallSize)
 {
-    return glm::vec3{getLittleFishPosition(wallSize), getLittleFishPosition(wallSize), getLittleFishPosition(wallSize)};
+    return glm::vec3{getBigFishPosition(wallSize), getBigFishPosition(wallSize), getBigFishPosition(wallSize)};
 }
 
 glm::vec3 setFishVelocity()
