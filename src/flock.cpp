@@ -1,10 +1,4 @@
 #include "flock.hpp"
-<<<<<<< HEAD
-#include <imgui.h>
-=======
-#include <string>
->>>>>>> 1d37888 (Remove perception radius and separation distance from Flock class)
-#include <vector>
 #include "boid.hpp"
 #include "logicTools.hpp"
 #include "p6/p6.h"
@@ -28,15 +22,15 @@ Flock::Flock(size_t total, float wallSize)
 
     for (size_t i = 1; i < this->nbLittleFish + 1; i++)
     {
-        this->flock.push_back(Boid(this->radiusLittleFish, this->radiusLittleFish + 0.6, this->radiusLittleFish, setLittleFishPosition(wallSize), glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
+        this->flock.push_back(Boid(this->radiusLittleFish, this->radiusLittleFish + 0.6, this->radiusLittleFish, setLittleFishPosition(wallSize), setFishVelocity()));
     }
     for (size_t i = 1; i < this->nbMediumFish + 1; i++)
     {
-        this->flock.push_back(Boid(this->radiusMediumFish, this->radiusMediumFish + 0.4, this->radiusMediumFish, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
+        this->flock.push_back(Boid(this->radiusMediumFish, this->radiusMediumFish + 0.4, this->radiusMediumFish, glm::vec3{0.f, 0.f, 0.f}, setFishVelocity()));
     }
     for (size_t i = 1; i < this->nbBigFish + 1; i++)
     {
-        this->flock.push_back(Boid(this->radiusBigFish, this->radiusBigFish + 0.2, this->radiusBigFish, setBigFishPosition(wallSize), glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
+        this->flock.push_back(Boid(this->radiusBigFish, this->radiusBigFish + 0.2, this->radiusBigFish, setBigFishPosition(wallSize), setFishVelocity()));
     }
 }
 

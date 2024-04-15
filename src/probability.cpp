@@ -1,6 +1,7 @@
 #include "probability.hpp"
 #include "beta.hpp"
 #include "binomial.hpp"
+#include "cauchy.hpp"
 #include "gaussian.hpp"
 #include "p6/p6.h"
 
@@ -26,6 +27,14 @@ glm::vec3 setLittleFishPosition(const float& wallSize)
 glm::vec3 setBigFishPosition(const float& wallSize)
 {
     return glm::vec3{getLittleFishPosition(wallSize), getLittleFishPosition(wallSize), getLittleFishPosition(wallSize)};
+}
+
+glm::vec3 setFishVelocity()
+{
+    float x0    = 0.f;  // distribution median
+    float gamma = 1.0f; // distribution width
+
+    return glm::vec3{cauchyDistribution(x0, gamma), cauchyDistribution(x0, gamma), cauchyDistribution(x0, gamma)};
 }
 
 // secondary functions
