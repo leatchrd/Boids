@@ -12,7 +12,7 @@ Flock::Flock()
 {
     for (size_t i = 1; i < 5 + 1; i++)
     {
-        this->flock.push_back(Boid(this->radiusLittleFish, this->radiusLittleFish + 5, this->radiusLittleFish + 1, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
+        this->flock.push_back(Boid(this->radiusLittleFish, this->radiusLittleFish + 0.5, this->radiusLittleFish, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()}));
     }
 }
 
