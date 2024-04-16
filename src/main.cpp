@@ -53,7 +53,7 @@ int main(void)
 
     // CUBE AQUARIUM
     // object creation
-    // const Object3D cube = loadOBJ("assets/models/cube_1.obj");
+    // const Object3D cube = loadOBJ("assets/models/cube.obj");
     const std::vector<Vertex2DTex> cube = createCubeVertices();
 
     // VBO creation & binding
