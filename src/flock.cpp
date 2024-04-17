@@ -17,6 +17,7 @@ Flock::Flock()
 Flock::Flock(size_t total, float wallSize)
     : nbFishTotal(total)
 {
+    // std::cout << "enter flock constructor" << std::endl;
     // define number of fish per fish size
     setNbFishBySize(this->nbFishTotal, this->nbLittleFish, this->nbMediumFish, this->nbBigFish);
 
@@ -32,14 +33,18 @@ Flock::Flock(size_t total, float wallSize)
     {
         this->flock.push_back(Boid(this->radiusBigFish, this->radiusBigFish + 0.2, this->radiusBigFish, setBigFishPosition(wallSize), setFishVelocity()));
     }
+    // std::cout << "exit flock constructor" << std::endl;
 }
 
 void Flock::update(p6::Context& ctx, float& wallSize, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& fishVertexContainer)
 {
+    // std::cout << "enter flock update" << std::endl;
+
     for (size_t i = 0; i < this->flock.size(); i++)
     {
         this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, wallSize, ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, fishVertexContainer);
     }
+    // std::cout << "exit flock update" << std::endl;
 }
 
 void Flock::updateMenu()

@@ -5,7 +5,6 @@
 #include "appPrograms.hpp"
 #include "doctest/doctest.h"
 #include "glimac/common.hpp"
-#include "glimac/sphere_vertices.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "loader.h"
@@ -33,12 +32,16 @@ int main(void)
     TrackballCamera mainCamera;
 
     // TEXTURES
-    Textures allTextures(3);
+    Textures allTextures(5);
     allTextures.gen();
 
-    Texture texFishScalesColor("assets/textures/fish_scales_mult_color.png", allTextures._textures[0]);
-    Texture texWater("assets/textures/water.jpg", allTextures._textures[1]);
-    Texture texGlass("assets/textures/glass_blue.png", allTextures._textures[2]);
+    Texture texFish1("assets/textures/goldfish_1.png", allTextures._textures[0]);
+    Texture texFish2("assets/textures/goldfish_2.png", allTextures._textures[1]);
+    Texture texFish3("assets/textures/goldfish_3.png", allTextures._textures[2]);
+    Texture texWater("assets/textures/water.jpg", allTextures._textures[3]);
+    Texture texGlass("assets/textures/glass_blue.png", allTextures._textures[4]);
+
+    std::cout << "finish textures creation" << std::endl;
 
     // CUBE AQUARIUM
     // object creation
@@ -76,9 +79,6 @@ int main(void)
     VBO vboFish(2);
     vboFish.gen();
     vboFish.bind();
-
-    // vertices creation
-    // const std::vector<glimac::ShapeVertex> fish = glimac::sphere_vertices(1.f, 32, 16);
 
     glBufferData(GL_ARRAY_BUFFER, fish.vertices.size() * sizeof(vertex), fish.vertices.data(), GL_STATIC_DRAW);
     vboFish.unbind();
@@ -142,12 +142,12 @@ int main(void)
 
         // VAO and texture re-binding
         vaoFish.bind();
-        texFishScalesColor.bind();
+        texFish1.bind();
 
         myApp.updateFlock(ctx, mainCamera.getViewMatrix(), myBoidProgram.uniMVP, myBoidProgram.uniMV, myBoidProgram.uniNormal, fish.vertices);
 
         // VAO and texture de-binding
-        texFishScalesColor.unbind();
+        texFish1.unbind();
         vaoFish.unbind();
     };
 

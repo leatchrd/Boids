@@ -40,7 +40,7 @@ void App::checkEvents(p6::Context& ctx)
 
 void App::updateFlock(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& fishVertexContainer)
 {
-    this->flock.update(ctx, this->scene.side, camMVMatrix, uni_MVP, uni_MV, uni_Normal, fishVertexContainer); // TODO: transform into flock update
+    this->flock.update(ctx, this->scene.side, camMVMatrix, uni_MVP, uni_MV, uni_Normal, fishVertexContainer);
 }
 
 void App::drawScene(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<Vertex2DTex>& cubeContainer)

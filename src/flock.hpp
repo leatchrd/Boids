@@ -1,6 +1,5 @@
 #pragma once
 #include "boid.hpp"
-#include "glimac/sphere_vertices.hpp"
 #include "loader.h"
 #include "p6/p6.h"
 

@@ -1,5 +1,4 @@
 #pragma once
-#include "glimac/sphere_vertices.hpp"
 #include "loader.h"
 #include "p6/p6.h"
 
@@ -31,4 +30,6 @@ public:
         : position{position}, velocity{velocity}, acceleration{0.f, 0.f, 0.f}, radius{radius}, perceptionRadius(perceptionRadius), separationDistance(separationDistance){};
 
     void run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& wall, p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& fishVertexContainer);
+
+    inline float getRadius() { return this->radius; };
 };
