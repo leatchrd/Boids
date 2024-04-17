@@ -37,19 +37,8 @@ int main(void)
     allTextures.gen();
 
     Texture texFishScalesColor("assets/textures/fish_scales_mult_color.png", allTextures._textures[0]);
-    texFishScalesColor.bind();
-    texFishScalesColor.loadTexImageAndParam();
-    texFishScalesColor.unbind();
-
     Texture texWater("assets/textures/water.jpg", allTextures._textures[1]);
-    texWater.bind();
-    texWater.loadTexImageAndParam();
-    texWater.unbind();
-
     Texture texGlass("assets/textures/glass_blue.png", allTextures._textures[2]);
-    texGlass.bind();
-    texGlass.loadTexImageAndParam();
-    texGlass.unbind();
 
     // CUBE AQUARIUM
     // object creation
@@ -135,7 +124,7 @@ int main(void)
 
         glEnable(GL_BLEND);
 
-        // myApp.drawScene(ctx, mainCamera.getViewMatrix(), myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, cube);
+        myApp.drawScene(ctx, mainCamera.getViewMatrix(), myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, cube);
 
         glDisable(GL_BLEND);
 

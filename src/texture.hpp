@@ -7,8 +7,7 @@ private:
     GLuint           _id;
 
 public:
-    Texture(std::string imagePath, GLuint id)
-        : _image{p6::load_image_buffer(imagePath)}, _id{id} {};
+    Texture(std::string imagePath, GLuint id);
 
     inline void bind()
     {
