@@ -7,14 +7,15 @@
 
 void setNbFishBySize(const size_t& nbFishTotal, size_t& nbLittleFish, size_t& nbMediumFish, size_t& nbBigFish)
 {
-    float p = 0.5; // [0.0, 1.0] For p = 0.5 -> the distribution is balanced
+    float balancedP = 0.5;
+    float heavyP = 0.75;
 
     size_t nbTrialsMediumFish = 11;
     size_t nbTrialsBigFish    = 4;
 
-    nbMediumFish = binomialDistribution(nbTrialsMediumFish, p);
-    nbBigFish    = binomialDistribution(nbTrialsBigFish, p);
-    nbLittleFish = nbFishTotal - (nbMediumFish + nbBigFish);
+    nbBigFish    = binomialDistribution(nbTrialsBigFish, balancedP);
+    nbMediumFish = binomialDistribution(nbTrialsMediumFish, heavyP);
+    nbLittleFish = nbFishTotal - (nbBigFish + nbMediumFish);
 }
 
 glm::vec3 setLittleFishPosition(const float& wallSize)
