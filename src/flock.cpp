@@ -1,5 +1,6 @@
 #include "flock.hpp"
 #include "boid.hpp"
+#include "loader.h"
 #include "p6/p6.h"
 #include "probability.hpp"
 
@@ -33,11 +34,11 @@ Flock::Flock(size_t total, float wallSize)
     }
 }
 
-void Flock::update(p6::Context& ctx, float& wallSize, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
+void Flock::update(p6::Context& ctx, float& wallSize, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& fishVertexContainer)
 {
     for (size_t i = 0; i < this->flock.size(); i++)
     {
-        this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, wallSize, ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, boidContainer);
+        this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, wallSize, ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, fishVertexContainer);
     }
 }
 

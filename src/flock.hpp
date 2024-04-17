@@ -1,6 +1,7 @@
 #pragma once
 #include "boid.hpp"
 #include "glimac/sphere_vertices.hpp"
+#include "loader.h"
 #include "p6/p6.h"
 
 class Flock {
@@ -25,6 +26,6 @@ public:
     Flock();
     Flock(size_t total, const float wallSize);
 
-    void update(p6::Context& ctx, float& wallSize, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer);
+    void update(p6::Context& ctx, float& wallSize, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& fishVertexContainer);
     void updateMenu();
 };

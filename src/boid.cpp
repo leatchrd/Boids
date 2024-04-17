@@ -2,17 +2,18 @@
 #include "glimac/sphere_vertices.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
+#include "loader.h"
 #include "logicTools.hpp"
 #include "p6/p6.h"
 
 // --- PUBLIC ---
 
-void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& wall, p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
+void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& wall, p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& fishVertexContainer)
 {
     this->applyBoidsBehaviour(allBoids, separation, alignment, cohesion);
     this->update();
     this->wrapAround(wall);
-    this->draw(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, boidContainer);
+    this->draw(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, fishVertexContainer);
 }
 
 // --- PRIVATE ---
@@ -49,42 +50,30 @@ void Boid::wrapAround(float& wall)
     if (this->position.x < -wall + this->radius)
     {
         this->position.x = wall - this->radius;
-        // this->position.y = -this->position.y;
-        // this->position.z = -this->position.z;
     }
     else if (this->position.x > wall - this->radius)
     {
         this->position.x = -wall + this->radius;
-        // this->position.y = -this->position.y;
-        // this->position.z = -this->position.z;
     }
     if (this->position.y < -wall + this->radius)
     {
         this->position.y = wall - this->radius;
-        // this->position.x = -this->position.x;
-        // this->position.z = -this->position.z;
     }
     else if (this->position.y > wall - this->radius)
     {
         this->position.y = -wall + this->radius;
-        // this->position.x = -this->position.x;
-        // this->position.z = -this->position.z;
     }
     if (this->position.z < -wall + this->radius)
     {
         this->position.z = wall - this->radius;
-        // this->position.x = -this->position.x;
-        // this->position.y = -this->position.y;
     }
     else if (this->position.z > wall - this->radius)
     {
         this->position.z = -wall + this->radius;
-        // this->position.x = -this->position.x;
-        // this->position.y = -this->position.y;
     }
 }
 
-void Boid::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<glimac::ShapeVertex>& boidContainer)
+void Boid::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& fishVertexContainer)
 {
     // matrix creation
     glm::mat4 ProjMatrix   = glm::perspective(glm::radians(70.f), ctx.aspect_ratio(), 0.1f, 100.f);
@@ -92,6 +81,14 @@ void Boid::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_
     glm::mat4 NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
 
     // adjust ojbect
+    if (this->velocity.x < 0 || this->velocity.y < 0 || this->velocity.z < 0) // TODO: adjust rotation a little better
+    {
+        MVMatrix = glm::rotate(MVMatrix, glm::radians(-90.f), glm::vec3{0.f, 1.f, 0.f});
+    }
+    else
+    {
+        MVMatrix = glm::rotate(MVMatrix, glm::radians(90.f), glm::vec3{0.f, 1.f, 0.f});
+    }
     MVMatrix = glm::scale(MVMatrix, glm::vec3{this->radius});
 
     // fill matrices with uniform location
@@ -100,7 +97,7 @@ void Boid::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_
     glUniformMatrix4fv(uni_Normal, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
 
     // draw boid
-    glDrawArrays(GL_TRIANGLES, 0, boidContainer.size());
+    glDrawArrays(GL_TRIANGLES, 0, fishVertexContainer.size());
 }
 
 // FOR BOID BEHAVIOUR

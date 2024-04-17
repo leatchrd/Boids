@@ -8,7 +8,7 @@
 #include "glimac/sphere_vertices.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
-// #include "loader.h"
+#include "loader.h"
 #include "p6/p6.h"
 #include "texture.hpp"
 #include "vao.hpp"
@@ -69,15 +69,18 @@ int main(void)
     vaoCube.unbind();
 
     // FISH
+    // object creation
+    const Object3D fish = loadOBJ("assets/models/goldfish.obj");
+
     // VBO creation & binding
     VBO vboFish(2);
     vboFish.gen();
     vboFish.bind();
 
     // vertices creation
-    const std::vector<glimac::ShapeVertex> fish = glimac::sphere_vertices(1.f, 32, 16);
-    glBufferData(GL_ARRAY_BUFFER, fish.size() * sizeof(glimac::ShapeVertex), fish.data(), GL_STATIC_DRAW);
+    // const std::vector<glimac::ShapeVertex> fish = glimac::sphere_vertices(1.f, 32, 16);
 
+    glBufferData(GL_ARRAY_BUFFER, fish.vertices.size() * sizeof(vertex), fish.vertices.data(), GL_STATIC_DRAW);
     vboFish.unbind();
 
     // VAO creation & binding
@@ -89,7 +92,7 @@ int main(void)
     // VBO re-binding
     vboFish.bind();
 
-    vaoFish.setAttribPointer(sizeof(glimac::ShapeVertex), (const GLvoid*)(offsetof(glimac::ShapeVertex, position)), (const GLvoid*)(offsetof(glimac::ShapeVertex, texCoords)));
+    vaoFish.setAttribPointer(sizeof(vertex), (const GLvoid*)(offsetof(vertex, position)), (const GLvoid*)(offsetof(vertex, uv)));
 
     // VBO de-binding & VAO de-binding
     vboFish.unbind();
@@ -124,7 +127,7 @@ int main(void)
 
         glEnable(GL_BLEND);
 
-        myApp.drawScene(ctx, mainCamera.getViewMatrix(), myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, cube);
+        // myApp.drawScene(ctx, mainCamera.getViewMatrix(), myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, cube);
 
         glDisable(GL_BLEND);
 
@@ -141,7 +144,7 @@ int main(void)
         vaoFish.bind();
         texFishScalesColor.bind();
 
-        myApp.updateFlock(ctx, mainCamera.getViewMatrix(), myBoidProgram.uniMVP, myBoidProgram.uniMV, myBoidProgram.uniNormal, fish);
+        myApp.updateFlock(ctx, mainCamera.getViewMatrix(), myBoidProgram.uniMVP, myBoidProgram.uniMV, myBoidProgram.uniNormal, fish.vertices);
 
         // VAO and texture de-binding
         texFishScalesColor.unbind();
