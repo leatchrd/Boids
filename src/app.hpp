@@ -4,6 +4,7 @@
 #include "loader.h"
 #include "p6/p6.h"
 #include "scene.hpp"
+#include "texture.hpp"
 
 class App {
 private:
@@ -21,6 +22,6 @@ public:
     void drawMenu();
     void checkEvents(p6::Context& ctx);
 
-    void updateFlock(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& fishVertexContainer);
+    void updateFlock(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, const std::vector<vertex>& fishVertexContainer);
     void drawScene(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<Vertex2DTex>& cubeContainer);
 };

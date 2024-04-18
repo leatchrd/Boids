@@ -140,12 +140,10 @@ int main(void)
 
         // VAO and texture re-binding
         vaoFish.bind();
-        texFish1.bind();
 
-        myApp.updateFlock(ctx, mainCamera.getViewMatrix(), myBoidProgram.uniMVP, myBoidProgram.uniMV, myBoidProgram.uniNormal, fish.vertices);
+        myApp.updateFlock(ctx, mainCamera.getViewMatrix(), myBoidProgram.uniMVP, myBoidProgram.uniMV, myBoidProgram.uniNormal, texFish1, texFish2, texFish3, fish.vertices);
 
         // VAO and texture de-binding
-        texFish1.unbind();
         vaoFish.unbind();
     };
 

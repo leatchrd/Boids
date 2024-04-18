@@ -4,6 +4,7 @@
 #include "loader.h"
 #include "p6/p6.h"
 #include "scene.hpp"
+#include "texture.hpp"
 
 // --- PUBLIC ---
 
@@ -38,9 +39,9 @@ void App::checkEvents(p6::Context& ctx)
     this->pausePlayKey(ctx);
 }
 
-void App::updateFlock(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& fishVertexContainer)
+void App::updateFlock(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, const std::vector<vertex>& fishVertexContainer)
 {
-    this->flock.update(ctx, this->scene.side, camMVMatrix, uni_MVP, uni_MV, uni_Normal, fishVertexContainer);
+    this->flock.update(ctx, this->scene.side, camMVMatrix, uni_MVP, uni_MV, uni_Normal, texLittleFish, texMediumFish, texBigFish, fishVertexContainer);
 }
 
 void App::drawScene(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<Vertex2DTex>& cubeContainer)
