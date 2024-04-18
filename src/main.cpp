@@ -10,6 +10,7 @@
 #include "loader.h"
 #include "p6/p6.h"
 #include "texture.hpp"
+#include "textures.hpp"
 #include "vao.hpp"
 #include "vbo.hpp"
 
@@ -32,16 +33,13 @@ int main(void)
     TrackballCamera mainCamera;
 
     // TEXTURES
-    Textures allTextures(5);
-    allTextures.gen();
-
-    Texture texFish1("assets/textures/goldfish_1.png", allTextures._textures[0]);
-    Texture texFish2("assets/textures/goldfish_2.png", allTextures._textures[1]);
-    Texture texFish3("assets/textures/goldfish_3.png", allTextures._textures[2]);
-    Texture texWater("assets/textures/water.jpg", allTextures._textures[3]);
-    Texture texGlass("assets/textures/glass_blue.png", allTextures._textures[4]);
-
-    std::cout << "finish textures creation" << std::endl;
+    Textures allTextures;
+    Texture  texFish1("assets/textures/goldfish_1.png", allTextures._textures[0]);
+    Texture  texFish2("assets/textures/goldfish_2.png", allTextures._textures[1]);
+    Texture  texFish3("assets/textures/goldfish_3.png", allTextures._textures[2]);
+    Texture  texWater("assets/textures/water.jpg", allTextures._textures[3]);
+    Texture  texGlass("assets/textures/glass_blue.png", allTextures._textures[4]);
+    // std::cout << "finish textures creation" << std::endl;
 
     // CUBE AQUARIUM
     // object creation
