@@ -37,7 +37,7 @@ int main(void)
     Texture  texFish1("assets/textures/goldfish_1.png", allTextures._textures[0]);
     Texture  texFish2("assets/textures/goldfish_2.png", allTextures._textures[1]);
     Texture  texFish3("assets/textures/goldfish_3.png", allTextures._textures[2]);
-    Texture  texWater("assets/textures/water.jpg", allTextures._textures[3]);
+    Texture  texWater("assets/textures/water_a25.png", allTextures._textures[3]);
     Texture  texGlass("assets/textures/glass_blue.png", allTextures._textures[4]);
     // std::cout << "finish textures creation" << std::endl;
 
@@ -118,19 +118,20 @@ int main(void)
         // use shader
         myCubeProgram._program.use();
         glUniform1i(myCubeProgram.uniGlassTex, 0);
+        glUniform1f(myCubeProgram.uniDetailLevel, myApp.getAquariumDetailLevel());
 
         // VAO and texture re-binding
         vaoCube.bind();
-        texGlass.bind();
+        texWater.bind();
 
         glEnable(GL_BLEND);
 
-        // myApp.drawScene(ctx, mainCamera.getViewMatrix(), myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, cube);
+        myApp.drawScene(ctx, mainCamera.getViewMatrix(), myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, cube);
 
         glDisable(GL_BLEND);
 
         // VAO and texture de-binding
-        texGlass.unbind();
+        texWater.unbind();
         vaoCube.unbind();
 
         // FISH

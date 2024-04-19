@@ -15,6 +15,7 @@ private:
     glm::vec2 position;
     Flock     flock;
     ImVec4    backgroundColor;
+    float     aquariumDetailLevel = 1.5f;
 
 private:
     void updateMenu();
@@ -28,6 +29,8 @@ public:
 
     void draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<Vertex2DTex>& cubeContainer);
     void drawMenu();
+
+    float getAquariumDetailLevel() { return this->aquariumDetailLevel; };
 
     // void setBackgroundColor(float r, float g, float b);
 };

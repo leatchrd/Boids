@@ -32,8 +32,10 @@ void Scene::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni
 
 void Scene::updateMenu()
 {
-    ImGui::Text("Square size");
-    ImGui::SliderFloat("##Square size", &this->side, 0.5f, 1.0f);
+    // ImGui::Text("Square size");
+    // ImGui::SliderFloat("##Square size", &this->side, 0.5f, 1.0f);
+    ImGui::Text("Aquarium detail level");
+    ImGui::SliderFloat("##Aquarium detail level", &this->aquariumDetailLevel, 0.001f, 3.0f);
 }
 
 void Scene::drawMenu()

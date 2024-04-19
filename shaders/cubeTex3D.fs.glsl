@@ -7,8 +7,8 @@ in vec2 vTexCoords;
 out vec4 fFragTexture;
 
 uniform sampler2D uTextureGlass;
+uniform float uDetailLevel;
 
 void main() {
-  // fFragTexture = vec4((texture(uTextureGlass, vTexCoords)).xyz, 0.25);
-  fFragTexture = texture(uTextureGlass, vTexCoords);
+  fFragTexture = textureLod(uTextureGlass, vTexCoords, uDetailLevel);
 }

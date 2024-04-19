@@ -8,14 +8,16 @@ public:
     GLint      uniMV;
     GLint      uniNormal;
     GLint      uniGlassTex;
+    GLint      uniDetailLevel;
 
     CubeProgram()
         : _program{p6::load_shader("shaders/3D.vs.glsl", "shaders/cubeTex3D.fs.glsl")}
     {
-        uniMVP      = glGetUniformLocation(this->_program.id(), "uMVPMatrix");
-        uniMV       = glGetUniformLocation(this->_program.id(), "uMVMatrix");
-        uniNormal   = glGetUniformLocation(this->_program.id(), "uNormalMatrix");
-        uniGlassTex = glGetUniformLocation(this->_program.id(), "uTextureGlass");
+        uniMVP         = glGetUniformLocation(this->_program.id(), "uMVPMatrix");
+        uniMV          = glGetUniformLocation(this->_program.id(), "uMVMatrix");
+        uniNormal      = glGetUniformLocation(this->_program.id(), "uNormalMatrix");
+        uniGlassTex    = glGetUniformLocation(this->_program.id(), "uTextureGlass");
+        uniDetailLevel = glGetUniformLocation(this->_program.id(), "uDetailLevel");
     }
 };
 
