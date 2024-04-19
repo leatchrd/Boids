@@ -47,21 +47,21 @@ void Boid::update()
 
 void Boid::wrapAround(float& wall)
 {
-    if (this->position.x < -wall + this->radius)
+    if (this->position.x < -wall + (this->radius * 2.5)) // compensate for fish shape on x axes
     {
-        this->position.x = wall - this->radius;
+        this->position.x = wall - (this->radius * 2.5);
     }
-    else if (this->position.x > wall - this->radius)
+    else if (this->position.x > wall - (this->radius * 2.5))
     {
-        this->position.x = -wall + this->radius;
+        this->position.x = -wall + (this->radius * 2.5);
     }
-    if (this->position.y < -wall + this->radius)
+    if (this->position.y < -wall + (this->radius * 1.3)) // compensate for fish shape on y axes
     {
-        this->position.y = wall - this->radius;
+        this->position.y = wall - (this->radius * 1.3);
     }
-    else if (this->position.y > wall - this->radius)
+    else if (this->position.y > wall - (this->radius * 1.3))
     {
-        this->position.y = -wall + this->radius;
+        this->position.y = -wall + (this->radius * 1.3);
     }
     if (this->position.z < -wall + this->radius)
     {

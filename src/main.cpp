@@ -127,7 +127,7 @@ int main(void)
 
         glEnable(GL_BLEND);
 
-        // myApp.drawScene(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, cube);
+        myApp.drawScene(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, cube);
 
         glDisable(GL_BLEND);
 
