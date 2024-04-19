@@ -127,7 +127,7 @@ int main(void)
 
         glEnable(GL_BLEND);
 
-        myApp.drawScene(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, cube);
+        // myApp.drawScene(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, cube);
 
         glDisable(GL_BLEND);
 
@@ -139,6 +139,7 @@ int main(void)
         // use shader
         myFishProgram.program.use();
         glUniform1i(myFishProgram.uniFishTex, 0);
+        glUniform1f(myFishProgram.uniDetailLevel, myApp.getFishDetailLevel());
 
         // VAO and texture re-binding
         vaoFish.bind();

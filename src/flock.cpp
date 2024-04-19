@@ -62,6 +62,11 @@ void Flock::update(p6::Context& ctx, float& wallSize, const glm::mat4 camMVMatri
 
 void Flock::updateMenu()
 {
+    ImGui::Text("Fish detail level");
+    ImGui::SliderFloat("##Fish detail level", &this->fishDetailLevel, 0.001f, 3.0f);
+
+    ImGui::NewLine();
+
     ImGui::Text("Separation coefficient");
     ImGui::SliderFloat("##Separation coefficient", &this->separationCoeff, 0.0f, 100.0f);
     ImGui::Text("Alignment coefficient");
