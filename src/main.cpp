@@ -2,8 +2,9 @@
 #define DOCTEST_CONFIG_IMPLEMENT
 #include "3DTools.hpp"
 #include "app.hpp"
-#include "appPrograms.hpp"
+#include "aquariumProgram.hpp"
 #include "doctest/doctest.h"
+#include "fishProgram.hpp"
 #include "glimac/common.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
@@ -26,9 +27,9 @@ int main(void)
     ctx.maximize_window();
 
     // Different parameters
-    App         myApp(20);
-    BoidProgram myBoidProgram;
-    CubeProgram myCubeProgram;
+    App             myApp(20);
+    FishProgram     myFishProgram;
+    AquariumProgram myAquariumProgram;
 
     TrackballCamera mainCamera;
 
@@ -116,9 +117,9 @@ int main(void)
 
         // WALL
         // use shader
-        myCubeProgram._program.use();
-        glUniform1i(myCubeProgram.uniGlassTex, 0);
-        glUniform1f(myCubeProgram.uniDetailLevel, myApp.getAquariumDetailLevel());
+        myAquariumProgram.program.use();
+        glUniform1i(myAquariumProgram.uniAquaTex, 0);
+        glUniform1f(myAquariumProgram.uniDetailLevel, myApp.getAquariumDetailLevel());
 
         // VAO and texture re-binding
         vaoCube.bind();
@@ -126,7 +127,7 @@ int main(void)
 
         glEnable(GL_BLEND);
 
-        myApp.drawScene(ctx, mainCamera.getViewMatrix(), myCubeProgram.uniMVP, myCubeProgram.uniMV, myCubeProgram.uniNormal, cube);
+        myApp.drawScene(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, cube);
 
         glDisable(GL_BLEND);
 
@@ -136,13 +137,13 @@ int main(void)
 
         // FISH
         // use shader
-        myBoidProgram._program.use();
-        glUniform1i(myBoidProgram.uniFishTex, 0);
+        myFishProgram.program.use();
+        glUniform1i(myFishProgram.uniFishTex, 0);
 
         // VAO and texture re-binding
         vaoFish.bind();
 
-        myApp.updateFlock(ctx, mainCamera.getViewMatrix(), myBoidProgram.uniMVP, myBoidProgram.uniMV, myBoidProgram.uniNormal, texFish1, texFish2, texFish3, fish.vertices);
+        myApp.updateFlock(ctx, mainCamera.getViewMatrix(), myFishProgram.uniMVP, myFishProgram.uniMV, myFishProgram.uniNormal, texFish1, texFish2, texFish3, fish.vertices);
 
         // VAO and texture de-binding
         vaoFish.unbind();

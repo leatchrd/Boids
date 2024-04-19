@@ -6,9 +6,9 @@ in vec2 vTexCoords;
 
 out vec4 fFragTexture;
 
-uniform sampler2D uTextureGlass;
+uniform sampler2D uTextureAqua;
 uniform float uDetailLevel;
 
 void main() {
-  fFragTexture = textureLod(uTextureGlass, vTexCoords, uDetailLevel);
+  fFragTexture = textureLod(uTextureAqua, vTexCoords, uDetailLevel);
 }
