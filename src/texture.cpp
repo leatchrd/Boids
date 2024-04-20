@@ -1,8 +1,8 @@
 #include "texture.hpp"
 #include "p6/p6.h"
 
-Texture::Texture(std::string imagePath, GLuint id)
-    : _image{p6::load_image_buffer(imagePath)}, _id{id}
+Texture::Texture(std::string imagePath, GLuint id, GLenum nb)
+    : _image{p6::load_image_buffer(imagePath)}, _id{id}, _nb{nb}
 {
     this->bind();
     this->loadTexImageAndParam();

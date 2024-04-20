@@ -41,18 +41,21 @@ void Flock::update(p6::Context& ctx, float& wallSize, const glm::mat4 camMVMatri
     {
         if (this->flock[i].getRadius() == this->radiusLittleFish)
         {
+            texLittleFish.activate();
             texLittleFish.bind();
             this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, wallSize, ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, fishVertexContainer);
             texLittleFish.unbind();
         }
         else if (this->flock[i].getRadius() == this->radiusMediumFish)
         {
+            texMediumFish.activate();
             texMediumFish.bind();
             this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, wallSize, ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, fishVertexContainer);
             texMediumFish.unbind();
         }
         else
         {
+            texBigFish.activate();
             texBigFish.bind();
             this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, wallSize, ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, fishVertexContainer);
             texBigFish.unbind();

@@ -7,7 +7,7 @@ public:
     GLint      uniMVP;
     GLint      uniMV;
     GLint      uniNormal;
-    GLint      uniAquaTex;
+    GLint      uniTexture;
     GLint      uniDetailLevel;
 
     AquariumProgram()
@@ -16,7 +16,7 @@ public:
         uniMVP         = glGetUniformLocation(this->program.id(), "uMVPMatrix");
         uniMV          = glGetUniformLocation(this->program.id(), "uMVMatrix");
         uniNormal      = glGetUniformLocation(this->program.id(), "uNormalMatrix");
-        uniAquaTex     = glGetUniformLocation(this->program.id(), "uTextureAqua");
+        uniTexture     = glGetUniformLocation(this->program.id(), "uTexture");
         uniDetailLevel = glGetUniformLocation(this->program.id(), "uDetailLevel");
     }
 };
