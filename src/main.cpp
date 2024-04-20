@@ -1,14 +1,13 @@
 #include "trackballCamera.hpp"
 #define DOCTEST_CONFIG_IMPLEMENT
-#include "3DTools.hpp"
 #include "app.hpp"
 #include "aquariumProgram.hpp"
+#include "cube.hpp"
 #include "doctest/doctest.h"
 #include "fish.hpp"
 #include "glimac/common.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
-#include "loader.h"
 #include "p6/p6.h"
 #include "texture.hpp"
 #include "textures.hpp"
@@ -29,6 +28,7 @@ int main(void)
     // Different parameters
     App             myApp(20);
     Fish            fish; // TODO: add to App
+    Cube            cube; // TODO: add to App
     AquariumProgram myAquariumProgram;
 
     TrackballCamera mainCamera;
@@ -40,34 +40,6 @@ int main(void)
     Texture  texFish3("assets/textures/goldfish_3.png", allTextures._textures[2], GL_TEXTURE0);
     Texture  texWater("assets/textures/water_a25.png", allTextures._textures[3], GL_TEXTURE1);
     // Texture  texGlass("assets/textures/glass_blue.png", allTextures._textures[4], GL_TEXTURE1);
-
-    // CUBE AQUARIUM
-    // object creation
-    // const Object3D cube = loadOBJ("assets/models/cube.obj");
-    const std::vector<Vertex2DTex> cube = createCubeVertices();
-
-    // VBO creation & binding
-    VBO vboCube(2);
-    vboCube.gen();
-    vboCube.bind();
-
-    glBufferData(GL_ARRAY_BUFFER, cube.size() * sizeof(Vertex2DTex), cube.data(), GL_STATIC_DRAW);
-    vboCube.unbind();
-
-    // VAO creation & binding
-    VAO vaoCube(2);
-    vaoCube.gen();
-    vaoCube.bind();
-    vaoCube.activateAttributes();
-
-    // VBO re-binding
-    vboCube.bind();
-
-    vaoCube.setAttribPointer(sizeof(Vertex2DTex), (const GLvoid*)(offsetof(Vertex2DTex, position)), (const GLvoid*)(offsetof(Vertex2DTex, texture)));
-
-    // VBO de-binding & VAO de-binding
-    vboCube.unbind();
-    vaoCube.unbind();
 
     // Global configuration
     glEnable(GL_DEPTH_TEST);
@@ -98,13 +70,13 @@ int main(void)
         myApp.updateFlock(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, texFish1, texFish2, texFish3, fish.getObjectVertices());
 
         // CUBE
-        vaoCube.bind();
+        cube.vao.bind();
         texWater.bind();
-        myApp.drawScene(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, cube);
+        myApp.drawScene(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, cube.getObjectVertices());
 
         // unbinding
         texWater.unbind();
-        vaoCube.unbind();
+        cube.vao.unbind();
         fish.vao.unbind();
     };
 

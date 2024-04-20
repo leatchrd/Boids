@@ -13,5 +13,5 @@ public:
 
 public:
     Fish();
-    inline std::vector<vertex> getObjectVertices() { return fish.vertices; };
+    inline std::vector<vertex> getObjectVertices() { return this->fish.vertices; };
 };
