@@ -9,6 +9,7 @@
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "p6/p6.h"
+#include "submarine.hpp"
 #include "texture.hpp"
 #include "textures.hpp"
 #include "vao.hpp"
@@ -27,8 +28,9 @@ int main(void)
 
     // Different parameters
     App             myApp(20);
-    Fish            fish; // TODO: add to App
-    Cube            cube; // TODO: add to App
+    Fish            fish;      // TODO: add to App
+    Cube            cube;      // TODO: add to App
+    Submarine       submarine; // TODO: add to App
     AquariumProgram myAquariumProgram;
 
     TrackballCamera mainCamera;
@@ -38,7 +40,8 @@ int main(void)
     Texture  texFish1("assets/textures/goldfish_1.png", allTextures._textures[0], GL_TEXTURE0);
     Texture  texFish2("assets/textures/goldfish_2.png", allTextures._textures[1], GL_TEXTURE0);
     Texture  texFish3("assets/textures/goldfish_3.png", allTextures._textures[2], GL_TEXTURE0);
-    Texture  texWater("assets/textures/water_a25.png", allTextures._textures[3], GL_TEXTURE1);
+    Texture  texSub("assets/textures/yellow_concrete.jpg", allTextures._textures[3], GL_TEXTURE1);
+    Texture  texWater("assets/textures/water_a25.png", allTextures._textures[4], GL_TEXTURE2);
     // Texture  texGlass("assets/textures/glass_blue.png", allTextures._textures[4], GL_TEXTURE1);
 
     // Global configuration
@@ -69,6 +72,11 @@ int main(void)
         fish.vao.bind();
         myApp.updateFlock(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, texFish1, texFish2, texFish3, fish.getObjectVertices());
 
+        // SUBMARINE
+        submarine.vao.bind();
+        texSub.bind();
+        submarine.update(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, myApp.getWallSize());
+
         // CUBE
         cube.vao.bind();
         texWater.bind();
@@ -77,6 +85,10 @@ int main(void)
         // unbinding
         texWater.unbind();
         cube.vao.unbind();
+
+        texSub.unbind();
+        submarine.vao.unbind();
+
         fish.vao.unbind();
     };
 
