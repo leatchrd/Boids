@@ -4,6 +4,7 @@
 #include "app.hpp"
 #include "aquariumProgram.hpp"
 #include "doctest/doctest.h"
+#include "fish.hpp"
 #include "glimac/common.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
@@ -27,6 +28,7 @@ int main(void)
 
     // Different parameters
     App             myApp(20);
+    Fish            fish; // TODO: add to App
     AquariumProgram myAquariumProgram;
 
     TrackballCamera mainCamera;
@@ -38,33 +40,6 @@ int main(void)
     Texture  texFish3("assets/textures/goldfish_3.png", allTextures._textures[2], GL_TEXTURE0);
     Texture  texWater("assets/textures/water_a25.png", allTextures._textures[3], GL_TEXTURE1);
     // Texture  texGlass("assets/textures/glass_blue.png", allTextures._textures[4], GL_TEXTURE1);
-
-    // FISH
-    // object creation
-    const Object3D fish = loadOBJ("assets/models/goldfish.obj");
-
-    // VBO creation & binding
-    VBO vboFish(1);
-    vboFish.gen();
-    vboFish.bind();
-
-    glBufferData(GL_ARRAY_BUFFER, fish.vertices.size() * sizeof(vertex), fish.vertices.data(), GL_STATIC_DRAW);
-    vboFish.unbind();
-
-    // VAO creation & binding
-    VAO vaoFish(1);
-    vaoFish.gen();
-    vaoFish.bind();
-    vaoFish.activateAttributes();
-
-    // VBO re-binding
-    vboFish.bind();
-
-    vaoFish.setAttribPointer(sizeof(vertex), (const GLvoid*)(offsetof(vertex, position)), (const GLvoid*)(offsetof(vertex, uv)));
-
-    // VBO de-binding & VAO de-binding
-    vboFish.unbind();
-    vaoFish.unbind();
 
     // CUBE AQUARIUM
     // object creation
@@ -119,8 +94,8 @@ int main(void)
         glUniform1f(myAquariumProgram.uniDetailLevel, myApp.getAquariumDetailLevel());
 
         // FISH
-        vaoFish.bind();
-        myApp.updateFlock(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, texFish1, texFish2, texFish3, fish.vertices);
+        fish.vao.bind();
+        myApp.updateFlock(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, texFish1, texFish2, texFish3, fish.getObjectVertices());
 
         // CUBE
         vaoCube.bind();
@@ -130,7 +105,7 @@ int main(void)
         // unbinding
         texWater.unbind();
         vaoCube.unbind();
-        vaoFish.unbind();
+        fish.vao.unbind();
     };
 
     // EVENTS: camera orientation
