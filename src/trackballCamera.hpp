@@ -16,5 +16,5 @@ public:
     inline void rotateLeft(float degrees) { this->_angleY += degrees; }; // rotate laterally
 
     const glm::mat4 getViewMatrix();
-    void            updateTrackballCamera(p6::Context& ctx);
+    void            updateOrientation(p6::Context& ctx);
 };

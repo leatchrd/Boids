@@ -11,29 +11,22 @@ const glm::mat4 TrackballCamera::getViewMatrix()
     return MVMatrix;
 };
 
-void TrackballCamera::updateTrackballCamera(p6::Context& ctx)
+void TrackballCamera::updateOrientation(p6::Context& ctx)
 {
+    // mouse_dragged events also available
     if (ctx.key_is_pressed(GLFW_KEY_UP))
-    {
-        this->moveFront(ctx.delta_time());
-    }
-    if (ctx.key_is_pressed(GLFW_KEY_DOWN))
-    {
-        this->moveFront(-ctx.delta_time());
-    }
-    if (ctx.key_is_pressed(GLFW_KEY_W))
     {
         this->rotateUp(ctx.delta_time());
     }
-    if (ctx.key_is_pressed(GLFW_KEY_S))
+    else if (ctx.key_is_pressed(GLFW_KEY_DOWN))
     {
         this->rotateUp(-ctx.delta_time());
     }
-    if (ctx.key_is_pressed(GLFW_KEY_A))
+    if (ctx.key_is_pressed(GLFW_KEY_LEFT))
     {
         this->rotateLeft(ctx.delta_time());
     }
-    if (ctx.key_is_pressed(GLFW_KEY_D))
+    else if (ctx.key_is_pressed(GLFW_KEY_RIGHT))
     {
         this->rotateLeft(-ctx.delta_time());
     }

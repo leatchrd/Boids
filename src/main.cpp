@@ -108,7 +108,7 @@ int main(void)
     ctx.update = [&]() {
         // Event management
         myApp.checkEvents(ctx);
-        mainCamera.updateTrackballCamera(ctx);
+        mainCamera.updateOrientation(ctx); // mouse_dragged events also available
 
         // clean window
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -133,7 +133,36 @@ int main(void)
         vaoFish.unbind();
     };
 
-    // EVENTS & QUERIES
+    // EVENTS: camera orientation
+    ctx.mouse_scrolled = [&](p6::MouseScroll scroll) {
+        if (scroll.dy > 0)
+        {
+            mainCamera.moveFront(ctx.delta_time());
+        }
+        else if (scroll.dy < 0)
+        {
+            mainCamera.moveFront(-ctx.delta_time());
+        }
+    };
+    ctx.mouse_dragged = [&](p6::MouseDrag drag) {
+        // keyboard queries also available
+        if (drag.start_position.x - drag.position.x < 0)
+        {
+            mainCamera.rotateLeft(ctx.delta_time());
+        }
+        else if (drag.start_position.x - drag.position.x >= 0)
+        {
+            mainCamera.rotateLeft(-ctx.delta_time());
+        }
+        if (drag.start_position.y - drag.position.y < 0)
+        {
+            mainCamera.rotateUp(ctx.delta_time());
+        }
+        else if (drag.start_position.y - drag.position.y >= 0)
+        {
+            mainCamera.rotateUp(-ctx.delta_time());
+        }
+    };
 
     // STARTS THE INFINITE LOOP
     ctx.start();
