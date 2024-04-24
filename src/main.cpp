@@ -44,12 +44,12 @@ int main(void)
     // Dear ImGui
     ctx.imgui = [&]() {
         myApp.drawMenu();
+        myApp.checkWindowQueries(ctx);
     };
 
     // INFINITE UPDATE LOOP
     ctx.update = [&]() {
         // Event management
-        myApp.checkWindowQueries(ctx);
         mainCamera.updateOrientation(ctx); // mouse_dragged events also available
 
         // clean window
