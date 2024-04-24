@@ -17,6 +17,6 @@ public:
     Coral();
     inline std::vector<vertex> getObjectVertices() { return this->coral.vertices; };
 
-    void update(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texCoral1, Texture& texCoral2);
+    void update(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texCoral1, Texture& texCoral2, Texture& texCoral3);
     void draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, glm::vec3 position, float angle, float scale);
 };

@@ -35,7 +35,8 @@ int main(void)
     Texture  texSub("assets/textures/yellow_concrete.jpg", allTextures._textures[3], GL_TEXTURE1);
     Texture  texCoral1("assets/textures/coral_1.png", allTextures._textures[4], GL_TEXTURE2);
     Texture  texCoral2("assets/textures/coral_2.png", allTextures._textures[5], GL_TEXTURE2);
-    Texture  texWater("assets/textures/water_a25.png", allTextures._textures[6], GL_TEXTURE3);
+    Texture  texCoral3("assets/textures/coral_3.png", allTextures._textures[6], GL_TEXTURE2);
+    Texture  texWater("assets/textures/water_a25.png", allTextures._textures[7], GL_TEXTURE3);
     // Texture  texGlass("assets/textures/glass_blue.png", allTextures._textures[4], GL_TEXTURE1);
 
     // Global configuration
@@ -63,7 +64,7 @@ int main(void)
         glUniform1f(myAquariumProgram.uniDetailLevel, myApp.getAquariumDetailLevel());
 
         // DRAW
-        myApp.draw(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, texFish1, texFish2, texFish3, texSub, texCoral1, texCoral2, texWater);
+        myApp.draw(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, texFish1, texFish2, texFish3, texSub, texCoral1, texCoral2, texCoral3, texWater);
     };
 
     // EVENTS: camera orientation
