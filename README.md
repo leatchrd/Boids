@@ -51,7 +51,13 @@ The ImGui menu allows you to vary the simulation parameters.
 
 The first slider corresponds to the *level of detail* of the scene textures. Defaulting to 1.5, the lower the slider value, the more pixelated the textures will be and vice versa.
 
-*Work in progress*
+
+*The three rules of behavior for our boids.*
+The second slider allows you to play on the ability of the fish to move away from each other. The default value is 0, the higher the value the more fish will separate if they are close together to avoid collisions.
+
+The third slider allows you to play on the ability of fish to go in the same direction as their neighbors. The default value is 1, the higher the value, the more fish will line up in the same direction.
+
+The fourth slider allows you to play on the cohesion of the fish between them. The default value is 1, the higher the value, the more nearby fish will group together.
 
 
 
