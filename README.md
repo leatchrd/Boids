@@ -1,3 +1,47 @@
+### How to use the application?
+To simplify the use of the application, you can use certain keys on the keyboard.
+
+*For a QWERTY keyboard:*
+- Press the Q key to quit the application.
+- Press Z and X keys to pause and play the application.
+
+*For a AZERTY keyboard:*
+- Press the A key to quit the application.
+- Press W and X keys to pause and play the application.
+
+
+### How to use our wandering submarine?
+Our submarine can move in all directions. To do this, you must use the keyboard keys. 
+
+*For a QWERTY keyboard:*
+- Press the W key to go left.
+- Press the S key to go right.
+- Press the A key to go forward.
+- Press the D key to go backwards.
+- Press the space key to go up.
+- Press the left ctrl key on the keyboard to go down.
+
+*For a AZERTY keyboard:*
+- Press the Z key to go left.
+- Press the S key to go right.
+- Press the Q key to go forward.
+- Press the D key to go backwards.
+- Press the space key to go up.
+- Press the left ctrl key on the keyboard to go down.
+
+
+### How to look at the scene from all its angles?
+It is also possible to change the point of view. To do this, move the camera with the keyboard keys or the mouse.
+
+- Press the left key to rotate left.
+- Press the right key to rotate right.
+- Press the up key to rotate up.
+- Press the down key to rotate down.
+- If you would rather use the mouse, click right and drag.
+- Scroll up to to move toward in the aquarium.
+- Scroll down to to move away from in the aquarium.
+
+
 # Simple-p6-Setup
 
 This template contains all the things you need to get started with a clean and modern C++ project (formatter, linter, tests, continuous integration, etc.).
