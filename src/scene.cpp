@@ -7,29 +7,6 @@
 
 // --- PUBLIC ---
 
-void Scene::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<Vertex2DTex>& cubeContainer)
-{
-    // background
-    // ctx.background(p6::rgb(colorsBackground::Red, colorsBackground::Green, colorsBackground::Blue));
-
-    // CUBE
-    // matrix creation
-    glm::mat4 ProjMatrix   = glm::perspective(glm::radians(70.f), ctx.aspect_ratio(), 0.1f, 100.f);
-    glm::mat4 MVMatrix     = glm::translate(camMVMatrix, glm::vec3(0.f, 0.f, 0.f));
-    glm::mat4 NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
-
-    // adjust object
-    MVMatrix = glm::scale(MVMatrix, glm::vec3{2.f, 2.f, 2.f});
-
-    // fill matrices with uniform location
-    glUniformMatrix4fv(uni_MVP, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
-    glUniformMatrix4fv(uni_MV, 1, GL_FALSE, glm::value_ptr(MVMatrix));
-    glUniformMatrix4fv(uni_Normal, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
-
-    // draw using the VAO
-    glDrawArrays(GL_TRIANGLES, 0, cubeContainer.size());
-}
-
 void Scene::updateMenu()
 {
     ImGui::Text("Aquarium detail level");
@@ -49,3 +26,6 @@ void Scene::updateMenu()
 
 //     this->backgroundColor = ImVec4(r, g, b, 1.0f);
 // }
+
+// background
+// ctx.background(p6::rgb(colorsBackground::Red, colorsBackground::Green, colorsBackground::Blue));

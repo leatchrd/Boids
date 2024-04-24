@@ -60,7 +60,7 @@ void App::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_M
     // CUBE
     this->cubeModel.vao.bind();
     texCube.bind();
-    this->scene.draw(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, this->cubeModel.getObjectVertices());
+    this->cubeModel.draw(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, this->scene.getSide());
 
     // unbinding
     texCube.unbind();
