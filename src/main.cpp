@@ -93,33 +93,24 @@ int main(void)
     };
 
     // EVENTS: camera orientation
+    // scroll to zoom in/out on scene
     ctx.mouse_scrolled = [&](p6::MouseScroll scroll) {
         if (scroll.dy > 0)
         {
-            mainCamera.moveFront(ctx.delta_time());
+            mainCamera.moveFront(ctx.delta_time() * 3);
         }
         else if (scroll.dy < 0)
         {
-            mainCamera.moveFront(-ctx.delta_time());
+            mainCamera.moveFront(-ctx.delta_time() * 3);
         }
     };
+    // right click and drag to rotate left/right & up/down
     ctx.mouse_dragged = [&](p6::MouseDrag drag) {
         // keyboard queries also available
-        if (drag.start_position.x - drag.position.x < 0)
+        if (ctx.mouse_button_is_pressed(p6::Button::Right))
         {
-            mainCamera.rotateLeft(ctx.delta_time());
-        }
-        else if (drag.start_position.x - drag.position.x >= 0)
-        {
-            mainCamera.rotateLeft(-ctx.delta_time());
-        }
-        if (drag.start_position.y - drag.position.y < 0)
-        {
-            mainCamera.rotateUp(ctx.delta_time());
-        }
-        else if (drag.start_position.y - drag.position.y >= 0)
-        {
-            mainCamera.rotateUp(-ctx.delta_time());
+            mainCamera.rotateLeft(-drag.delta[0]);
+            mainCamera.rotateUp(drag.delta[1]);
         }
     };
 

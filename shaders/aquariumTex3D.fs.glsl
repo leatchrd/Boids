@@ -10,6 +10,5 @@ uniform sampler2D uTexture;
 uniform float uDetailLevel;
 
 void main() {
-
   fFragTexture = textureLod(uTexture, vTexCoords, uDetailLevel);
 }

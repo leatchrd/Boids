@@ -14,19 +14,19 @@ const glm::mat4 TrackballCamera::getViewMatrix()
 void TrackballCamera::updateOrientation(p6::Context& ctx)
 {
     // mouse_dragged events also available
-    if (ctx.key_is_pressed(GLFW_KEY_UP))
+    if (ctx.key_is_pressed(GLFW_KEY_UP)) // rotate up
     {
         this->rotateUp(ctx.delta_time());
     }
-    else if (ctx.key_is_pressed(GLFW_KEY_DOWN))
+    else if (ctx.key_is_pressed(GLFW_KEY_DOWN)) // rotate down
     {
         this->rotateUp(-ctx.delta_time());
     }
-    if (ctx.key_is_pressed(GLFW_KEY_LEFT))
+    if (ctx.key_is_pressed(GLFW_KEY_LEFT)) // rotate left
     {
         this->rotateLeft(ctx.delta_time());
     }
-    else if (ctx.key_is_pressed(GLFW_KEY_RIGHT))
+    else if (ctx.key_is_pressed(GLFW_KEY_RIGHT)) // rotate right
     {
         this->rotateLeft(-ctx.delta_time());
     }
