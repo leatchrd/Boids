@@ -42,7 +42,20 @@ It is also possible to change the point of view. To do this, move the camera wit
 - Scroll down to to move away from in the aquarium.
 
 
-# Simple-p6-Setup
+
+### How to use the ImGui menu ?
+The ImGui menu allows you to vary the simulation parameters.
+
+- To move the slider for each setting, right-click and drag left or right. Changes are made live.
+
+
+The first slider corresponds to the *level of detail* of the scene textures. Defaulting to 1.5, the lower the slider value, the more pixelated the textures will be and vice versa.
+
+*Work in progress*
+
+
+
+### Simple-p6-Setup
 
 This template contains all the things you need to get started with a clean and modern C++ project (formatter, linter, tests, continuous integration, etc.).
 **It works on all platforms (Windows, Linux, MacOS).**
@@ -62,8 +75,9 @@ This template contains all the things you need to get started with a clean and m
   - [Writing tests](#writing-tests)
   - [Warnings as errors](#warnings-as-errors)
 
-## Setting up
 
+
+## Setting up
 ### Creating a repository
 
 First, create your own repository based on this one. If you are using GitHub you can use this repository as a template:
