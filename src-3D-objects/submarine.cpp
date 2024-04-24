@@ -117,11 +117,11 @@ void Submarine::updatePosition(p6::Context& ctx, float wall)
     {
         this->moveLeft(-ctx.delta_time(), wall);
     }
-    if (ctx.key_is_pressed(GLFW_KEY_LEFT_CONTROL)) // up
+    if (ctx.key_is_pressed(GLFW_KEY_SPACE)) // up
     {
         this->moveUp(ctx.delta_time(), wall);
     }
-    if (ctx.key_is_pressed(GLFW_KEY_SPACE)) // down
+    if (ctx.key_is_pressed(GLFW_KEY_LEFT_CONTROL)) // down
     {
         this->moveUp(-ctx.delta_time(), wall);
     }
