@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include "probabilityDistributions.hpp"
 #include <cmath>
 #include "random.hpp"
