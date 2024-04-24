@@ -15,5 +15,5 @@ public:
 
 public:
     Cube();
-    inline std::vector<Vertex2DTex> getObjectVertices() { return this->cube; };
+    void draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, float side);
 };

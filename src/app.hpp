@@ -1,11 +1,13 @@
 #pragma once
 #include "3DTools.hpp"
+#include "coral.hpp"
 #include "cube.hpp"
 #include "fish.hpp"
 #include "flock.hpp"
 #include "loader.h"
 #include "p6/p6.h"
 #include "scene.hpp"
+#include "seaweed.hpp"
 #include "submarine.hpp"
 #include "texture.hpp"
 
@@ -15,10 +17,11 @@ private:
     Flock  flock;
     size_t totalBoids;
 
-public:
     Fish      fishModel;
-    Cube      cubeModel;
     Submarine submarineModel;
+    Coral     coralModel;
+    Seaweed   seaweedModel;
+    Cube      cubeModel;
 
 public:
     App(size_t nbBoids);
@@ -26,9 +29,6 @@ public:
     void  drawMenu();
     void  checkWindowQueries(p6::Context& ctx);
     float getAquariumDetailLevel() { return this->scene.getAquariumDetailLevel(); };
-    float getFishDetailLevel() { return this->flock.getFishDetailLevel(); };
 
-    inline float getWallSize() { return this->scene.getSide(); };
-
-    void draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, Texture& texSub, Texture& texCube);
+    void draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, Texture& texSub, Texture& texCoral1, Texture& texCoral2, Texture& texCoral3, Texture& texSeaweed1, Texture& texSeaweed2, Texture& texCube);
 };
