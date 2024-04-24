@@ -11,21 +11,21 @@ To simplify the use of the application, you can use certain keys on the keyboard
 
 
 ### How to use our wandering submarine?
-Our submarine can move in all directions. To do this, you must use the keyboard keys. 
+Our submarine can move in all directions. To do this, you must use the keyboard keys. Note that the movement takes place from the submarine's point of view.
 
 *For a QWERTY keyboard:*
-- Press the W key to go left.
-- Press the S key to go right.
-- Press the A key to go forward.
-- Press the D key to go backwards.
+- Press the W key to go forward.
+- Press the S key to go backwards.
+- Press the A key to go left.
+- Press the D key to go right.
 - Press the space key to go up.
 - Press the left ctrl key on the keyboard to go down.
 
 *For a AZERTY keyboard:*
-- Press the Z key to go left.
-- Press the S key to go right.
-- Press the Q key to go forward.
-- Press the D key to go backwards.
+- Press the Z key to go forward.
+- Press the S key to go backwards.
+- Press the Q key to go left.
+- Press the D key to go right.
 - Press the space key to go up.
 - Press the left ctrl key on the keyboard to go down.
 
