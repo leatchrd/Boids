@@ -57,7 +57,7 @@ int main(void)
     // INFINITE UPDATE LOOP
     ctx.update = [&]() {
         // Event management
-        myApp.checkEvents(ctx);
+        myApp.checkWindowQueries(ctx);
         mainCamera.updateOrientation(ctx); // mouse_dragged events also available
 
         // clean window

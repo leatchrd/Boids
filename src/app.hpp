@@ -12,15 +12,11 @@ private:
     Flock  flock;
     size_t totalBoids;
 
-private:
-    void pausePlayKey(p6::Context& ctx);
-    void exitKey(p6::Context& ctx);
-
 public:
     App(size_t nbBoids);
 
     void  drawMenu();
-    void  checkEvents(p6::Context& ctx);
+    void  checkWindowQueries(p6::Context& ctx);
     float getAquariumDetailLevel() { return this->scene.getAquariumDetailLevel(); };
     float getFishDetailLevel() { return this->flock.getFishDetailLevel(); };
 

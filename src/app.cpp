@@ -33,10 +33,20 @@ void App::drawMenu()
     ImGui::End();
 }
 
-void App::checkEvents(p6::Context& ctx)
+void App::checkWindowQueries(p6::Context& ctx)
 {
-    this->exitKey(ctx);
-    this->pausePlayKey(ctx);
+    if (ctx.key_is_pressed(GLFW_KEY_Q)) // quit window
+    {
+        ctx.stop();
+    }
+    if (ctx.key_is_pressed(GLFW_KEY_Z)) // pause window
+    {
+        ctx.pause();
+    }
+    if (ctx.key_is_pressed(GLFW_KEY_X)) // resume window
+    {
+        ctx.resume();
+    }
 }
 
 void App::updateFlock(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, const std::vector<vertex>& fishVertexContainer)
@@ -47,26 +57,4 @@ void App::updateFlock(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint
 void App::drawScene(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<Vertex2DTex>& cubeContainer)
 {
     this->scene.draw(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, cubeContainer);
-}
-
-// --- PRIVATE ---
-
-void App::pausePlayKey(p6::Context& ctx)
-{
-    if (ctx.key_is_pressed(GLFW_KEY_Z))
-    {
-        ctx.pause();
-    }
-    if (ctx.key_is_pressed(GLFW_KEY_X))
-    {
-        ctx.resume();
-    }
-}
-
-void App::exitKey(p6::Context& ctx)
-{
-    if (ctx.key_is_pressed(GLFW_KEY_Q))
-    {
-        ctx.stop();
-    }
 }
