@@ -1,9 +1,12 @@
 #pragma once
 #include "3DTools.hpp"
+#include "cube.hpp"
+#include "fish.hpp"
 #include "flock.hpp"
 #include "loader.h"
 #include "p6/p6.h"
 #include "scene.hpp"
+#include "submarine.hpp"
 #include "texture.hpp"
 
 class App {
@@ -13,6 +16,11 @@ private:
     size_t totalBoids;
 
 public:
+    Fish      fishModel;
+    Cube      cubeModel;
+    Submarine submarineModel;
+
+public:
     App(size_t nbBoids);
 
     void  drawMenu();
@@ -20,8 +28,7 @@ public:
     float getAquariumDetailLevel() { return this->scene.getAquariumDetailLevel(); };
     float getFishDetailLevel() { return this->flock.getFishDetailLevel(); };
 
-    inline float getWallSize() { return this->scene.side; };
+    inline float getWallSize() { return this->scene.getSide(); };
 
-    void updateFlock(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, const std::vector<vertex>& fishVertexContainer);
-    void drawScene(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<Vertex2DTex>& cubeContainer);
+    void draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, Texture& texSub, Texture& texCube);
 };

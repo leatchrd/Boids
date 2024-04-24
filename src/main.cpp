@@ -2,18 +2,13 @@
 #define DOCTEST_CONFIG_IMPLEMENT
 #include "app.hpp"
 #include "aquariumProgram.hpp"
-#include "cube.hpp"
 #include "doctest/doctest.h"
-#include "fish.hpp"
 #include "glimac/common.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "p6/p6.h"
-#include "submarine.hpp"
 #include "texture.hpp"
 #include "textures.hpp"
-#include "vao.hpp"
-#include "vbo.hpp"
 
 int main(void)
 {
@@ -28,9 +23,6 @@ int main(void)
 
     // Different parameters
     App             myApp(20);
-    Fish            fish;      // TODO: add to App
-    Cube            cube;      // TODO: add to App
-    Submarine       submarine; // TODO: add to App
     AquariumProgram myAquariumProgram;
 
     TrackballCamera mainCamera;
@@ -68,28 +60,8 @@ int main(void)
         glUniform1i(myAquariumProgram.uniTexture, 0);
         glUniform1f(myAquariumProgram.uniDetailLevel, myApp.getAquariumDetailLevel());
 
-        // FISH
-        fish.vao.bind();
-        myApp.updateFlock(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, texFish1, texFish2, texFish3, fish.getObjectVertices());
-
-        // SUBMARINE
-        submarine.vao.bind();
-        texSub.bind();
-        submarine.update(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, myApp.getWallSize());
-
-        // CUBE
-        cube.vao.bind();
-        texWater.bind();
-        myApp.drawScene(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, cube.getObjectVertices());
-
-        // unbinding
-        texWater.unbind();
-        cube.vao.unbind();
-
-        texSub.unbind();
-        submarine.vao.unbind();
-
-        fish.vao.unbind();
+        // DRAW
+        myApp.draw(ctx, mainCamera.getViewMatrix(), myAquariumProgram.uniMVP, myAquariumProgram.uniMV, myAquariumProgram.uniNormal, texFish1, texFish2, texFish3, texSub, texWater);
     };
 
     // EVENTS: camera orientation

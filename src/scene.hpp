@@ -15,19 +15,20 @@ private:
     glm::vec2 position;
     Flock     flock;
     ImVec4    backgroundColor;
-    float     aquariumDetailLevel = 1.5f;
+    float     aquariumDetailLevel;
+    float     side;
 
 public:
-    float side = 2.f;
     Scene()
-        : position{glm::vec2{0.f, 0.f}} {};
+        : position{glm::vec2{0.f, 0.f}}, aquariumDetailLevel{1.5f}, side{2.0f} {};
     Scene(glm::vec2 position)
         : position{position} {};
 
     void draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<Vertex2DTex>& cubeContainer);
     void updateMenu();
 
-    float getAquariumDetailLevel() { return this->aquariumDetailLevel; };
+    inline float getAquariumDetailLevel() { return this->aquariumDetailLevel; };
+    inline float getSide() { return this->side; };
 
     // void setBackgroundColor(float r, float g, float b);
 };

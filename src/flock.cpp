@@ -35,7 +35,7 @@ Flock::Flock(size_t total, float wallSize)
     }
 }
 
-void Flock::update(p6::Context& ctx, float& wallSize, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, const std::vector<vertex>& fishVertexContainer)
+void Flock::update(p6::Context& ctx, float wallSize, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, const std::vector<vertex>& fishVertexContainer)
 {
     for (size_t i = 0; i < this->flock.size(); i++)
     {
