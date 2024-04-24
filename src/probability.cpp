@@ -8,7 +8,7 @@
 void setNbFishBySize(const size_t& nbFishTotal, size_t& nbLittleFish, size_t& nbMediumFish, size_t& nbBigFish)
 {
     float balancedP = 0.5;
-    float heavyP = 0.75;
+    float heavyP    = 0.75;
 
     size_t nbTrialsMediumFish = 11;
     size_t nbTrialsBigFish    = 4;
@@ -35,8 +35,8 @@ glm::vec3 setBigFishPosition(const float& wallSize)
 
 glm::vec3 setFishVelocity()
 {
-    float x0    = 0.f;  // distribution median
-    float gamma = 1.0f; // distribution width
+    float x0    = 1.f;  // distribution median
+    float gamma = 0.5f; // distribution width
 
     return glm::vec3{cauchyDistribution(x0, gamma), cauchyDistribution(x0, gamma), cauchyDistribution(x0, gamma)};
 }
