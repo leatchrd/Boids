@@ -1,0 +1,12 @@
+# Blender 4.0.1 MTL File: 'seaweed.blend'
+# www.blender.org
+
+newmtl 10010_Coral_v1
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd /c/Users/ltouc/Downloads/Coral_v1_L3.123c0f57868f-362d-45ca-a546-9c6138fb292d/Coral_v1_L3.123c0f57868f-362d-45ca-a546-9c6138fb292d/10010_Coral_v1_Diffuse.jpg

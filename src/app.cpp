@@ -48,7 +48,7 @@ void App::checkWindowQueries(p6::Context& ctx)
     }
 }
 
-void App::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, Texture& texSub, Texture& texCoral1, Texture& texCoral2, Texture& texCoral3, Texture& texCube)
+void App::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, Texture& texSub, Texture& texCoral1, Texture& texCoral2, Texture& texCoral3, Texture& texSeaweed1, Texture& texSeaweed2, Texture& texCube)
 {
     // FISH
     this->fishModel.vao.bind();
@@ -66,6 +66,11 @@ void App::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_M
     this->coralModel.vao.bind();
     this->coralModel.update(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, texCoral1, texCoral2, texCoral3);
     this->coralModel.vao.unbind();
+
+    // SEAWEEDs
+    this->seaweedModel.vao.bind();
+    this->seaweedModel.update(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, texSeaweed1, texSeaweed2);
+    this->seaweedModel.vao.unbind();
 
     // CUBE
     this->cubeModel.vao.bind();
