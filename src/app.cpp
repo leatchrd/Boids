@@ -27,7 +27,7 @@ void App::drawMenu()
     );
     ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
 
-    this->scene.drawMenu();
+    this->scene.updateMenu();
 
     ImGui::PopItemWidth();
     ImGui::End();

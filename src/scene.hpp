@@ -17,9 +17,6 @@ private:
     ImVec4    backgroundColor;
     float     aquariumDetailLevel = 1.5f;
 
-private:
-    void updateMenu();
-
 public:
     float side = 2.f;
     Scene()
@@ -28,7 +25,7 @@ public:
         : position{position} {};
 
     void draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<Vertex2DTex>& cubeContainer);
-    void drawMenu();
+    void updateMenu();
 
     float getAquariumDetailLevel() { return this->aquariumDetailLevel; };
 
