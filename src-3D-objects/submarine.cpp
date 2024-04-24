@@ -2,7 +2,7 @@
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "p6/p6.h"
-#include "trackballCamera.hpp"
+// #include "trackballCamera.hpp"
 #include "vao.hpp"
 #include "vbo.hpp"
 
@@ -57,9 +57,9 @@ void Submarine::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint&
 
 void Submarine::moveFront(float delta, float wall)
 {
-    if (this->position.x < -wall + (this->radius * 2.2) || this->position.x > wall - (this->radius * 2.5))
+    if (this->position.x <= -wall + (this->radius * 2.2) || this->position.x >= wall - (this->radius * 2.5))
     {
-        this->position.x += delta;
+        this->position.x += (delta * 5);
     }
     else
     {
@@ -69,9 +69,9 @@ void Submarine::moveFront(float delta, float wall)
 
 void Submarine::moveLeft(float delta, float wall)
 {
-    if (this->position.z < -wall + (this->radius * 1.1) || this->position.z > wall - (this->radius * 1.1))
+    if (this->position.z <= -wall + (this->radius * 1.1) || this->position.z >= wall - (this->radius * 1.1))
     {
-        this->position.z -= delta;
+        this->position.z -= (delta * 5);
     }
     else
     {
@@ -81,9 +81,9 @@ void Submarine::moveLeft(float delta, float wall)
 
 void Submarine::moveUp(float delta, float wall)
 {
-    if (this->position.y < -wall + (this->radius * 1.1) || this->position.y > wall - (this->radius * 2.5))
+    if (this->position.y <= -wall + (this->radius * 1.1) || this->position.y >= wall - (this->radius * 2.5))
     {
-        this->position.y -= delta;
+        this->position.y -= (delta * 5);
     }
     else
     {

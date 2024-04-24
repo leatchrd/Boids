@@ -41,5 +41,5 @@ void Cube::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_
     glUniformMatrix4fv(uni_Normal, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
 
     // draw using the VAO
-    glDrawArrays(GL_TRIANGLES, 0, cube.size());
+    glDrawArrays(GL_TRIANGLES, 0, this->cube.size());
 }

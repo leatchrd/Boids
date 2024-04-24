@@ -1,7 +1,7 @@
 #pragma once
 #include "loader.h"
 #include "p6/p6.h"
-#include "trackballCamera.hpp"
+// #include "trackballCamera.hpp"
 #include "vao.hpp"
 #include "vbo.hpp"
 

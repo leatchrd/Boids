@@ -39,7 +39,6 @@ int main(void)
     Texture  texSeaweed1("assets/textures/seaweed_1.png", allTextures._textures[7], GL_TEXTURE3);
     Texture  texSeaweed2("assets/textures/seaweed_2.png", allTextures._textures[8], GL_TEXTURE3);
     Texture  texWater("assets/textures/water_a25.png", allTextures._textures[9], GL_TEXTURE4);
-    // Texture  texGlass("assets/textures/glass_blue.png", allTextures._textures[4], GL_TEXTURE1);
 
     // Global configuration
     glEnable(GL_DEPTH_TEST);
