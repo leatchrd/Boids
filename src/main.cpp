@@ -1,7 +1,6 @@
 #include "trackballCamera.hpp"
 #define DOCTEST_CONFIG_IMPLEMENT
 #include "app.hpp"
-#include "aquariumProgram.hpp"
 #include "doctest/doctest.h"
 #include "glimac/common.hpp"
 #include "glm/ext/matrix_transform.hpp"
@@ -23,10 +22,9 @@ int main(void)
     ctx.maximize_window();
 
     // Different parameters
-    App             myApp(20);
-    AquariumProgram myProgram;
-    // WithLightProgram myProgram;
-    TrackballCamera mainCamera;
+    App              myApp(20);
+    WithLightProgram myProgram;
+    TrackballCamera  mainCamera;
 
     // TEXTURES
     Textures allTextures;
@@ -61,18 +59,18 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Light direction
-        // glm::vec4 lightDir{1.0f, 1.0f, 1.0f, 1.0f};
-        // glm::vec4 newLightDir = lightDir * mainCamera.getViewMatrix();
+        glm::vec4 lightDir{1.0f, 1.0f, 1.0f, 1.0f};
+        glm::vec4 newLightDir = lightDir * mainCamera.getViewMatrix();
 
         // AQUARIUM
         myProgram.program.use();
         glUniform1i(myProgram.uniTexture, 0);
         glUniform1f(myProgram.uniDetailLevel, myApp.getAquariumDetailLevel());
-        // glUniform3f(myProgram.uniKd, 1.0f, 1.0f, 1.0f);
-        // glUniform3f(myProgram.uniKs, 1.0f, 1.0f, 1.0f);
-        // glUniform1f(myProgram.uniShininess, 0.1f);
-        // glUniform3f(myProgram.uniLightDirection, newLightDir[0], newLightDir[1], newLightDir[2]);
-        // glUniform3f(myProgram.uniLightIntensity, 5.0f, 5.0f, 5.0f);
+        glUniform3f(myProgram.uniKd, 1.0f, 1.0f, 1.0f);
+        glUniform3f(myProgram.uniKs, 1.0f, 1.0f, 1.0f);
+        glUniform1f(myProgram.uniShininess, 0.1f);
+        glUniform3f(myProgram.uniLightDirection, newLightDir[0], newLightDir[1], newLightDir[2]);
+        glUniform3f(myProgram.uniLightIntensity, 8.0f, 8.0f, 8.0f);
 
         // DRAW
         myApp.draw(ctx, mainCamera.getViewMatrix(), myProgram.uniMVP, myProgram.uniMV, myProgram.uniNormal, texFish1, texFish2, texFish3, texSub, texCoral1, texCoral2, texCoral3, texSeaweed1, texSeaweed2, texWater);
@@ -102,6 +100,4 @@ int main(void)
 
     // STARTS THE INFINITE LOOP
     ctx.start();
-
-    // free memory --> automatic with VBO, VAO and Textures destructors
 }
