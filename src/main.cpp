@@ -26,7 +26,6 @@ int main(void)
     App             myApp(20);
     AquariumProgram myProgram;
     // WithLightProgram myProgram;
-
     TrackballCamera mainCamera;
 
     // TEXTURES

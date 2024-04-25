@@ -1,5 +1,6 @@
 #pragma once
 #include "3DObjectTools.hpp"
+#include "ibo.hpp"
 #include "vao.hpp"
 #include "vbo.hpp"
 
@@ -10,6 +11,7 @@ private:
 public:
     VBO vbo;
     VAO vao;
+    IBO ibo;
 
 public:
     Cube();
