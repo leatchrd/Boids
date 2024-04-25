@@ -1,4 +1,5 @@
 #include "boid.hpp"
+#include "3DObjectTools.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/gtx/vector_angle.hpp"
@@ -75,22 +76,10 @@ void Boid::wrapAround(float& wall)
 
 void Boid::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& fishVertexContainer)
 {
-    // matrix creation
-    glm::mat4 ProjMatrix   = glm::perspective(glm::radians(70.f), ctx.aspect_ratio(), 0.1f, 100.f);
-    glm::mat4 MVMatrix     = glm::translate(camMVMatrix, this->position);
-    glm::mat4 NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
+    float     angle{glm::angle(glm::vec3{0.0f, 0.0f, 1.0f}, glm::normalize(this->velocity))};
+    glm::vec3 axis{glm::cross(glm::vec3{0.0f, 0.0f, 1.0f}, glm::normalize(this->velocity))};
 
-    // adjust ojbect
-    MVMatrix = glm::rotate(MVMatrix, glm::angle(glm::vec3{0.0f, 0.0f, 1.0f}, glm::normalize(this->velocity)), glm::cross(glm::vec3{0.0f, 0.0f, 1.0f}, glm::normalize(this->velocity)));
-    MVMatrix = glm::scale(MVMatrix, glm::vec3{this->radius});
-
-    // fill matrices with uniform location
-    glUniformMatrix4fv(uni_MVP, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
-    glUniformMatrix4fv(uni_MV, 1, GL_FALSE, glm::value_ptr(MVMatrix));
-    glUniformMatrix4fv(uni_Normal, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
-
-    // draw boid
-    glDrawArrays(GL_TRIANGLES, 0, fishVertexContainer.size());
+    drawMesh(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, this->position, angle, axis, this->radius, fishVertexContainer);
 }
 
 // FOR BOID BEHAVIOUR
