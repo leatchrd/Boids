@@ -3,8 +3,6 @@
 #include "glm/gtc/type_ptr.hpp"
 #include "p6/p6.h"
 #include "texture.hpp"
-#include "vao.hpp"
-#include "vbo.hpp"
 
 Seaweed::Seaweed()
     : vbo{5}, vao{5}
@@ -54,16 +52,13 @@ void Seaweed::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& u
     glm::mat4 ProjMatrix   = glm::perspective(glm::radians(70.f), ctx.aspect_ratio(), 0.1f, 100.f);
     glm::mat4 MVMatrix     = glm::translate(camMVMatrix, position);
     glm::mat4 NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
-
     // adjust object
     MVMatrix = glm::rotate(MVMatrix, glm::radians(angle), glm::vec3{0.0f, 1.0f, 0.0f});
     MVMatrix = glm::scale(MVMatrix, glm::vec3{scale});
-
     // fill matrices with uniform location
     glUniformMatrix4fv(uni_MVP, 1, GL_FALSE, glm::value_ptr(ProjMatrix * MVMatrix));
     glUniformMatrix4fv(uni_MV, 1, GL_FALSE, glm::value_ptr(MVMatrix));
     glUniformMatrix4fv(uni_Normal, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
-
     // draw using the VAO
     glDrawArrays(GL_TRIANGLES, 0, this->seaweed.vertices.size());
 }

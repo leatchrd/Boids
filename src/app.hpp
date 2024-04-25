@@ -1,10 +1,8 @@
 #pragma once
-#include "3DTools.hpp"
 #include "coral.hpp"
 #include "cube.hpp"
 #include "fish.hpp"
 #include "flock.hpp"
-#include "loader.h"
 #include "p6/p6.h"
 #include "scene.hpp"
 #include "seaweed.hpp"
