@@ -18,8 +18,6 @@ private:
     float alignmentCoeff  = 1.f;
     float cohesionCoeff   = 1.f;
 
-    float fishDetailLevel = 1.5f;
-
 public:
     std::vector<Boid> flock;
     size_t            nbFishTotal;
@@ -30,6 +28,4 @@ public:
 
     void update(p6::Context& ctx, float wallSize, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, const std::vector<vertex>& fishVertexContainer);
     void updateMenu();
-
-    float getFishDetailLevel() { return this->fishDetailLevel; };
 };

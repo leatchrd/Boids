@@ -1,7 +1,5 @@
 #include "fish.hpp"
 #include "loader.h"
-#include "vao.hpp"
-#include "vbo.hpp"
 
 Fish::Fish()
     : vbo{1}, vao{1}

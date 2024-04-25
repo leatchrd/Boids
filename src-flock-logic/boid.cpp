@@ -1,5 +1,4 @@
 #include "boid.hpp"
-#include "glimac/sphere_vertices.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "loader.h"
@@ -27,9 +26,9 @@ void Boid::applyBoidsBehaviour(std::vector<Boid>& allBoids, float& separationCoe
     glm::vec3 cohesion   = this->cohered(allBoids);
 
     // add a weights
-    separation *= separationCoeff / 1000; // *= 0.008;
-    alignment *= alignmentCoeff / 1000;   // *= 0.0016;
-    cohesion *= cohesionCoeff / 10000;    // *= 0.00033;
+    separation *= separationCoeff / 1000;
+    alignment *= alignmentCoeff / 1000;
+    cohesion *= cohesionCoeff / 10000;
 
     this->updateAcceleration(separation);
     this->updateAcceleration(alignment);
@@ -130,7 +129,6 @@ glm::vec3 Boid::separate(std::vector<Boid>& allBoids)
     {
         newDirection /= nbCloseBoids;
         glm::normalize(newDirection);
-        // newDirection *= 10;
     }
 
     return newDirection;

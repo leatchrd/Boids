@@ -1,7 +1,5 @@
 #include "app.hpp"
-// #include "3DTools.hpp"
 #include "flock.hpp"
-// #include "loader.h"
 #include "p6/p6.h"
 #include "scene.hpp"
 #include "texture.hpp"
@@ -22,11 +20,11 @@ void App::drawMenu()
     ImGui::Begin(
         "Settings", nullptr,
         ImGuiWindowFlags_NoTitleBar
-        // ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
     );
     ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
 
     this->scene.updateMenu();
+    this->flock.updateMenu();
 
     ImGui::PopItemWidth();
     ImGui::End();

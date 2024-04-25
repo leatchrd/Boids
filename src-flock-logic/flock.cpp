@@ -11,7 +11,7 @@ Flock::Flock()
 {
     for (size_t i = 1; i < 5 + 1; i++)
     {
-        this->flock.push_back(Boid(this->radiusLittleFish, this->radiusLittleFish + 0.5, this->radiusLittleFish, glm::vec3{0.f, 0.f, 0.f}, setFishVelocity()));
+        this->flock.push_back(Boid(this->radiusLittleFish, this->radiusLittleFish + 0.5, this->radiusLittleFish, glm::vec3{0.f, 0.f, 0.f}, setFishVelocity(), 0.00333f));
     }
 }
 
@@ -23,15 +23,15 @@ Flock::Flock(size_t total, float wallSize)
 
     for (size_t i = 1; i < this->nbLittleFish + 1; i++)
     {
-        this->flock.push_back(Boid(this->radiusLittleFish, this->radiusLittleFish + 0.6, this->radiusLittleFish, setLittleFishPosition(wallSize), setFishVelocity()));
+        this->flock.push_back(Boid(this->radiusLittleFish, this->radiusLittleFish + 0.6, this->radiusLittleFish, setLittleFishPosition(wallSize), setFishVelocity(), 0.00333f));
     }
     for (size_t i = 1; i < this->nbMediumFish + 1; i++)
     {
-        this->flock.push_back(Boid(this->radiusMediumFish, this->radiusMediumFish + 0.4, this->radiusMediumFish, setMediumFishPosition(), setFishVelocity()));
+        this->flock.push_back(Boid(this->radiusMediumFish, this->radiusMediumFish + 0.4, this->radiusMediumFish, setMediumFishPosition(), setFishVelocity(), 0.00333f));
     }
     for (size_t i = 1; i < this->nbBigFish + 1; i++)
     {
-        this->flock.push_back(Boid(this->radiusBigFish, this->radiusBigFish + 0.2, this->radiusBigFish, setBigFishPosition(wallSize), setFishVelocity()));
+        this->flock.push_back(Boid(this->radiusBigFish, this->radiusBigFish + 0.2, this->radiusBigFish, setBigFishPosition(wallSize), setFishVelocity(), 0.00333f));
     }
 }
 
@@ -73,8 +73,4 @@ void Flock::updateMenu()
     ImGui::SliderFloat("##Cohesion coefficient", &this->cohesionCoeff, 0.0f, 100.0f);
 
     ImGui::NewLine();
-
-    // ImGui::Text("Little fish: %zu", this->nbLittleFish); // TODO: print nb of fish per size
-    // ImGui::Text("Medium fish: %zu", this->nbMediumFish);
-    // ImGui::Text("Big fish: %zu", this->nbBigFish);
 }
