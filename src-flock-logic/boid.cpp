@@ -1,6 +1,7 @@
 #include "boid.hpp"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
+#include "glm/gtx/vector_angle.hpp"
 #include "loader.h"
 #include "logicTools.hpp"
 #include "p6/p6.h"
@@ -46,7 +47,7 @@ void Boid::update()
 
 void Boid::wrapAround(float& wall)
 {
-    if (this->position.x < -wall + (this->radius * 2.5)) // compensate for fish shape on x axes
+    if (this->position.x < -wall + (this->radius * 2.5))
     {
         this->position.x = wall - (this->radius * 2.5);
     }
@@ -54,21 +55,21 @@ void Boid::wrapAround(float& wall)
     {
         this->position.x = -wall + (this->radius * 2.5);
     }
-    if (this->position.y < -wall + (this->radius * 1.3)) // compensate for fish shape on y axes
+    if (this->position.y < -wall + (this->radius * 2.5))
     {
-        this->position.y = wall - (this->radius * 1.3);
+        this->position.y = wall - (this->radius * 2.5);
     }
-    else if (this->position.y > wall - (this->radius * 1.3))
+    else if (this->position.y > wall - (this->radius * 2.5))
     {
-        this->position.y = -wall + (this->radius * 1.3);
+        this->position.y = -wall + (this->radius * 2.5);
     }
-    if (this->position.z < -wall + this->radius)
+    if (this->position.z < -wall + (this->radius * 2.5))
     {
-        this->position.z = wall - this->radius;
+        this->position.z = wall - (this->radius * 2.5);
     }
-    else if (this->position.z > wall - this->radius)
+    else if (this->position.z > wall - (this->radius * 2.5))
     {
-        this->position.z = -wall + this->radius;
+        this->position.z = -wall + (this->radius * 2.5);
     }
 }
 
@@ -80,14 +81,7 @@ void Boid::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_
     glm::mat4 NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
 
     // adjust ojbect
-    if (this->velocity.x < 0 || this->velocity.y < 0 || this->velocity.z < 0) // TODO: adjust rotation a little better
-    {
-        MVMatrix = glm::rotate(MVMatrix, glm::radians(-90.f), glm::vec3{0.f, 1.f, 0.f});
-    }
-    else
-    {
-        MVMatrix = glm::rotate(MVMatrix, glm::radians(90.f), glm::vec3{0.f, 1.f, 0.f});
-    }
+    MVMatrix = glm::rotate(MVMatrix, glm::angle(glm::vec3{0.0f, 0.0f, 1.0f}, glm::normalize(this->velocity)), glm::cross(glm::vec3{0.0f, 0.0f, 1.0f}, glm::normalize(this->velocity)));
     MVMatrix = glm::scale(MVMatrix, glm::vec3{this->radius});
 
     // fill matrices with uniform location
