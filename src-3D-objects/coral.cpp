@@ -8,20 +8,20 @@
 Coral::Coral()
     : vbo{4}, vao{4}
 {
-    vbo.gen();
-    vbo.bind();
+    this->vbo.gen();
+    this->vbo.bind();
     glBufferData(GL_ARRAY_BUFFER, this->coral.vertices.size() * sizeof(vertex), this->coral.vertices.data(), GL_STATIC_DRAW);
-    vbo.unbind();
+    this->vbo.unbind();
 
-    vao.gen();
-    vao.bind();
-    vao.activateAttributes();
+    this->vao.gen();
+    this->vao.bind();
+    this->vao.activateAttributes();
 
-    vbo.bind();
-    vao.setAttribPointer(sizeof(vertex), (const GLvoid*)(offsetof(vertex, position)), (const GLvoid*)(offsetof(vertex, uv)));
+    this->vbo.bind();
+    this->vao.setAttribPointer(sizeof(vertex), (const GLvoid*)(offsetof(vertex, position)), (const GLvoid*)(offsetof(vertex, uv)));
 
-    vbo.unbind();
-    vao.unbind();
+    this->vbo.unbind();
+    this->vao.unbind();
 }
 
 void Coral::update(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uniMVP, const GLint& uniMV, const GLint& uniNormal, Texture& texCoral1, Texture& texCoral2, Texture& texCoral3)
