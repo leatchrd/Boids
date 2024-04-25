@@ -3,7 +3,6 @@
 #include "app.hpp"
 #include "aquariumProgram.hpp"
 #include "doctest/doctest.h"
-#include "glimac/common.hpp"
 #include "p6/p6.h"
 #include "texture.hpp"
 #include "textures.hpp"
