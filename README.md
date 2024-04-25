@@ -3,11 +3,11 @@ To simplify the use of the application, you can use certain keys on the keyboard
 
 *For a QWERTY keyboard:*
 - Press the Q key to quit the application.
-- Press Z and X keys to pause and play the application.
+- Press the Z and X keys to pause and play the application.
 
 *For a AZERTY keyboard:*
 - Press the A key to quit the application.
-- Press W and X keys to pause and play the application.
+- Press the W and X keys to pause and play the application.
 
 
 ### How to use our wandering submarine?
@@ -37,27 +37,32 @@ It is also possible to change the point of view. To do this, move the camera wit
 - Press the right key to rotate right.
 - Press the up key to rotate up.
 - Press the down key to rotate down.
-- If you would rather use the mouse, click right and drag.
+- If you would rather use the mouse, right-click and drag.
 - Scroll up to to move toward in the aquarium.
 - Scroll down to to move away from in the aquarium.
 
 
 
-### How to use the ImGui menu ?
+### How to use the ImGui menu?
 The ImGui menu allows you to vary the simulation parameters.
 
-- To move the slider for each setting, right-click and drag left or right. Changes are made live.
+- To move the slider for each setting, left-click and drag left or right. Changes are made live.
 
 
-The first slider corresponds to the *level of detail* of the scene textures. Defaulting to 1.5, the lower the slider value, the more pixelated the textures will be and vice versa.
+The first slider sets the *level of detail* of the scene textures. Defaulting to 1.5, the lower the slider value, the more pixelated the textures will be and vice versa.
 
 
-*The three rules of behavior for our boids.*
-The second slider allows you to play on the ability of the fish to move away from each other. The default value is 0, the higher the value the more fish will separate if they are close together to avoid collisions.
+*The three rules for the behavior of our boids.*
+The second slider allows you to play on the ability of the fish to move away from each other. The default value is 1, the higher the value the more the fish will separate if they are close together.
 
 The third slider allows you to play on the ability of fish to go in the same direction as their neighbors. The default value is 1, the higher the value, the more fish will line up in the same direction.
 
 The fourth slider allows you to play on the cohesion of the fish between them. The default value is 1, the higher the value, the more nearby fish will group together.
+
+
+
+### Lights?
+⚠️ Since the applications lighting thanks to the fragment shader isn't complete, we chose not to have it present in the `main` branch. However, you can have a look at the code we put together regarding the lighting in the `lighting` branch.
 
 
 
