@@ -5,9 +5,9 @@ cmake_minimum_required(VERSION 3.20)
 project(Awesome-Boids-Project)
 
 # ---Declare source files---
-file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS src/* src-common/* programs/* src-3D-objects/* src-probability/*)
+file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS src/* src-common/* programs/* src-3D-tools/* src-3D-objects/* src-flock-logic/* src-probability/*)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
-target_include_directories(${PROJECT_NAME} PRIVATE src src-common programs src-3D-objects src-probability)
+target_include_directories(${PROJECT_NAME} PRIVATE src src-common programs src-3D-tools src-3D-objects src-flock-logic src-probability)
 
 # ---Choose C++ version---
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
