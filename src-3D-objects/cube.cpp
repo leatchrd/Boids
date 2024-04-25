@@ -23,7 +23,7 @@ Cube::Cube()
     vao.unbind();
 }
 
-void Cube::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, float side)
+void Cube::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uniMVP, const GLint& uniMV, const GLint& uniNormal, float sideSize)
 {
-    drawMesh(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, glm::vec3{0.0f, 0.0f, 0.0f}, 0.0f, glm::vec3{0.0f, 1.0f, 0.0f}, side, this->cube);
+    drawMesh(ctx, camMVMatrix, uniMVP, uniMV, uniNormal, glm::vec3{0.0f, 0.0f, 0.0f}, 0.0f, glm::vec3{0.0f, 1.0f, 0.0f}, sideSize, this->cube);
 }

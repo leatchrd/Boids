@@ -28,5 +28,5 @@ public:
     void  checkWindowQueries(p6::Context& ctx);
     float getAquariumDetailLevel() { return this->scene.getAquariumDetailLevel(); };
 
-    void draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, Texture& texSub, Texture& texCoral1, Texture& texCoral2, Texture& texCoral3, Texture& texSeaweed1, Texture& texSeaweed2, Texture& texCube);
+    void draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uniMVP, const GLint& uniMV, const GLint& uniNormal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, Texture& texSub, Texture& texCoral1, Texture& texCoral2, Texture& texCoral3, Texture& texSeaweed1, Texture& texSeaweed2, Texture& texCube);
 };

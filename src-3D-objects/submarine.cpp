@@ -25,17 +25,17 @@ Submarine::Submarine()
     vao.unbind();
 }
 
-void Submarine::update(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, float wall)
+void Submarine::update(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uniMVP, const GLint& uniMV, const GLint& uniNormal, float sideSize)
 {
-    this->updatePosition(ctx, wall);
-    this->draw(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal);
+    this->updatePosition(ctx, sideSize);
+    this->draw(ctx, camMVMatrix, uniMVP, uniMV, uniNormal);
 }
 
 // --- PRIVATE ---
 
-void Submarine::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal)
+void Submarine::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uniMVP, const GLint& uniMV, const GLint& uniNormal)
 {
-    drawMesh(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, this->position, 0.f, glm::vec3{0.0f, 0.0f, 0.0f}, this->radius, this->submarine.vertices);
+    drawMesh(ctx, camMVMatrix, uniMVP, uniMV, uniNormal, this->position, 0.f, glm::vec3{0.0f, 0.0f, 0.0f}, this->radius, this->submarine.vertices);
 }
 
 void Submarine::moveFront(float delta, float wall)

@@ -35,7 +35,7 @@ Flock::Flock(size_t total, float wallSize)
     }
 }
 
-void Flock::update(p6::Context& ctx, float wallSize, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, const std::vector<vertex>& fishVertexContainer)
+void Flock::update(p6::Context& ctx, float wallSize, const glm::mat4 camMVMatrix, const GLint& uniMVP, const GLint& uniMV, const GLint& uniNormal, Texture& texLittleFish, Texture& texMediumFish, Texture& texBigFish, const std::vector<vertex>& fishVertices)
 {
     for (size_t i = 0; i < this->flock.size(); i++)
     {
@@ -43,21 +43,21 @@ void Flock::update(p6::Context& ctx, float wallSize, const glm::mat4 camMVMatrix
         {
             texLittleFish.activate();
             texLittleFish.bind();
-            this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, wallSize, ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, fishVertexContainer);
+            this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, wallSize, ctx, camMVMatrix, uniMVP, uniMV, uniNormal, fishVertices);
             texLittleFish.unbind();
         }
         else if (this->flock[i].getRadius() == this->radiusMediumFish)
         {
             texMediumFish.activate();
             texMediumFish.bind();
-            this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, wallSize, ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, fishVertexContainer);
+            this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, wallSize, ctx, camMVMatrix, uniMVP, uniMV, uniNormal, fishVertices);
             texMediumFish.unbind();
         }
         else
         {
             texBigFish.activate();
             texBigFish.bind();
-            this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, wallSize, ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, fishVertexContainer);
+            this->flock[i].run(this->flock, this->separationCoeff, this->alignmentCoeff, this->cohesionCoeff, wallSize, ctx, camMVMatrix, uniMVP, uniMV, uniNormal, fishVertices);
             texBigFish.unbind();
         }
     }

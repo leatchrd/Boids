@@ -4,11 +4,13 @@
 class AquariumProgram {
 public:
     p6::Shader program;
-    GLint      uniMVP;
-    GLint      uniMV;
-    GLint      uniNormal;
-    GLint      uniTexture;
-    GLint      uniDetailLevel;
+
+    GLint uniMVP;
+    GLint uniMV;
+    GLint uniNormal;
+
+    GLint uniTexture;
+    GLint uniDetailLevel;
 
     AquariumProgram()
         : program{p6::load_shader("shaders/3D.vs.glsl", "shaders/aquariumTex3D.fs.glsl")}

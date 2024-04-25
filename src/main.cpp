@@ -31,16 +31,16 @@ int main(void)
 
     // TEXTURES
     Textures allTextures;
-    Texture  texFish1("assets/textures/goldfish_1.png", allTextures._textures[0], GL_TEXTURE0);
-    Texture  texFish2("assets/textures/goldfish_2.png", allTextures._textures[1], GL_TEXTURE0);
-    Texture  texFish3("assets/textures/goldfish_3.png", allTextures._textures[2], GL_TEXTURE0);
-    Texture  texSub("assets/textures/yellow_concrete.jpg", allTextures._textures[3], GL_TEXTURE1);
-    Texture  texCoral1("assets/textures/coral_1.png", allTextures._textures[4], GL_TEXTURE2);
-    Texture  texCoral2("assets/textures/coral_2.png", allTextures._textures[5], GL_TEXTURE2);
-    Texture  texCoral3("assets/textures/coral_3.png", allTextures._textures[6], GL_TEXTURE2);
-    Texture  texSeaweed1("assets/textures/seaweed_1.png", allTextures._textures[7], GL_TEXTURE3);
-    Texture  texSeaweed2("assets/textures/seaweed_2.png", allTextures._textures[8], GL_TEXTURE3);
-    Texture  texWater("assets/textures/water_a25.png", allTextures._textures[9], GL_TEXTURE4);
+    Texture  texFish1("assets/textures/goldfish_1.png", allTextures.textures[0], GL_TEXTURE0);
+    Texture  texFish2("assets/textures/goldfish_2.png", allTextures.textures[1], GL_TEXTURE0);
+    Texture  texFish3("assets/textures/goldfish_3.png", allTextures.textures[2], GL_TEXTURE0);
+    Texture  texSub("assets/textures/yellow_concrete.jpg", allTextures.textures[3], GL_TEXTURE1);
+    Texture  texCoral1("assets/textures/coral_1.png", allTextures.textures[4], GL_TEXTURE2);
+    Texture  texCoral2("assets/textures/coral_2.png", allTextures.textures[5], GL_TEXTURE2);
+    Texture  texCoral3("assets/textures/coral_3.png", allTextures.textures[6], GL_TEXTURE2);
+    Texture  texSeaweed1("assets/textures/seaweed_1.png", allTextures.textures[7], GL_TEXTURE3);
+    Texture  texSeaweed2("assets/textures/seaweed_2.png", allTextures.textures[8], GL_TEXTURE3);
+    Texture  texWater("assets/textures/water_a25.png", allTextures.textures[9], GL_TEXTURE4);
 
     // Global configuration
     glEnable(GL_DEPTH_TEST);

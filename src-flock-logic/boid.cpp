@@ -9,12 +9,12 @@
 
 // --- PUBLIC ---
 
-void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& wall, p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& fishVertexContainer)
+void Boid::run(std::vector<Boid>& allBoids, float& separation, float& alignment, float& cohesion, float& wallSideSize, p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uniMVP, const GLint& uniMV, const GLint& uniNormal, const std::vector<vertex>& fishVertices)
 {
     this->applyBoidsBehaviour(allBoids, separation, alignment, cohesion);
     this->update();
-    this->wrapAround(wall);
-    this->draw(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, fishVertexContainer);
+    this->wrapAround(wallSideSize);
+    this->draw(ctx, camMVMatrix, uniMVP, uniMV, uniNormal, fishVertices);
 }
 
 // --- PRIVATE ---
@@ -46,45 +46,45 @@ void Boid::update()
     this->updateAcceleration(zero);
 }
 
-void Boid::wrapAround(float& wall)
+void Boid::wrapAround(float wallSideSize)
 {
-    if (this->position.x < -wall + (this->radius * 2.5))
+    if (this->position.x < -wallSideSize + (this->radius * 2.5))
     {
-        this->position.x = wall - (this->radius * 2.5);
+        this->position.x = wallSideSize - (this->radius * 2.5);
     }
-    else if (this->position.x > wall - (this->radius * 2.5))
+    else if (this->position.x > wallSideSize - (this->radius * 2.5))
     {
-        this->position.x = -wall + (this->radius * 2.5);
+        this->position.x = -wallSideSize + (this->radius * 2.5);
     }
-    if (this->position.y < -wall + (this->radius * 2.5))
+    if (this->position.y < -wallSideSize + (this->radius * 2.5))
     {
-        this->position.y = wall - (this->radius * 2.5);
+        this->position.y = wallSideSize - (this->radius * 2.5);
     }
-    else if (this->position.y > wall - (this->radius * 2.5))
+    else if (this->position.y > wallSideSize - (this->radius * 2.5))
     {
-        this->position.y = -wall + (this->radius * 2.5);
+        this->position.y = -wallSideSize + (this->radius * 2.5);
     }
-    if (this->position.z < -wall + (this->radius * 2.5))
+    if (this->position.z < -wallSideSize + (this->radius * 2.5))
     {
-        this->position.z = wall - (this->radius * 2.5);
+        this->position.z = wallSideSize - (this->radius * 2.5);
     }
-    else if (this->position.z > wall - (this->radius * 2.5))
+    else if (this->position.z > wallSideSize - (this->radius * 2.5))
     {
-        this->position.z = -wall + (this->radius * 2.5);
+        this->position.z = -wallSideSize + (this->radius * 2.5);
     }
 }
 
-void Boid::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, const std::vector<vertex>& fishVertexContainer)
+void Boid::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uniMVP, const GLint& uniMV, const GLint& uniNormal, const std::vector<vertex>& fishVertices)
 {
     float     angle{glm::angle(glm::vec3{0.0f, 0.0f, 1.0f}, glm::normalize(this->velocity))};
     glm::vec3 axis{glm::cross(glm::vec3{0.0f, 0.0f, 1.0f}, glm::normalize(this->velocity))};
 
-    drawMesh(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, this->position, angle, axis, this->radius, fishVertexContainer);
+    drawMesh(ctx, camMVMatrix, uniMVP, uniMV, uniNormal, this->position, angle, axis, this->radius, fishVertices);
 }
 
 // FOR BOID BEHAVIOUR
 
-bool Boid::inRadius(Boid& boid, float& radius)
+bool Boid::inRadius(Boid boid, float radius)
 {
     return glm::distance(this->position, boid.position) > 0 && glm::distance(this->position, boid.position) < radius;
 }
@@ -194,7 +194,7 @@ void Boid::updateVelocity()
     this->velocity += this->acceleration;
 }
 
-void Boid::updateAcceleration(glm::vec3& force)
+void Boid::updateAcceleration(glm::vec3 force)
 {
     this->acceleration += force;
 }

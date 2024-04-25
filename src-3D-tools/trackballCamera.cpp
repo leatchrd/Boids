@@ -5,9 +5,9 @@
 const glm::mat4 TrackballCamera::getViewMatrix()
 {
     // moving the camera is like moving the whole scene in the opposite direction
-    glm::mat4 MVMatrix = glm::translate(glm::mat4{1.f}, glm::vec3{0.f, 0.f, this->_distance});
-    MVMatrix           = glm::rotate(MVMatrix, -this->_angleX, glm::vec3{1.f, 0.f, 0.f});
-    MVMatrix           = glm::rotate(MVMatrix, -this->_angleY, glm::vec3{0.f, 1.f, 0.f});
+    glm::mat4 MVMatrix = glm::translate(glm::mat4{1.f}, glm::vec3{0.f, 0.f, this->distance});
+    MVMatrix           = glm::rotate(MVMatrix, -this->angleX, glm::vec3{1.f, 0.f, 0.f});
+    MVMatrix           = glm::rotate(MVMatrix, -this->angleY, glm::vec3{0.f, 1.f, 0.f});
     return MVMatrix;
 };
 

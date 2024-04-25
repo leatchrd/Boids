@@ -18,9 +18,9 @@ void setNbFishBySize(const size_t& nbFishTotal, size_t& nbLittleFish, size_t& nb
     nbLittleFish = nbFishTotal - (nbBigFish + nbMediumFish);
 }
 
-glm::vec3 setLittleFishPosition(const float& wallSize)
+glm::vec3 setLittleFishPosition(const float wallSideSize)
 {
-    return glm::vec3{getLittleFishPosition(wallSize), getLittleFishPosition(wallSize), getLittleFishPosition(wallSize)};
+    return glm::vec3{getLittleFishPosition(wallSideSize), getLittleFishPosition(wallSideSize), getLittleFishPosition(wallSideSize)};
 }
 
 glm::vec3 setMediumFishPosition()
@@ -28,9 +28,9 @@ glm::vec3 setMediumFishPosition()
     return glm::vec3{randNeg1_1(), randNeg1_1(), randNeg1_1()};
 }
 
-glm::vec3 setBigFishPosition(const float& wallSize)
+glm::vec3 setBigFishPosition(const float wallSideSize)
 {
-    return glm::vec3{getBigFishPosition(wallSize), getBigFishPosition(wallSize), getBigFishPosition(wallSize)};
+    return glm::vec3{getBigFishPosition(wallSideSize), getBigFishPosition(wallSideSize), getBigFishPosition(wallSideSize)};
 }
 
 glm::vec3 setFishVelocity()
@@ -43,19 +43,19 @@ glm::vec3 setFishVelocity()
 
 // secondary functions
 
-float getLittleFishPosition(const float& wallSize)
+float getLittleFishPosition(const float wallSideSize)
 {
     float alpha = 0.1f;
     float beta  = 0.1f;
     // To get a hyperbole, alpha and beta should be close to 0
 
-    return wallSize * betaDistribution(alpha, beta);
+    return wallSideSize * betaDistribution(alpha, beta);
 }
 
-float getBigFishPosition(const float& wallSize)
+float getBigFishPosition(const float wallSideSize)
 {
     return gaussianDistribution(
-        0.0f,           // average position around 0
-        wallSize / 3.0f // standard derivation around 1/3
+        0.0f,               // average position around 0
+        wallSideSize / 3.0f // standard derivation around 1/3
     );
 }

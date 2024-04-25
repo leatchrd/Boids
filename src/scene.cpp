@@ -1,8 +1,6 @@
 #include "scene.hpp"
 #include "p6/p6.h"
 
-// --- PUBLIC ---
-
 void Scene::updateMenu()
 {
     ImGui::Text("Aquarium detail level");

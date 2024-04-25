@@ -14,6 +14,6 @@ public:
 std::vector<Vertex2DTex> createCubeVertices();
 
 // for OBJ mesh
-void drawMesh(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, glm::vec3 position, float angle, glm::vec3 axis, float scale, const std::vector<vertex>& vertices);
+void drawMesh(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uniMVP, const GLint& uniMV, const GLint& uniNormal, glm::vec3 position, float angle, glm::vec3 axis, float scale, const std::vector<vertex>& vertices);
 // // for handmade OpenGL mesh
-void drawMesh(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, glm::vec3 position, float angle, glm::vec3 axis, float scale, const std::vector<Vertex2DTex>& vertices);
+void drawMesh(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uniMVP, const GLint& uniMV, const GLint& uniNormal, glm::vec3 position, float angle, glm::vec3 axis, float scale, const std::vector<Vertex2DTex>& vertices);

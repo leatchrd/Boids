@@ -3,14 +3,14 @@
 
 void VAO::activateAttributes()
 {
-    glEnableVertexAttribArray(this->_position);
-    glEnableVertexAttribArray(this->_norm);
-    glEnableVertexAttribArray(this->_texCoords);
+    glEnableVertexAttribArray(this->position);
+    glEnableVertexAttribArray(this->norm);
+    glEnableVertexAttribArray(this->texCoords);
 }
 
 void VAO::setAttribPointer(GLsizei stride, const GLvoid* pointerPosNorm, const GLvoid* pointerTex)
 {
-    glVertexAttribPointer(this->_position, 3, GL_FLOAT, GL_FALSE, stride, pointerPosNorm);
-    glVertexAttribPointer(this->_norm, 3, GL_FLOAT, GL_FALSE, stride, pointerPosNorm);
-    glVertexAttribPointer(this->_texCoords, 2, GL_FLOAT, GL_FALSE, stride, pointerTex);
+    glVertexAttribPointer(this->position, 3, GL_FLOAT, GL_FALSE, stride, pointerPosNorm);
+    glVertexAttribPointer(this->norm, 3, GL_FLOAT, GL_FALSE, stride, pointerPosNorm);
+    glVertexAttribPointer(this->texCoords, 2, GL_FLOAT, GL_FALSE, stride, pointerTex);
 }

@@ -4,14 +4,14 @@
 class Scene {
 private:
     float aquariumDetailLevel;
-    float side;
+    float sideSize;
 
 public:
     Scene()
-        : aquariumDetailLevel{1.5f}, side{2.0f} {};
+        : aquariumDetailLevel{1.5f}, sideSize{2.0f} {};
 
     void updateMenu();
 
     inline float getAquariumDetailLevel() { return this->aquariumDetailLevel; };
-    inline float getSide() { return this->side; };
+    inline float getSideSize() { return this->sideSize; };
 };

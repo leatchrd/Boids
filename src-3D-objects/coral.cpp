@@ -24,22 +24,22 @@ Coral::Coral()
     vao.unbind();
 }
 
-void Coral::update(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, Texture& texCoral1, Texture& texCoral2, Texture& texCoral3)
+void Coral::update(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uniMVP, const GLint& uniMV, const GLint& uniNormal, Texture& texCoral1, Texture& texCoral2, Texture& texCoral3)
 {
     texCoral1.bind();
-    this->draw(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, glm::vec3{-1.4f, -2.0f, -1.4f}, -130.0f, 2.2f);
+    this->draw(ctx, camMVMatrix, uniMVP, uniMV, uniNormal, glm::vec3{-1.4f, -2.0f, -1.4f}, -130.0f, 2.2f);
     texCoral1.unbind();
 
     texCoral2.bind();
-    this->draw(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, glm::vec3{1.5f, -2.0f, -0.2f}, 110.0f, 2.0f);
+    this->draw(ctx, camMVMatrix, uniMVP, uniMV, uniNormal, glm::vec3{1.5f, -2.0f, -0.2f}, 110.0f, 2.0f);
     texCoral2.unbind();
 
     texCoral3.bind();
-    this->draw(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, glm::vec3{1.25f, -2.0f, -1.2f}, 140.0f, 3.0f);
+    this->draw(ctx, camMVMatrix, uniMVP, uniMV, uniNormal, glm::vec3{1.25f, -2.0f, -1.2f}, 140.0f, 3.0f);
     texCoral3.unbind();
 }
 
-void Coral::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uni_MVP, const GLint& uni_MV, const GLint& uni_Normal, glm::vec3 position, float angle, float scale)
+void Coral::draw(p6::Context& ctx, const glm::mat4 camMVMatrix, const GLint& uniMVP, const GLint& uniMV, const GLint& uniNormal, glm::vec3 position, float angle, float scale)
 {
-    drawMesh(ctx, camMVMatrix, uni_MVP, uni_MV, uni_Normal, position, glm::radians(angle), glm::vec3{0.0f, 1.0f, 0.0f}, scale, this->coral.vertices);
+    drawMesh(ctx, camMVMatrix, uniMVP, uniMV, uniNormal, position, glm::radians(angle), glm::vec3{0.0f, 1.0f, 0.0f}, scale, this->coral.vertices);
 }
